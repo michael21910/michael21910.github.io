@@ -7,8 +7,26 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500&display=swap" rel="stylesheet">
 		<title> homepage </title>
+		<script>
+		function startTime(){
+		  var today = new Date();
+		  var h = today.getHours();
+		  var m = today.getMinutes();
+		  var s = today.getSeconds();
+		  h = checkTime(h);
+		  m = checkTime(m);
+		  s = checkTime(s);
+		  document.getElementById('time').innerHTML =
+		  "Current time " + h + " : " + m + " : " + s;
+		  var t = setTimeout(startTime, 500);
+		}
+		function checkTime(i){
+		  if (i < 10) {i = "0" + i};
+		  return i;
+		}
+		</script>
 	</head>
-	<body>
+	<body onload="startTime()">
 		<!-- navigation bar -->
 		<div>
 			<ul class="navbar">
@@ -19,7 +37,13 @@
 				<li><a href="contact.html">Contact</a></li>
 			</ul>
 		</div>
-		
+			
+		<!-- timer -->
+		<div class="timerBox">
+			<p id="time"/>
+		</div>
+		<!-- end of timer -->
+			
 		<!-- News -->
 		<div class="newsContainer">
 			<div>
@@ -32,5 +56,6 @@
 			</div>
 		</div>
 		<!-- end of News -->
+		
 	</body>
 </html>

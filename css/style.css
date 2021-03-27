@@ -59,6 +59,24 @@ body{
 	text-align: center;
 }
 
+/* timer */
+.timerBox{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.timerBox p{
+	margin-top: 3vh;
+	padding: 1vw 3vw; 
+	width: 75vw;
+	background: rgb(246, 228, 228);
+	border-radius: 24px;
+	font-size: 1.75vw;
+	font-weight: 400;
+	color: rgb(69, 69, 69);
+	text-align: right;
+}
+
 /* News */
 .newsContainer{
 	display: flex;
@@ -68,8 +86,6 @@ body{
 }
 
 .newsContainer div{
-	margin-top: 10vh;
-	margin-bottom: 10vh;
 	padding: 3vw; 
 	width: 75vw;
 	background: rgb(224, 224, 235);

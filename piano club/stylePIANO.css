@@ -1,0 +1,152 @@
+body{
+	font-family: 'Mali', cursive;
+	background-color: rgb(241, 233, 233);
+	margin: 0 auto;
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+img{
+	width: 100%;
+}
+/* navigation bar */
+.navbar{
+	overflow: hidden;
+	background-color: rgb(209, 209, 209);
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li{
+	float: left;
+}
+
+.navbar li a{
+	display: block;
+    color: black;
+    text-align: center;
+    padding: 24px 26px;
+    text-decoration: none;
+	font-size: 28px;
+}
+
+.navbar li:first-child{
+	font-weight: bold;
+    text-align: center;
+    padding: 24px 48px;
+	font-size: 28px;
+}
+
+.navbar li a:hover{
+	transition: 0.3s;
+	background-color: rgb(240, 240, 240);
+	transform: scale(0.875);
+}
+
+.active{
+	background-color: rgb(191, 191, 191);
+}
+
+.title{
+	font-size: 72px;
+	text-align: center;
+	width: 80vw;
+	text-align: center;
+}
+
+.border-bottom{
+	border-bottom: 2px solid rgb(156, 99, 99);
+}
+
+.underLine{
+	border-bottom: 2px solid rgb(156, 99, 99);
+	width: 80vw;
+	text-align: center;
+}
+
+/* textBox */
+.textContainer{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.textBox{
+	width: 70vw;
+	background: rgb(217, 191, 191);
+	border-radius: 24px;
+	padding: 3vw;
+	margin-top: 10vh;
+	margin-bottom: 10vh;
+}
+
+.textBox div{
+	font-size: 3.25vw;
+	font-weight: 500;
+	margin-bottom: 1vh;
+}
+
+.textBox span{
+	color: rgb(60, 60, 60);
+	font-size: 1.75vw;
+	font-weight: 300;
+}
+
+/* footer */
+.footerContainer{
+	margin: 0 auto;
+	height: 20vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background: rgb(209, 209, 209);
+}
+
+.footerContainer p{
+	font-size: 1.75vw;
+}
+
+.footerContainer p a{
+	color: black;
+	text-decoration: none;
+	border: 2px solid black;
+	border-radius: 24px;
+	padding: 0.25vw;
+	margin: 0.1vw;
+	background: rgb(230, 230, 230);
+}
+
+.footerContainer p a:hover{
+	transition: 0.5s;
+	background: rgb(242, 242, 242);
+}
+
+/* contact */
+.contact{
+	width: 70vw;
+	padding: 3vw;
+	margin-top: 10vh;
+	margin-bottom: 10vh;
+	border-left: 2px solid rgb(217, 191, 191);
+}
+
+.contact div{
+	font-size: 3.25vw;
+	font-weight: 500;
+	margin-bottom: 1vh;
+}
+
+.contact ul li{
+	list-style: none;
+	font-size: 1.75vw;
+	margin-bottom: 1.5vh;
+}
+
+.contact ul li a{
+	color: rgb(60, 60, 60);
+	text-decoration: none;
+	border-bottom: 2px solid rgb(60, 60, 60);
+}

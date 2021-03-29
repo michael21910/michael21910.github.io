@@ -1,0 +1,203 @@
+body{
+	font-family: 'Mali', cursive;
+	background-color: rgb(241, 233, 233);
+	margin: 0 auto;
+}
+
+img{
+	display: block;
+	width: 60vw;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10vh;
+	border-radius: 24px;
+}
+
+/* navigation bar */
+.navbar{
+	overflow: hidden;
+	background-color: rgb(199, 211, 197);
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li{
+	float: left;
+}
+
+.navbar li a{
+	display: block;
+    text-align: center;
+    padding: 24px 26px;
+    text-decoration: none;
+	font-size: 28px;
+	color: black;
+}
+
+.navbar li:first-child{
+	font-weight: bold;
+    text-align: center;
+    padding: 24px 48px;
+	font-size: 28px;
+}
+
+.navbar li a:hover{
+	transition: 0.3s;
+	background-color: rgb(227, 233, 226);
+	transform: scale(0.875);
+}
+
+.active{
+	background-color: rgb(157, 177, 154);
+}
+
+/* introduction */
+.introductionContainer{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+.introductionContainer div{
+	margin-top: 10vh;
+	margin-bottom: 10vh;
+	padding: 3vw; 
+	width: 75vw;
+	background: rgb(224, 224, 235);
+	border-radius: 24px;
+	font-size: 1.75vw;
+	font-weight: 300;
+	line-height: 5.2vh;
+}
+
+.introductionContainer p{
+	margin: 0 auto;
+	font-size: 3.5vw;
+	font-weight: 500;
+}
+
+.introductionContainer span{
+	color: rgb(69, 69, 69);
+}
+
+/* department*/
+.departmentContainer{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+.departmentBox{
+	padding: 3vw; 
+	background: rgb(225, 224, 208);
+	border-radius: 24px;
+	width: 75vw;
+	margin-bottom: 10vh;
+	font-size: 1.75vw;
+	font-weight: 300;
+	line-height: 5.2vh;
+}
+
+.departmentBox p{
+	margin: 0 auto;
+	font-size: 3.5vw;
+	font-weight: 500;
+}
+
+.departmentInsideContainer{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.departmentInsideContainer div{
+	border: 2px solid black;
+	border-radius: 120px;
+	margin-top: 2vh;
+	padding: 1vw;
+	text-align: center;
+}
+
+.departmentInsideContainer div a{
+	text-decoration: none;
+	color: black;
+}
+
+.departmentInsideContainer div:hover{
+	transition: 0.5s;
+	background-color: rgb(227, 233, 226);
+	transform: scale(1.05);
+}
+
+/* footer */
+.footerContainer{
+	background: rgb(199, 211, 197);
+	margin: 0 auto;
+	height: 20vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-size: 1.5vw;
+}
+
+.footerContainer div{
+	margin: 0.5vw;
+}
+
+.footerContainer div a{
+	color: black;
+	text-decoration: none;
+	border: 2px solid black;
+	border-radius: 24px;
+	padding: 0.5vw;
+}
+
+.footerContainer div a:hover{
+	transition: 0.5s;
+	background-color: rgb(227, 233, 226);
+}
+
+/* contact */
+.contactContainer{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+.contactBox{
+	padding: 3vw; 
+	background: rgb(224, 224, 235);
+	border-radius: 24px;
+	width: 75vw;
+	margin-top: 10vh;
+	margin-bottom: 10vh;
+	font-size: 1.75vw;
+	font-weight: 300;
+	line-height: 5.2vh;
+}
+
+.contactBox p{
+	margin: 0 auto;
+	font-size: 3.5vw;
+	font-weight: 500;
+}
+
+.contactBox div{
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+	align-items: center;
+}
+
+.contactBox table, th, td{
+	border: 2px solid rgb(69, 69, 69);
+    border-collapse: collapse;
+	padding: 0.5vw;
+	color: rgb(69, 69, 69);
+}

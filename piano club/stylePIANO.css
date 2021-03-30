@@ -77,6 +77,10 @@ img{
 	font-weight: 300;
 }
 
+.textBox span ul{
+	list-style-type: none;
+}
+
 /* footer */
 .footerContainer{
 	margin: 0 auto;
@@ -125,7 +129,6 @@ img{
 }
 
 .contact ul li{
-	list-style: none;
 	font-size: 1.75vw;
 	margin-bottom: 1.5vh;
 }

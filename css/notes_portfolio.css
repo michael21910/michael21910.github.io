@@ -5,29 +5,34 @@
 	justify-content: center;
 }
 
-.Container p{
-	font-size: 72px;
+.subtitle{
+	margin-top: 5vh;
+	font-size: 5vw;
 	text-align: center;
-	display: flex;
-}
-
-.Container div{
-	font-size: 26px;
+	border-bottom: 2px solid rgb(156, 99, 99);
 }
 
 .Container ul{
+	width: 80%;
 	font-size: 22px;
 	padding-left: 0;
 	border-left: 2px solid rgb(156, 99, 99);
 }
 
-.Container li{
+.Container ul div{
+	padding-left: 5vw;
+	font-size: 26px;
+}
+
+.Container ul li{
 	padding-top: 6px;
 	padding-bottom: 6px;
 	list-style: none;
+	padding-left: 10vw;
 }
 
-@media screen and (max-width: 640px){
+@media(max-width: 768px)
+{
 	.Container{
 		display: flex;
 		flex-direction: column;
@@ -35,25 +40,27 @@
 		justify-content: center;
 	}
 
-	.Container p{
-		font-size: 36px;
+	.subtitle{
+		font-size: 12.5vw;
 		text-align: center;
-		display: flex;
-	}
-
-	.Container div{
-		font-size: 13px;
+		border-bottom: 2px solid rgb(156, 99, 99);
 	}
 
 	.Container ul{
-		font-size: 11px;
+		width: 80%;
+		font-size: 22px;
 		padding-left: 0;
 		border-left: 2px solid rgb(156, 99, 99);
 	}
-
-	.Container li{
-		padding-top: 3px;
-		padding-bottom: 3px;
+	
+	.Container ul div{
+		padding-left: 5vw;
+		font-size: 26px;
+	}
+	.Container ul li{
+		padding-top: 6px;
+		padding-bottom: 6px;
 		list-style: none;
+		padding-left: 10vw;
 	}
 }

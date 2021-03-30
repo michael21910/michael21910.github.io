@@ -11,7 +11,25 @@
 	justify-content: space-around;
 }
 
-@media screen and (max-width: 640px){
+.title{
+	font-size: 72px;
+	text-align: center;
+	width: 80vw;
+	text-align: center;
+}
+
+.border-bottom{
+	border-bottom: 2px solid rgb(156, 99, 99);
+}
+
+.underLine{
+	border-bottom: 2px solid rgb(156, 99, 99);
+	width: 80vw;
+	text-align: center;
+}
+
+@media(max-width: 768px)
+{
 	.contactContainer{
 		display: flex;
 		flex-direction: column;
@@ -23,5 +41,22 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
+	}
+
+	.title{
+		font-size: 12.5vw;
+		text-align: center;
+		width: 80vw;
+		text-align: center;
+	}
+
+	.border-bottom{
+		border-bottom: 2px solid rgb(156, 99, 99);
+	}
+
+	.underLine{
+		border-bottom: 2px solid rgb(156, 99, 99);
+		width: 80vw;
+		text-align: center;
 	}
 }

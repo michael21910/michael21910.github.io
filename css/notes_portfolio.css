@@ -31,6 +31,10 @@
 	padding-left: 10vw;
 }
 
+.Container ul li a{
+	font-size: 22px;
+}
+
 @media(max-width: 768px)
 {
 	.Container{
@@ -57,10 +61,15 @@
 		padding-left: 5vw;
 		font-size: 26px;
 	}
+	
 	.Container ul li{
 		padding-top: 6px;
 		padding-bottom: 6px;
 		list-style: none;
 		padding-left: 10vw;
+	}
+	
+	.Container ul li a{
+		font-size: 22px;
 	}
 }

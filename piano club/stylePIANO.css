@@ -136,7 +136,7 @@ img{
 	border-bottom: 2px solid rgb(60, 60, 60);
 }
 
-@media(max-width: 480px){
+@media(max-width: 600px){
 	body{
 		font-family: 'Mali', cursive;
 		background-color: rgb(241, 233, 233);

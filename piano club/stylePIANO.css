@@ -84,7 +84,7 @@ img{
 /* footer */
 .footerContainer{
 	margin: 0 auto;
-	height: 20vh;
+	padding: 7.5vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;

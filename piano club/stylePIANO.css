@@ -100,6 +100,14 @@ img{
 	background: rgb(217, 217, 191);
 }
 
+.margin-topMore{
+	margin-top: 10vh;
+}
+
+.margin-bottomMore{
+	margin-bottom: 10vh;
+}
+
 /* footer */
 .footerContainer{
 	margin: 0 auto;

@@ -20,19 +20,19 @@
 }
 
 .Container ul div{
-	padding-left: 5vw;
-	font-size: 26px;
+	padding-left: 3vw;
+	font-size: 2.25vw;
 }
 
 .Container ul li{
 	padding-top: 6px;
 	padding-bottom: 6px;
 	list-style: none;
-	padding-left: 10vw;
+	padding-left: 6vw;
 }
 
 .Container ul li a{
-	font-size: 22px;
+	font-size: 1.5vw;
 }
 
 @media(max-width: 768px)

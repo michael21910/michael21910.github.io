@@ -10,10 +10,6 @@ img{
 	width: 100%;
 }
 
-iframe{
-	width: 50vw;
-	height: 80vh;
-}
 /* navigation bar */
 .navbar{
 	overflow: hidden;
@@ -96,6 +92,11 @@ iframe{
 	flex-direction: colimn;
 	align-items: center;
 	justify-content: center;
+}
+
+.iframeContainer iframe{
+	width: 50vw;
+	height: 80vh;
 }
 
 .colorBlue{
@@ -242,6 +243,18 @@ iframe{
 		padding: 3vw;
 		margin-top: 2.5vh;
 		margin-bottom: 2.5vh;
+	}
+
+	.iframeContainer{
+		display: flex;
+		flex-direction: colimn;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.iframeContainer iframe{
+		width: 100vw;
+		height: 80vh;
 	}
 
 	.textBox div{

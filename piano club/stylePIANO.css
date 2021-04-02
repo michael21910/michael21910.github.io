@@ -208,11 +208,12 @@ iframe{
 		list-style-type: none;
 	}
 	
+	.navbar li{
+		width: 100%;
+	}
+	
 	.navbar li a{
 		color: rgb(48, 48, 48);
-		text-decoration: none;
-		padding-left: 35vw;
-		padding-right: 35vw;
 		font-size: 6vw;
 	}
 
@@ -236,9 +237,8 @@ iframe{
 	}
 
 	.textBox{
-		width: 70vw;
+		width: 100vw;
 		background: rgb(217, 191, 191);
-		border-radius: 24px;
 		padding: 3vw;
 		margin-top: 2.5vh;
 		margin-bottom: 2.5vh;
@@ -284,13 +284,12 @@ iframe{
 	}
 	/* footer */
 	.footerContainer{
-		margin: 0 auto;
-		height: 15vh;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
 		background: rgb(209, 209, 209);
+		padding: 2.5vw !important;
 	}
 
 	.footerContainer div{

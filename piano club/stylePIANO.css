@@ -187,18 +187,6 @@ img{
 }
 
 @media(max-width: 768px){
-	body{
-		font-family: 'Mali', cursive;
-		background-color: rgb(241, 233, 233);
-		margin: 0 auto;
-		word-wrap: break-word;
-		word-break: break-word;
-	}
-
-	img{
-		width: 100%;
-	}
-	
 	/* navigation bar */	
 	.navbar{
 		display: flex;
@@ -253,7 +241,7 @@ img{
 	}
 
 	.iframeContainer iframe{
-		width: 100vw;
+		width: 90vw;
 		height: 80vh;
 	}
 

@@ -330,14 +330,12 @@ img{
 	}
 
 	.contact ul li{
-		list-style: none;
 		font-size: 5.384vw;
 		margin-bottom: 1.5vh;
 	}
 
 	.contact ul li a{
-		color: rgb(60, 60, 60);
-		text-decoration: none;
+		color: rgb(38, 38, 217);
 		border-bottom: 2px solid rgb(60, 60, 60);
 	}
 }

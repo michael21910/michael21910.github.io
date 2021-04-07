@@ -186,7 +186,7 @@ img{
 	border-bottom: 2px solid rgb(38, 38, 217);
 }
 
-@media(max-width: 768px){
+@media(max-width: 1024px){
 	/* navigation bar */	
 	.navbar{
 		display: flex;

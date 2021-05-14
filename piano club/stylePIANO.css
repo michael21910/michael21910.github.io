@@ -1,5 +1,5 @@
 body{
-	font-family: 'Mali', cursive;
+	font-family: 'Itim', cursive;
 	background-color: rgb(241, 233, 233);
 	margin: 0 auto;
 	word-wrap: break-word;
@@ -85,6 +85,30 @@ img{
 	color: rgb(38, 38, 217);
 	text-decoration: none;
 	border-bottom: 2px solid rgb(38, 38, 217);
+}
+
+.tableContainer{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+table{
+	width: 65vw;
+	margin-top: 2.5vh;
+	margin-bottom: 2.5vh;
+}
+
+.special{
+	font-size: 2.25vw;
+	border-bottom: 1px solid black;
+}
+
+table tr td{
+	width: 50%;
+	text-align: left;
+	font-size: 1.75vw;
 }
 
 .iframeContainer{

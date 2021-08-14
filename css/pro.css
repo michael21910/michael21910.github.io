@@ -1,11 +1,10 @@
 #projects{
     margin-top: 10vh;
     font-size: 2.25vw;
-    width: 100vw;
 }
 
 #projects > div > img{
-    width: 40%;
+    width: 26vw;
     border-radius: 12px;
 }
 
@@ -15,7 +14,7 @@
 
 .blocks{
     width: 65vw;
-    height: 42.5vh;
+    height: 50vh;
     border-radius: 18px;
     margin-bottom: 10vh;
     background-color: #f2f0dd;
@@ -26,8 +25,8 @@
 
 .block2, .block4{
     background-color: #fffbdb;
-    transform: translate(53.75%, 0);
     flex-direction: row-reverse;
+    float: right;
 }
 
 .paragraphContainer{

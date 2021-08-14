@@ -8,16 +8,16 @@
 }
 
 #topBox > div{
-    font-family: cursive;
+    font-family: 'Norican', cursive;;
     font-size: 3.5vw;
     color: #FFFFFF;
     padding-right: 5vw;
-    font-weight: 900;
+    font-weight: 500;
 }
 
 #topBox > div > div{
     padding-left: 7vw;
-    font-weight: 900;
+    font-weight: 500;
 }
 
 #topBox > div > div > span{

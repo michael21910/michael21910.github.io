@@ -1,62 +1,70 @@
-.contactContainer{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+#contact{
+    margin-top: 10vh;
+    margin-bottom: 10vh;
 }
 
-.contactContentContainer{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
+#contact > div{
+    text-align: center;
 }
 
-.title{
-	font-size: 72px;
-	text-align: center;
-	width: 80vw;
-	text-align: center;
+.iconBox{
+    width: 70vw;
+    height: 30vh;
+    margin: 0 auto;
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.border-bottom{
-	border-bottom: 2px solid rgb(156, 99, 99);
+.iconBox > a{
+    width: 15vw;
+    height: 15vw;
+    background-color: #af8965;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 
-.underLine{
-	border-bottom: 2px solid rgb(156, 99, 99);
-	width: 80vw;
-	text-align: center;
+.iconBox > a > div > img{
+    width: 7.5vw;
 }
 
-@media(max-width: 768px)
-{
-	.contactContainer{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
+.contactDecoLine{
+    width: 80vw;
+    background-color: #f2f0dd;
+    border: 1px #f2f0dd solid;
+    margin: 0 auto;
+    margin-top: 2.5vh;
+    margin-bottom: 5vh;
+}
 
-	.contactContentContainer{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-	}
+@media screen and (max-width: 720px){
+    #contact{
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+    }
 
-	.title{
-		font-size: 12.5vw;
-		text-align: center;
-		width: 80vw;
-		text-align: center;
-	}
+    .iconBox{
+        width: 80vw;
+        height: 15vh;
+    }
+    
+    .iconBox > a{
+        width: 20vw;
+        height: 20vw;
+    }
 
-	.border-bottom{
-		border-bottom: 2px solid rgb(156, 99, 99);
-	}
-
-	.underLine{
-		border-bottom: 2px solid rgb(156, 99, 99);
-		width: 80vw;
-		text-align: center;
-	}
+    .iconBox > a > div > img{
+        width: 11.125vw;
+    }
+    
+    .contactDecoLine{
+        width: 90vw;
+        margin-top: 0;
+        margin-bottom: 1vh;
+    }
 }

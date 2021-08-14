@@ -1,0 +1,46 @@
+#topBox{
+    padding-top: 7.5vh;
+    opacity: 0;
+    transition: 2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#topBox > div{
+    font-family: 'Patua One', cursive;
+    font-size: 3vw;
+    color: #FFFFFF;
+    padding-right: 5vw;
+}
+
+#topBox > div > div{
+    padding-left: 7vw;
+}
+
+#topBox > div > div > span{
+    color: #F2F0DD;
+    font-size: 3.5vw;
+}
+
+#topBox > img{
+    width: 25%;
+}
+
+@media screen and (max-width: 720px){
+    #topBox{
+        padding-top: 5vh;
+    }
+
+    #topBox > div{
+        font-size: 7vw;
+    }
+
+    #topBox > div > div > span{
+        font-size: 8vw;
+    }
+
+    #topBox > img{
+        width: 40%;
+    }
+}

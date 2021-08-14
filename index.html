@@ -1,46 +1,217 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="css/style.css">
-		<link rel="preconnect" href="https://fonts.gstatic.com">
-		<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500&display=swap" rel="stylesheet">
-		<title> homepage </title>
-		<script src="js/script.js"></script>
-	</head>
-	<body onload="startTime()">
-		<!-- navigation bar -->
-		<div>
-			<ul class="navbar">
-				<li class="active">Tsuen's Webpage</li>
-				<li><a href="index.html">Home</a></li>
-				<li><a href="notes.html">Notes</a></li>
-				<li><a href="portfolio.html">Portfolio</a></li>
-				<li><a href="contact.html">Contact</a></li>
-			</ul>
-		</div>
-		<!-- end of navigation bar -->
-			
-		<!-- timer -->
-		<div class="timerBox">
-			<p id="time"/>
-		</div>
-		<!-- end of timer -->
-			
-		<!-- News -->
-		<div class="newsContainer">
-			<div>
-				<p>
-					News
-				</p>
-				<ul>
-					<li><a href="NDHU/index.html">This is a introduction of NDHU! Check it out!</a></li>
-					<li><a href="piano club/index.html">The website of NDHU piano club! Take a look!</a></li>
-				</ul>
-			</div>
-		</div>
-		<!-- end of News -->
-		
-	</body>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/top.css">
+    <link rel="stylesheet" href="css/navi.css">
+    <link rel="stylesheet" href="css/intro.css">
+    <link rel="stylesheet" href="css/pro.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/notes.css">
+    <link rel="shortcut icon" href="img/labelico.ico" type="image/x-icon">
+    <script type="text/javascript" src="js/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almendra+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Abril+Fatface" />
+    <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
+    <title>All about Tsuen Hsueh</title>
+</head>
+
+<body>
+    <!-- some toppings, top.css in css folder -->
+    <div id="topBox">
+        <div>
+            Hello,
+            <div>I'm <span>Tsuen</span></div>
+        </div>
+        <img src="img/top.svg">
+    </div>
+
+    <!-- navigation bar, navi.css in css folder -->
+    <div id="navi">
+        <div class="line"></div>
+        <div class="square"></div>
+        <div class="naviLine">
+            <div><a href="#introContainer">Introduction</a></div>
+            <div><a href="#projects">Projects</a></div>
+            <div><a href="#notes">Notes</a></div>
+            <div><a href="#contact">Contact</a></div>
+        </div>
+        <div class="square"></div>
+        <div class="line"></div>
+    </div>
+
+    <div id="forJS">
+        <!-- introduction, intro.css in css folder -->
+        <div id="introBigBox">
+            <div id="introContainer">
+                <div class="introTitleLoc title">
+                    <span style="font-size: 4vw;">I</span>NTRODUCTION
+                </div>
+                <div class="intro">
+                    <div>
+                        &emsp;&emsp;&emsp;&emsp;Hello! I am a junior from National Dong Hwa University in Taiwan(ROC),
+                        studying in the department of Computer Science and Information Engineering.
+                        <br>
+                        &emsp;&emsp;&emsp;&emsp;Being a student, I always try my best on everything. Currently, I am
+                        learning <span>Machine Learning</span> by online course on Coursera.
+                        <br>
+                        &emsp;&emsp;&emsp;&emsp;I am also currently learning <span>Web Design</span> and <span>Web
+                            Development</span>.
+                        Interested in developing an app on my own using Swift for iOS users.
+                        <br>
+                        &emsp;&emsp;&emsp;&emsp;Although I am quite busy, I used to be a Teaching Manager in the piano
+                        club
+                        when I was a spohomore.
+                        It was tired but worth doing it.
+                    </div>
+                    <div class="introRight">
+                        <img src="img/intro.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- projects, pro.css in css folder -->
+        <div id="projects">
+            <div class="title proTitleLoc">
+                <span style="font-size: 4vw;">P</span>ROJECTS
+            </div>
+            <div class="blocks">
+                <img src="img/block1.png">
+                <div class="paragraphContainer">
+                    <div class="paragraphTitle">
+                        Harvest Moon web crawler
+                    </div>
+                    <div class="paragraphContent">
+                        Web crawler the recipe of a game from some webpages,
+                        print out the recipe(dataframe) by entering some ingredients
+                        after processing the data sorted by the selling price.
+                    </div>
+                    <div class="paragraphBtn">
+                        <a target="_blank" href="https://github.com/michael21910/harvest-moon-recipe-web-crawler">
+                            See more
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="blocks block2">
+                <img src="img/block2.jpg">
+                <div class="paragraphContainer">
+                    <div class="paragraphTitle">
+                        A mini math game
+                    </div>
+                    <div class="paragraphContent">
+                        A game which you can play on console, written only by C++.
+                        <br>
+                        Answer as much as you can to reach your personal high score!
+                    </div>
+                    <div class="paragraphBtn">
+                        <a target="_blank" href="https://github.com/michael21910/a-mini-math-game">
+                            See more
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="blocks">
+                <img src="img/block3.png">
+                <div class="paragraphContainer">
+                    <div class="paragraphTitle">
+                        Personal Webpage
+                    </div>
+                    <div class="paragraphContent">
+                        A webpage from using <a target="_blank" href="https://figma.com">figma</a>
+                        to web design to web development 65% by myself. Using HTML, CSS and javascript.
+                        <br><br>
+                        Thanks to my cooperator, web design: Karen Hsieh
+                    </div>
+                    <div class="paragraphBtn">
+                        <a href="#topBox">
+                            Go Top
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="blocks block4">
+                <img src="img/block4.jpg">
+                <div class="paragraphContainer">
+                    <div class="paragraphTitle">
+                        To do list
+                    </div>
+                    <div class="paragraphContent">
+                        Prints out the schedule according to the "to do list.txt" in the same
+                        folder as this cpp file.
+                        <br>
+                        The schedule will be sorted by date, no need to change the order in the text file.
+                        <br>
+                        By the way, Don't forget to check the format of your text file!
+                    </div>
+                    <div class="paragraphBtn">
+                        <a target="_blank" href="#https://github.com/michael21910/to-do-list">See more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="blocks">
+                <div class="paragraphTitle special">
+                    To be continued... how about some notes?
+                </div>
+            </div>
+        </div>
+
+        <!-- notes, notes.css in css folder -->
+        <div id="notes">
+            <div class="title notesTitleLoc">
+                <span style="font-size: 4vw;">N</span>otes
+            </div>
+            <div>
+                <div class="notesBox">
+                    <div>
+                        Coming soon...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- contact, contact.css in css folder -->
+        <div id="contact">
+            <div class="title">
+                <span style="font-size: 4vw;">C</span>ontact
+            </div>
+            <div class="contactDecoLine"></div>
+            <div class="iconBox">
+                <a target="_blank" href="https://github.com/michael21910">
+                    <div>
+                        <img src="img/github.svg">
+                    </div>
+                </a>
+                <a href="mailto:410821305@gms.ndhu.edu.tw">
+                    <div>
+                        <img src="img/gmail.svg">
+                    </div>
+                </a>
+                <a target="_blank" href="https://www.instagram.com/tsuen_0107/">
+                    <div>
+                        <img src="img/instagram.svg">
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- footer, footer.css in css folder -->
+        <div id="footer">
+            <div>
+                2021 copyright © | Michael Hsueh
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>

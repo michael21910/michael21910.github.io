@@ -1,0 +1,24 @@
+#footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+}
+
+#footer > div{
+    color: #f2f0dd;
+    font-size: 2vw;
+}
+
+@media screen and (max-width: 720px){
+    #footer{
+        height: 5vh;
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+    }
+    
+    #footer > div{
+        font-size: 5vw;
+    }
+
+}

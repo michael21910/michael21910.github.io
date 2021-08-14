@@ -1,0 +1,133 @@
+#projects{
+    margin-top: 10vh;
+    font-size: 2.25vw;
+}
+
+#projects > div > img{
+    width: 40%;
+    border-radius: 12px;
+}
+
+.proTitleLoc{
+    text-align: center;
+}
+
+.blocks{
+    width: 65vw;
+    height: 42.5vh;
+    border-radius: 18px;
+    margin-bottom: 10vh;
+    background-color: #f2f0dd;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.block2, .block4{
+    background-color: #fff8b8;
+    transform: translate(53.75%, 0);
+    flex-direction: row-reverse;
+}
+
+.paragraphContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 40%;
+}
+
+.paragraphTitle{
+    font-size: 1.9vw;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 1.5vh;
+}
+
+.paragraphContent{
+    font-size: 1.35vw;
+    font-weight: normal;
+    color: #363636;
+}
+
+.paragraphContent > a{
+    text-decoration: none;
+    color: #363636;
+    border-bottom: 2px #363636 solid;
+    border-radius: 2px;
+}
+
+.paragraphBtn{
+    font-size: 1.4vw;
+    font-weight: normal;
+    width: 30%;
+    height: 110%;
+    border-radius: 12px;
+    background-color: #5C3D2E;
+    text-align: center;
+    margin-top: 3vh;
+}
+
+.paragraphBtn > a{
+    color: #ECECEC;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 720px){
+    #projects{
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+    }
+    
+    #projects > div > img{
+        width: 50%;
+    }
+    
+    .proTitleLoc{
+        margin: 0;
+    }
+    
+    .blocks{
+        width: 100vw;
+        height: 25vh;
+        margin-bottom: 3vh;
+        border-radius: 12px;
+    }
+    
+    .block2, .block4{
+        transform: translate(0%, 0%);
+    }
+    
+    .paragraphContainer > div{
+        line-height: 1.75vh;
+    }
+    
+    .paragraphTitle{
+        font-size: 4vw;
+        padding-bottom: 0vh;
+    }
+    
+    .paragraphContent{
+        font-size: 2.75vw;
+    }
+    
+    .paragraphContent > a{
+        border-bottom: 0.5px #363636 solid;
+        border-radius: 0;
+    }
+    
+    .paragraphBtn{
+        height: 1.8vh;
+        margin-top: 1.25vh;
+        width: 40%;
+    }
+
+    .paragraphBtn > a{
+        font-size: 1.5vh;
+    }
+
+    .special{
+        margin: 0;
+        padding: 0;
+    }
+}

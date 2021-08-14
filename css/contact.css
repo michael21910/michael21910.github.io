@@ -18,9 +18,8 @@
 }
 
 .iconBox > a{
-    width: 15vw;
-    height: 15vw;
-    background-color: #af8965;
+    width: 7,5vw;
+    background-color: none;
     border-radius: 50%;
     margin: 0 auto;
     display: flex;
@@ -54,8 +53,7 @@
     }
     
     .iconBox > a{
-        width: 20vw;
-        height: 20vw;
+        width: 11.125vw;
     }
 
     .iconBox > a > div > img{

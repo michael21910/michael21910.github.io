@@ -1,6 +1,7 @@
 #projects{
     margin-top: 10vh;
     font-size: 2.25vw;
+    width: 100vw;
 }
 
 #projects > div > img{
@@ -24,7 +25,7 @@
 }
 
 .block2, .block4{
-    background-color: #fff8b8;
+    background-color: #fffbdb;
     transform: translate(53.75%, 0);
     flex-direction: row-reverse;
 }
@@ -40,28 +41,33 @@
 .paragraphTitle{
     font-size: 1.9vw;
     font-weight: bold;
-    color: #000000;
+    color: #363636;
     margin-bottom: 1.5vh;
+}
+
+.paragraphTitle > a{
+    text-decoration: none;
+    color: #363636;
+    border-bottom: 1px #363636 solid;
 }
 
 .paragraphContent{
     font-size: 1.35vw;
     font-weight: normal;
-    color: #363636;
+    color: #565656;
 }
 
 .paragraphContent > a{
     text-decoration: none;
-    color: #363636;
-    border-bottom: 2px #363636 solid;
-    border-radius: 2px;
+    color: #565656;
+    border-bottom: 1px #565656 solid;
 }
 
 .paragraphBtn{
-    font-size: 1.4vw;
+    font-size: 1.25vw;
     font-weight: normal;
     width: 30%;
-    height: 110%;
+    height: 3vh;
     border-radius: 12px;
     background-color: #5C3D2E;
     text-align: center;
@@ -71,6 +77,22 @@
 .paragraphBtn > a{
     color: #ECECEC;
     text-decoration: none;
+    line-height: 3vh;
+}
+
+.special{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.special > div{
+    height: 5vh;
+    border-radius: 24px;
+    line-height: 5vh;
+    font-size: 1.9vw;
+    margin: 2vh;
 }
 
 @media screen and (max-width: 720px){
@@ -99,35 +121,50 @@
     }
     
     .paragraphContainer > div{
-        line-height: 1.75vh;
+        line-height: 1.85vh;
     }
     
     .paragraphTitle{
-        font-size: 4vw;
+        font-size: 3.5vw;
         padding-bottom: 0vh;
     }
     
     .paragraphContent{
-        font-size: 2.75vw;
+        font-size: 2.25vw;
     }
     
     .paragraphContent > a{
-        border-bottom: 0.5px #363636 solid;
+        border-bottom: 0.5px #484848 solid;
         border-radius: 0;
     }
     
     .paragraphBtn{
         height: 1.8vh;
         margin-top: 1.25vh;
-        width: 40%;
+        width: 32.5%;
     }
 
     .paragraphBtn > a{
-        font-size: 1.5vh;
+        line-height: 1.8vh;
+        font-size: 1.25vh;
     }
 
     .special{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .special > div{
+        font-size: 3.5vw;
         margin: 0;
-        padding: 0;
+        height: 3.5vh;
+        line-height: 3.5vh;
+        margin: 0.75vw;
+    }
+
+    .special > div > a{
+        font-size: 3.5vw;
     }
 }

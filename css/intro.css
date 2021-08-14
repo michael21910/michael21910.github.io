@@ -15,7 +15,7 @@
 } 
 
 .intro{
-    background-color: #AD937B;
+    background-color: #f2f0dd;
     width: 95vw;
     height: 80vh;
     border-radius: 24px;
@@ -33,13 +33,13 @@
 
 .intro > div{
     width: 40%;
-    font-size: 2vw;
-    color: #242424;
+    font-size: 1.825vw;
+    color: #727272;
+    line-height: 5vh;
 }
 
 .intro > div > span{
-    border-bottom: 2px #242424 solid;
-    border-radius: 2px;
+    border-bottom: 1px #727272 solid;
 }
 
 .introRight > img{
@@ -57,15 +57,18 @@
     } 
 
     .intro{
-        height: 42.5vh;
+        height: 52.5vh;
         padding: 0;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
     }
     
     .intro > div{
         margin: 0 auto;
         width: 90%;
-        font-size: 4vw;
+        font-size: 3.5925vw;
         align-items: center;
+        line-height: 3.25vh;
     }
 
     .introRight{

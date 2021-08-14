@@ -6,6 +6,7 @@
     opacity: 0;
     transition: 2s;
     font-family: 'Almendra SC', serif;
+    font-weight: 500;
 }
 
 .line{

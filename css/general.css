@@ -1,8 +1,8 @@
 .title{
-    font-family: 'Almendra SC', serif;
     font-size: 3vw;
     color: white;
     margin-bottom: 3vh;
+    font-family: 'Almendra SC', serif;
 }
 
 .title > div >span{
@@ -17,14 +17,11 @@
 
 @media screen and (max-width: 720px){
     .title{
-        font-family: 'Almendra SC', serif;
         font-size: 6vw !important;
-        color: white;
         margin-bottom: 1.125vh;
     }
     
     .title > span{
         font-size: 8vw !important;
-        font-weight: bold;
     }
 }

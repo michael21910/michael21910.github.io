@@ -8,19 +8,21 @@
 }
 
 #topBox > div{
-    font-family: 'Patua One', cursive;
-    font-size: 3vw;
+    font-family: cursive;
+    font-size: 3.5vw;
     color: #FFFFFF;
     padding-right: 5vw;
+    font-weight: 900;
 }
 
 #topBox > div > div{
     padding-left: 7vw;
+    font-weight: 900;
 }
 
 #topBox > div > div > span{
-    color: #F2F0DD;
-    font-size: 3.5vw;
+    color: #f0eccd;
+    font-size: 5vw;
 }
 
 #topBox > img{
@@ -37,7 +39,7 @@
     }
 
     #topBox > div > div > span{
-        font-size: 8vw;
+        font-size: 9vw;
     }
 
     #topBox > img{

@@ -7,7 +7,7 @@
 
 #footer > div{
     color: #f2f0dd;
-    font-size: 2vw;
+    font-size: 1.625vw;
 }
 
 @media screen and (max-width: 720px){
@@ -18,7 +18,7 @@
     }
     
     #footer > div{
-        font-size: 5vw;
+        font-size: 3vw;
     }
 
 }

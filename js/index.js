@@ -10,3 +10,7 @@ window.onload = function () {
         forJS.style.opacity = 1;
     }, 750);
 };
+
+function goTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}

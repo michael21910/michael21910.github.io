@@ -24,13 +24,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arvo&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Norican&display=swap" rel="stylesheet">
-    <script data-ad-client="ca-pub-5890605363853140" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
+    <script data-ad-client="ca-pub-5890605363853140"
+        asyncsrc="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script src="jquery/jquery-3.6.0.min.js"></script>
     <title>All about Tsuen Hsueh</title>
 </head>
 
 <body>
     <!-- some toppings, top.css in css folder -->
+    <button onclick="goTop()" id="topBtn">top</button>
     <div id="topBox">
         <div>
             Hello,
@@ -44,10 +47,10 @@
         <div class="line"></div>
         <div class="square"></div>
         <div class="naviLine">
-            <div><a href="#introduction">Introduction</a></div>
-            <div><a href="#projects">Projects</a></div>
-            <div><a href="#notes">Notes</a></div>
-            <div><a href="#contact">Contact</a></div>
+            <div><a id="goIntroduction" href="#introduction">Introduction</a></div>
+            <div><a id="goProjects" href="#projects">Projects</a></div>
+            <div><a id="goNotes" href="#notes">Notes</a></div>
+            <div><a id="goContact" href="#contact">Contact</a></div>
         </div>
         <div class="square"></div>
         <div class="line"></div>
@@ -223,6 +226,33 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.extend({
+                'goAnchor': function (to, time) {
+                    $obj = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+                    $($obj).animate({
+                        scrollTop: to
+                    }, time);
+                }
+            });
+
+            $('#goIntroduction').click(function () {
+                $.goAnchor($('#introduction').offset().top, 1000);
+            });
+            $('#goProjects').click(function () {
+                $.goAnchor($('#projects').offset().top, 1000);
+            });
+            $('#goNotes').click(function () {
+                $.goAnchor($('#notes').offset().top, 1000);
+            });
+            $('#goContact').click(function () {
+                $.goAnchor($('#contact').offset().top, 1000);
+            });
+        });
+    </script>
+
 </body>
 
 </html>

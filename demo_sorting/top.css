@@ -1,0 +1,13 @@
+.title{
+    font-size: 3vw;
+    text-align: center;
+    padding-top: 5vw;
+}
+
+@media screen and (max-width: 720px){
+    .title{
+        font-size: 5.5vw;
+        text-align: center;
+        padding-top: 7.5vw;
+    }
+}

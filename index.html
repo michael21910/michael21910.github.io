@@ -49,7 +49,6 @@
         <div class="naviLine">
             <div><a id="goIntroduction" href="#introduction">Introduction</a></div>
             <div><a id="goProjects" href="#projects">Projects</a></div>
-            <div><a id="goNotes" href="#notes">Notes</a></div>
             <div><a id="goContact" href="#contact">Contact</a></div>
         </div>
         <div class="square"></div>
@@ -93,7 +92,9 @@
                 <span style="font-size: 4vw;">P</span>ROJECTS
             </div>
             <div class="blocks">
-                <img src="img/block1.png">
+                <a target="_blank" href="https://github.com/michael21910/harvest-moon-recipe-web-crawler">
+                    <img src="img/pro_HMDS.png">
+                </a>
                 <div class="paragraphContainer">
                     <div class="paragraphTitle">
                         HM DS web crawler
@@ -103,92 +104,71 @@
                         print out the recipe(dataframe) by entering some ingredients
                         after processing the data sorted by the selling price.
                     </div>
-                    <div class="paragraphBtn">
+                    <div class="paragraphBtnContainer paragraphBtnContainer-margin-top-more">
                         <a target="_blank" href="https://github.com/michael21910/harvest-moon-recipe-web-crawler">
-                            Details
+                            <div>Details</div>
+                        </a>
+                    </div>
+                    <div class="paragraphBtnContainer">
+                        <a href="projects/index.html">
+                            <div>View all projects</div>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="blocks block2">
-                <img src="img/block2.jpg">
-                <div class="paragraphContainer">
-                    <div class="paragraphTitle">
-                        A mini math game
-                    </div>
-                    <div class="paragraphContent">
-                        A game which you can play on console, written only by C++.
-                        <br>
-                        Answer as much as you can to reach your personal high score!
-                    </div>
-                    <div class="paragraphBtn">
-                        <a target="_blank" href="https://github.com/michael21910/a-mini-math-game">
-                            Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="blocks">
-                <img src="img/block3.png">
+            <div class="blocks blockright">
+                <a id="goTop" href="#topBox">
+                    <img src="img/pro_web.png">
+                </a>
                 <div class="paragraphContainer">
                     <div class="paragraphTitle">
                         Personal Webpage
                     </div>
                     <div class="paragraphContent">
                         A webpage from using <a target="_blank" href="https://figma.com">figma</a>
-                        to web design to web development 65% by myself. Using HTML, CSS and javascript.
-                        <br><br>
+                        to web design to web development. Using HTML, CSS and JavaScript.
+                        <br>
                         Thanks to my cooperator, web design: Karen Hsieh
                     </div>
-                    <div class="paragraphBtn">
-                        <a href="#topBox">
-                            Go Top
+                    <div class="paragraphBtnContainer paragraphBtnContainer-margin-top-more">
+                        <a id="goTop" href="#topBox">
+                            <div>Go Top</div>
+                        </a>
+                    </div>
+                    <div class="paragraphBtnContainer">
+                        <a href="projects/index.html">
+                            <div>View all projects</div>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="blocks block4">
-                <img src="img/block4.jpg">
+            <div class="blocks">
+                <a target="_blank" href="https://github.com/michael21910/js-sort-visualization">
+                    <img src="img/pro_sort.png">
+                </a>
                 <div class="paragraphContainer">
                     <div class="paragraphTitle">
-                        To do list
+                        Sort visualization
                     </div>
                     <div class="paragraphContent">
-                        Prints out the schedule according to the "to do list.txt" in the same
-                        folder as this cpp file.
+                        A sort visualization using JavaScript.
                         <br>
-                        The schedule will be sorted by date, no need to change the order in the text file.
-                        <br>
-                        By the way, Don't forget to check the format of your text file!
+                        Sorts included: Bubble sort, Selection sort, Exchange sort, Insertion sort
                     </div>
-                    <div class="paragraphBtn">
-                        <a target="_blank" href="#https://github.com/michael21910/to-do-list">
-                            Details
+                    <div class="paragraphBtnContainer paragraphBtnContainer-margin-top-more">
+                        <a target="_blank" href="https://github.com/michael21910/js-sort-visualization">
+                            <div>Details</div>
+                        </a>
+                        <a href="demo/sort/index.html">
+                            <div>
+                                Demo
+                            </div>
                         </a>
                     </div>
-                </div>
-            </div>
-            <div class="blocks special">
-                <div class="paragraphBtn">
-                    <a target="_blank" href="https://github.com/michael21910">
-                        More projects
-                    </a>
-                </div>
-                <div class="paragraphTitle">
-                    How about some <a href="#notes">notes</a>?
-                </div>
-            </div>
-        </div>
-
-        <!-- notes, notes.css in css folder -->
-        <div id="notes">
-            <div class="title notesTitleLoc">
-                <span style="font-size: 4vw;">N</span>otes
-            </div>
-            <div>
-                <div class="notesBox">
-                    <div>
-                        Coming soon...
+                    <div class="paragraphBtnContainer">
+                        <a href="projects/index.html">
+                            <div>View all projects</div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -204,6 +184,11 @@
                 <a target="_blank" href="https://github.com/michael21910">
                     <div>
                         <img src="img/github.svg">
+                    </div>
+                </a>
+                <a target="_blank" href="https://www.linkedin.com/in/tsuenhsueh">
+                    <div>
+                        <img src="img/linkedin.png">
                     </div>
                 </a>
                 <a href="mailto:410821305@gms.ndhu.edu.tw">
@@ -239,16 +224,19 @@
             });
 
             $('#goIntroduction').click(function () {
-                $.goAnchor($('#introduction').offset().top, 1000);
+                $.goAnchor($('#introduction').offset().top, 500);
             });
             $('#goProjects').click(function () {
-                $.goAnchor($('#projects').offset().top, 1000);
+                $.goAnchor($('#projects').offset().top, 500);
             });
             $('#goNotes').click(function () {
-                $.goAnchor($('#notes').offset().top, 1000);
+                $.goAnchor($('#notes').offset().top, 500);
             });
             $('#goContact').click(function () {
-                $.goAnchor($('#contact').offset().top, 1000);
+                $.goAnchor($('#contact').offset().top, 500);
+            });
+            $('#goTop').click(function () {
+                $.goAnchor($('#topBox').offset().top, 500);
             });
         });
     </script>

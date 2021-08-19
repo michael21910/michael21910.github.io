@@ -3,7 +3,7 @@
     font-size: 2.25vw;
 }
 
-#projects > div > img{
+#projects > div > a > img{
     width: 26vw;
     border-radius: 12px;
 }
@@ -23,7 +23,7 @@
     justify-content: space-evenly;
 }
 
-.block2, .block4{
+.blockright{
     background-color: #fffbdb;
     flex-direction: row-reverse;
     float: right;
@@ -62,36 +62,26 @@
     border-bottom: 1px #565656 solid;
 }
 
-.paragraphBtn{
-    font-size: 1.25vw;
-    font-weight: normal;
-    width: 30%;
-    height: 3vh;
-    border-radius: 12px;
-    background-color: #5C3D2E;
-    text-align: center;
-    margin-top: 3vh;
-}
-
-.paragraphBtn > a{
-    color: #ECECEC;
-    text-decoration: none;
-    line-height: 3vh;
-}
-
-.special{
+.paragraphBtnContainer{
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.special > div{
-    height: 5vh;
+.paragraphBtnContainer > a{
+    text-decoration: none;
+    font-size: 1vw;
+    height: 3.5vh;
+    margin-top: 2vh;
+    margin-right: 2vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    text-align: center;
+    line-height: 3.5vh;
+    background-color: #694635;
+    border: 2px #694635 solid;
+    color: #F2F0DD;
     border-radius: 24px;
-    line-height: 5vh;
-    font-size: 1.9vw;
-    margin: 2vh;
 }
 
 @media screen and (max-width: 720px){
@@ -100,10 +90,14 @@
         margin-bottom: 3vh;
     }
     
-    #projects > div > img{
-        width: 50%;
+    #projects > div > a{
+        width: 50vw;
     }
     
+    #projects > div > a > img{
+        width: inherit;
+    }
+
     .proTitleLoc{
         margin: 0;
     }
@@ -115,7 +109,7 @@
         border-radius: 12px;
     }
     
-    .block2, .block4{
+    .blockright{
         transform: translate(0%, 0%);
     }
     
@@ -136,34 +130,16 @@
         border-bottom: 0.5px #484848 solid;
         border-radius: 0;
     }
-    
-    .paragraphBtn{
-        height: 1.8vh;
-        margin-top: 1.25vh;
-        width: 32.5%;
+
+    .paragraphBtnContainer-margin-top-more{
+        margin-top: 0.5vh;
     }
 
-    .paragraphBtn > a{
-        line-height: 1.8vh;
-        font-size: 1.25vh;
-    }
-
-    .special{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .special > div{
-        font-size: 3.5vw;
-        margin: 0;
-        height: 3.5vh;
-        line-height: 3.5vh;
-        margin: 0.75vw;
-    }
-
-    .special > div > a{
-        font-size: 3.5vw;
+    .paragraphBtnContainer > a{
+        font-size: 2vw;
+        height: 1vh;
+        line-height: 1vh;
+        margin-top: 0.5vh;
+        margin-bottom: 0.5vh;
     }
 }

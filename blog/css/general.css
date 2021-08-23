@@ -1,0 +1,57 @@
+/* general */
+.bg-mine{
+    background-color: transparent;
+}
+
+/* header */
+#header{
+    border-bottom: 1px black solid;
+}
+
+/* navigation bar */
+.navi-font{
+    font-size: 1.35vw;
+}
+
+.nav > li > a:hover{
+    color: rgb(155, 84, 84);
+}
+
+/* content */
+#articles > div > div > a{
+    text-decoration: none;
+    font-size: 2.25vw;
+}
+
+#articles > div > div > a:hover{
+    color: rgb(155, 84, 84);
+}
+
+#articleContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 720px){
+    
+    /* general is fine here */
+
+    /* header */
+    #header{
+        font-size: 6vw;
+        margin: 3vh 0 0 0 !important;
+    }
+
+    /* navigation bar */
+    .navi-font{
+        font-size: 3.75vw;
+        padding: 2vh 0 0 0 !important;
+    }
+
+    /* content */
+    #articles > div > div > a{
+        text-decoration: none;
+        font-size: 4vw;
+    }
+}

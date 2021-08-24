@@ -20,7 +20,7 @@
 /* content */
 #articles > div > div > a{
     text-decoration: none;
-    font-size: 2.25vw;
+    font-size: 1.5vw;
 }
 
 #articles > div > div > a:hover{
@@ -31,6 +31,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* paragraph */
+#article{
+    margin-top: 2vh;
+}
+
+.title{
+    font-size: 2vw;
+    margin-bottom: 3vh;
+}
+
+p{
+    display: inline-block;
+}
+
+.paragraph{
+    padding-left: 2vw;
+    font-size: 1.25vw;
+}
+
+.paragraph > p > a{
+    text-decoration: none;
+}
+
+.paragraph > p > a:hover, .paragraph > p > span{
+    color: rgb(155, 84, 84);
 }
 
 @media screen and (max-width: 720px){
@@ -53,5 +80,32 @@
     #articles > div > div > a{
         text-decoration: none;
         font-size: 4vw;
+    }
+
+    /* paragraph */
+    #article{
+        margin-top: 2vh;
+    }
+
+    .title{
+        font-size: 4vw;
+        margin-bottom: 3vh;
+    }
+
+    p{
+        display: inline-block;
+    }
+
+    .paragraph{
+        padding-left: 2vw;
+        font-size: 3.25vw;
+    }
+
+    .paragraph > p > a{
+        text-decoration: none;
+    }
+
+    .paragraph > p > a:hover, .paragraph > p > span{
+        color: rgb(155, 84, 84);
     }
 }

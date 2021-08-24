@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../../css/top.css">
+    <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Repo Story - JS Sort Visualization</title>
+</head>
+
+<body>
+
+    <!-- header -->
+    <button onclick="goTop()" id="topBtn">top</button>
+    <div id="header" class="jumbotron jumbotron-fluid mt-5 text-center display-4 bg-mine">
+        Repo Story - JS Sort Visualization
+    </div>
+
+    <!-- navi -->
+    <div class="pr-5 navi-font">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="../../index.html">Homepage</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../index.html">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://hackmd.io/@michael21910" target="_blank">HackMD</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/michael21910" target="_blank">Github</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- article content -->
+    <div id="article" class="container">
+        <div class="title">
+            Repo Story - JS Sort
+            Visualization</a>
+        </div>
+        <div class="paragraph">
+            <p>
+                &emsp;&emsp;來來來！先上 <a href="../../demo/sort/index.html"><code>Demo</code></a> :D
+            </p>
+            <br />
+            <p>
+                &emsp;&emsp;接下來，正文開始！
+            </p>
+            <p>
+                &emsp;&emsp;是這樣的，當時我正苦惱著要選擇做什麼小專案的時候，正好看到了一位youtuber的影片。他說：如果你正苦惱著不知道要做什麼project又沒有什麼project的話，你或許可以嘗試看看使用JavaScript實現排序可視化！
+            </p>
+            <p>
+                &emsp;&emsp;我仔細想了一想，畢竟我最近也才剛學JavaScript沒多久，不如就來挑戰看看吧。
+            </p>
+            <p>
+                &emsp;&emsp;其實一開始我對自己沒有保持多大信心：「可能會寫不出來，然後就以失敗告終吧，畢竟是第一次用JavaScript開發」，我這樣想。不過怎麼可以因為一點點的灰心就放棄呢！所以我還是硬著頭皮上了，畢竟我很想要增加我在github上面的repo數量。
+            </p>
+            <p>
+                &emsp;&emsp;其實我一開始就被自己嚇到了，我以為我沒辦法打出什麼東西，沒想到效率<span>居然比我想像中還快了好幾倍！</span>一剛開始的確花了我不少時間，但是主要都是在修RWD、切版，都是著重在HTML、CSS。
+            </p>
+            <p>
+                &emsp;&emsp;不過，接下來我就遇到一個難關：要怎麼讓JavaScript以及HTML、CSS這三個語言完美的搭配在網站上呢？其實對於這個問題，我糾結了很久，一直想那個div裏面到底要怎麼打。直到我去上了那一次大號，一切的謎題都解開了（上大號真的很厲害···）。架完基本的網站架構後，重頭戲就開始了！也就是
+                <span>JavaScript</span> 這位主角，我想了一下要用哪些排序演算法，結果還是決定比較簡單的n平方的演算法，簡單暴力又不會太難寫。
+            </p>
+            <p>
+                &emsp;&emsp;重點來了！有趣的是，原來完成排序可視化沒有我想像中這麼難！其實主要的流程想法就是：點下一步按鈕之後<span>動一步的排序演算法就好！也就是做完一次swap就直接break！</span>（是不是真的很簡單xD）。所以不到一天，我就把Bubble
+                sort（泡沫排序法）跟Selection sort（選擇排序法）做完了！在接下來的半天，我又把Exchange
+                sort（交換排序法）跟Insertion sort（插入排序法）完成了！所以真的沒有這麼困難！
+            </p>
+            <p>
+                &emsp;&emsp;到目前為止，這個repo也到一個段落，還算是有一點點內容了，至少把大一有可能會碰到的排序做完了，也算是給自己一個交代了吧（汗。
+            </p>
+        </div>
+    </div>
+
+    <!-- bootstrap -->
+    <script src=" https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

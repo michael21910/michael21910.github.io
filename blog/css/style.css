@@ -27,8 +27,6 @@ body{
         rgba(255, 255, 255, .3) 75%, 
         transparent 75%, 
         transparent);
-
-    font-family: 'Roboto', sans-serif;
 }
 
 @media screen and (max-width: 720px){

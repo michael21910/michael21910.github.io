@@ -40,30 +40,27 @@
     <div class="pr-5 navi-font" style="font-size: 1.35vw;">
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link" href="../index.html">Homepage</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://github.com/michael21910" target="_blank">Github</a>
+                <a class="nav-link" href="../index.html">Go to Homepage</a>
             </li>
         </ul>
     </div>
 
     <!-- select table, table.css in folder -->
-    <div id="table">
+    <div id="tableContainer">
         <fieldset>
-            <legend>Codeshare</legend>
-            <select id="table" class="form-select form-select mt-5" onchange="updateTable(this)">
+            <div>Click me!</div>
+            <select id="table" class="form-select form-select mt-3" onchange="updateTable(this)">
                 <option value="uva" selected>UVa online judge</option>
                 <option value="leetcode">LeetCode</option>
             </select>
 
-            <select id="problemSet" class="form-select form-select mt-3 mb-3" size="7">
+            <select id="problemSet" class="form-select form-select mt-3 mb-3" size="7" onchange="updateCode(this)">
 
             </select>
         </fieldset>
     </div>
 
-    <div class="codeContainer">
+    <div id="codeContainer">
         <div id="problemTitle">
 
         </div>

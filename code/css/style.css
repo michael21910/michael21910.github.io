@@ -30,3 +30,9 @@ body{
 
     font-family: 'Arvo', serif;
 }
+
+@media screen and (max-width: 720px){
+    body{
+        background-size: 400vw 100vw;
+    }
+}

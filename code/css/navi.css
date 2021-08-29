@@ -1,0 +1,9 @@
+#navi > ul > li > a{
+    font-size: 1.5vw;
+}
+
+@media screen and (max-width: 720px){
+    #navi > ul > li > a{
+        font-size: 4vw;
+    }
+}

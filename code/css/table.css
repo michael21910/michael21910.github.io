@@ -1,0 +1,9 @@
+#table{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.codeContainer{
+    margin: 0 auto;
+}

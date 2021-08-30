@@ -35,53 +35,6 @@ solved_leetcode.sort(function compareNumbers(a, b) {
     return a - b;
 })
 
-// when the webpage is finish loading
-window.onload = function () {
-    /* for the initital condition, shows uva first */
-    for (var i = 0; i < solved_uva.length; i++) {
-        var temp = document.createElement('option')
-        temp.value = 'u' + solved_uva[i]
-        temp.text = 'UVa' + solved_uva[i]
-        document.getElementById('problemSet').add(temp, null);
-    }
-    document.getElementById('codeContainer').style.backgroundColor = "transparent"
-}
-
-// for goes to top button
-function goTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// runs every time when the first select tag changes
-function updateTable(table) {
-    if (table.value === 'uva') {
-        // remove the child(options) first
-        while (document.getElementById('problemSet').firstChild) {
-            document.getElementById('problemSet').removeChild(document.getElementById('problemSet').firstChild)
-        }
-        // add option tag for uva
-        for (var i = 0; i < solved_uva.length; i++) {
-            var temp = document.createElement('option')
-            temp.value = 'u' + solved_uva[i]
-            temp.text = "UVa" + solved_uva[i]
-            document.getElementById('problemSet').add(temp, null);
-        }
-    }
-    else if (table.value === 'leetcode') {
-        // remove the child(options) first
-        while (document.getElementById('problemSet').firstChild) {
-            document.getElementById('problemSet').removeChild(document.getElementById('problemSet').firstChild)
-        }
-        // add option tag for leetcode
-        for (var i = 0; i < solved_leetcode.length; i++) {
-            var temp = document.createElement('option')
-            temp.value = 'l' + solved_leetcode[i]
-            temp.text = "LeetCode" + solved_leetcode[i]
-            document.getElementById('problemSet').add(temp, null);
-        }
-    }
-}
-
 // My UVa accept codes
 var UVa_ac = [
     `
@@ -1316,12 +1269,972 @@ var UVa_ac = [
     `
 ]
 
+// my LeetCode accept codes
+var LeetCode_ac = [
+    `
+    //LeetCode20
+    class Solution {
+        public:
+            bool isValid(string s){
+            stack&ltchar&gt stack;
+    
+            if(s.length() == 0){
+                return true;
+            }
+            if(s.length() == 1){
+                return false;
+            }
+    
+            for(int i = 0 ; i < s.length(); i++){
+                char c = s[i];
+                cout << c;
+                if(c == '}' || c == ')' || c == ']'){
+                    if(stack.size() == 0 ) return false;
+                    if(c == '}' && stack.top() != '{') return false;
+                    if(c == ')' && stack.top() != '(') return false;
+                    if(c == ']' && stack.top() != '[') return false;
+                    stack.pop();
+                }
+                else{
+                    stack.push(c);
+                }
+            }
+            if(stack.size() == 0){
+                return true;
+            }
+            return false;
+            }	
+        };
+    `,
+    `
+    //LeetCode35
+    class Solution {
+        public:
+            int searchInsert(vector&ltint&gt& nums, int target) {
+                return (lower_bound(nums.begin(), nums.end(), target) - nums.begin());
+            }
+        };
+    `,
+    `
+    //LeetCode53
+    class Solution {
+        public:
+            int maxSubArray(vector&ltint&gt& nums) {
+                int temp = 0, ans = nums[0];
+                for(int i = 0; i < nums.size(); i++){
+                    temp += nums[i];
+                    temp = max(0, temp);
+                    ans = max(ans, temp);
+                }
+                if(ans == 0){
+                    sort(nums.begin(), nums.end());
+                    return nums[ nums.size() - 1 ];
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode66
+    class Solution {
+        public:
+            vector&ltint&gt plusOne(vector&ltint&gt& digits) {
+                for (int i = digits.size() - 1; i >= 0; i--) {
+                    if (digits[i] < 9) {
+                        digits[i]++;
+                        return digits;
+                    }
+                    digits[i] = 0;
+                }
+                vector&ltint&gt ans(digits.size() + 1, 0);
+                ans[0] = 1;
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode122
+    class Solution {
+        public:
+            int maxProfit(vector&ltint&gt& prices) {
+                int ans = 0;
+                for(int i = 0; i < prices.size() - 1; i++){
+                    if(prices[i + 1] > prices[i]){
+                        ans += prices[i + 1] - prices[i];
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode300
+    class Solution {
+        public:
+            int lengthOfLIS(vector&ltint&gt& nums) {
+                int n = nums.size();
+                vector&ltint&gtLIS(n, 1);
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < i; j++) {
+                        if (nums[i] > nums[j])
+                            LIS[i] = max(LIS[i], 1 + LIS[j]);
+                    }
+                }
+                int ans = 0;
+                for (int i = 0; i < n; i++) {
+                    ans = max(ans, LIS[i]);
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode326
+    class Solution {
+        public:
+            bool isPowerOfThree(int n) {
+                while(n % 3 == 0 && n >= 1){
+                    n /= 3;
+                }
+                return (n == 1);
+            }
+        };
+    `,
+    `
+    //LeetCode367
+    class Solution {
+        public:
+            bool isPowerOfThree(int n) {
+                while(n % 3 == 0 && n >= 1){
+                    n /= 3;
+                }
+                return (n == 1);
+            }
+        };
+    `,
+    `
+    //LeetCode645
+    class Solution {
+        public:
+            vector&ltint&gt findErrorNums(vector&ltint&gt& nums) {
+                int r = nums.size() - 1, l = 0;
+                while (l < r) {
+                    if (nums[r] == r + 1){
+                        r--;
+                    }
+                    else if (nums[l] == l + 1){
+                        l++;
+                    }
+                    else if (nums[l] == nums[ nums[l] - 1 ]){
+                        swap(nums[l], nums[r]);
+                    }
+                    else{
+                        swap(nums[l], nums[ nums[l] - 1 ]);
+                    }
+                }
+                return {nums[l], l + 1};
+            }
+        };
+    `,
+    `
+    //LeetCode704
+    class Solution {
+        public:
+            int search(vector&ltint&gt& nums, int target) {
+                if(nums[lower_bound(nums.begin(), nums.end(), target) - nums.begin()] == target){
+                    return (lower_bound(nums.begin(), nums.end(), target) - nums.begin());
+                }
+                return -1;
+            }
+        };
+    `,
+    `
+    //LeetCode709
+    class Solution {
+        public:
+            string toLowerCase(string str) {
+                for(int i = 0; i < str.length(); i++){
+                    str[i] = tolower(str[i]);
+                }
+                return str;
+            }
+        };
+    `,
+    `
+    //LeetCode771
+    class Solution {
+        public:
+            int numJewelsInStones(string jewels, string stones) {
+                int ans = 0;
+                for(int i = 0; i < jewels.length(); i++){
+                    for(int j = 0; j < stones.size(); j++){
+                        if(jewels[i] == stones[j]){
+                            ans++;
+                        }
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode832
+    class Solution {
+        public:
+            vector&ltvector&ltint&gt&gt flipAndInvertImage(vector&ltvector&ltint&gt&gt& image) {
+                vector&ltvector&ltint&gt&gt ans(image.size(), vector&ltint&gt(image.size(), 0));
+                for(int i = 0; i < image.size(); i++){
+                    for(int j = image[i].size() - 1; j >= 0; j--){
+                        ans[i][image[i].size() - j - 1] = (!(image[i][j]));
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode938
+    /**
+     * Definition for a binary tree node.
+     * struct TreeNode {
+     *     int val;
+     *     TreeNode *left;
+     *     TreeNode *right;
+     *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+     *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+     *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+     * };
+     */
+    class Solution {
+    public:
+        
+        void run(TreeNode *root, int low, int high, int& ans){
+            if( (low <= root -> val) && (root -> val <= high) ){
+                ans += root -> val;
+            }
+            if(root -> left != NULL){
+                run(root -> left, low, high, ans);     
+            }
+            if(root -> right != NULL){
+                run(root -> right, low, high, ans);     
+            }
+        }
+        
+        int rangeSumBST(TreeNode* root, int low, int high) {
+            int ans = 0;
+            run(root, low, high, ans);
+            return ans;
+        }
+    };
+    `,
+    `
+    //LeetCode943
+    class Solution {
+        vector&ltvector&ltint&gt&gt kmp;   // store prev for each string
+        vector&ltvector&ltint&gt&gt edges; // store length of string j - string i
+
+        /*
+        res[i]: use binary integer i to represent a index set, every bit indicates the existence of each number, 
+        map key is the leading number index, value is the minimum possible value
+        */
+        vector&ltstd::unordered_map&ltint, int&gt&gt res; 
+        vector&ltint> aux = { 0b1, 0b10, 0b100, 0b1000, 0b10000, 0b100000, 0b1000000, 0b10000000, 0b100000000, 0b1000000000, 0b10000000000, 0b100000000000, 0b1000000000000 };
+        vector&ltstd::unordered_map&ltint, int&gt&gt last; // last index correspond to current index to make the value smallest
+        public:
+            void findKMP(string& s, vector&ltint&gt& pre) {
+                pre.push_back(-1);
+                for (int i = 1; i < s.size(); i++) {
+                    int j = pre[i - 1];
+                    while (j != -1 && s[j + 1] != s[i]) {
+                        j = pre[j];
+                    }
+                    if (s[j + 1] == s[i]) j++;
+                    pre.push_back(j);
+                }
+            }
+
+            int get_overlap(int is, string& s, string& d) {
+                vector&ltint&gt& pre = kmp[is];
+                int j = 0;
+                for (int i = 0; i < d.size(); i++) {
+                    if (s[j] != d[i]) {
+                        j--;
+                        while (j != -1 && s[j + 1] != d[i]) {
+                            j = pre[j];
+                        }
+                        if (s[j + 1] == d[i]) j++;
+                    }
+                    j++;
+                }
+                return j;
+            }
+
+            void get_overlap(int i, string& s, int j, string& t) {
+                int s2t = get_overlap(j, t, s);
+                int t2s = get_overlap(i, s, t);
+                edges[i][j] = t.size() - s2t;
+                edges[j][i] = s.size() - t2s;
+            }
+
+            // for string s, find all min values for all leading position
+            void calculate(string& s, int t) {
+                int temp;
+                for (int i = 0; i < s.size(); i++) {
+                    if (s[i] == '1') {
+                        int key = t - aux[s.size() - 1 - i];
+                        int temp = key;
+                        res[t][i] = INT_MAX;
+                        for (auto& j : res[key]) {
+                            temp = j.second + edges[j.first][i];
+                            if (temp < res[t][i]) {
+                                res[t][i] = temp;
+                                last[t][i] = j.first;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // n is current res ind, s is the tail char
+            void get_final_result(string& realres, vector&ltstring&gt& A, int n, int s) {
+                if (n == aux[A.size() - 1 - s]) {
+                    realres.append(A[s]);
+                }
+                else {
+                    get_final_result(realres, A, n - aux[A.size() - 1 - s], last[n][s]);
+                    realres.append(A[s].substr(A[s].size() - edges[last[n][s]][s]));
+                }
+            }
+
+            string shortestSuperstring(vector&ltstring&gt& A) {
+                kmp.clear();
+                edges.clear();
+                res.assign(1 << A.size(), std::unordered_map&ltint, int&gt());
+                last.assign(1 << A.size(), std::unordered_map&ltint, int&gt());
+                for (string& s : A) {
+                    res[aux[A.size() - 1 - kmp.size()]][kmp.size()] = s.size();
+                    kmp.push_back(vector&ltint&gt());
+                    findKMP(s, kmp.back());
+                    edges.push_back(vector&ltint&gt(A.size(), 0));
+                }
+
+
+                for (int i = 0; i < A.size(); i++) {
+                    for (int j = i + 1; j < A.size(); j++) {
+                        get_overlap(i, A[i], j, A[j]);
+                    }
+                }
+
+                for (int len = 2; len <= A.size(); len++) {
+                    string s(A.size() - len, '0');
+                    s.append(len, '1');
+                    do {
+                        int t = std::stoi(s, NULL, 2);
+                        calculate(s, t);
+                    } while (std::next_permutation(s.begin(), s.end()));
+                }
+
+                string realres;
+
+                int minvalue = INT_MAX, ind = (1 << A.size()) - 1, minind;
+
+                for (auto& x : res[ind]) {
+                    if (x.second < minvalue) {
+                        minvalue = x.second;
+                        minind = x.first;
+                    }
+                }
+
+                get_final_result(realres, A, ind, minind);
+
+                return realres;
+            }
+        };
+    `,
+    `
+    //LeetCode946
+    class Solution
+    {
+    public:
+        bool validateStackSequences(vector&ltint&gt& pushed, vector&ltint&gt& popped)
+        {
+            stack &ltint&gt temp;
+            int indexPush = 0, indexPop = 0;
+            while(indexPush < pushed.size() && indexPop < popped.size()){
+                if(temp.size() > 0){
+                    if(temp.top() == popped[indexPop]){
+                        temp.pop();
+                        indexPop++;
+                    }
+                    else{
+                        temp.push(pushed[indexPush]);
+                        indexPush++;
+                    }
+                }
+                else{
+                    temp.push(pushed[indexPush]);
+                    indexPush++;
+                }
+            }
+            if(indexPush == pushed.size() && indexPop != popped.size()){
+                if(temp.size() == 0){
+                    return false;
+                }
+                while(indexPop != popped.size()){
+                    if(temp.top() == popped[indexPop]){
+                        indexPop++;
+                        temp.pop();
+                    }
+                    else{
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    };
+    `,
+    `
+    //LeetCode977
+    class Solution {
+        public:
+            vector&ltint&gt sortedSquares(vector&ltint&gt& nums) {
+                for(int i = 0; i < nums.size(); i++){
+                    nums[i] *= nums[i];
+                }
+                sort(nums.begin(), nums.end());
+                return nums;
+            }
+        };
+    `,
+    `
+    //LeetCode1108
+    class Solution {
+        public:
+            string defangIPaddr(string address) {
+                string ans;
+                for(int i = 0; i < address.length(); i++){
+                    if(address[i] == '.'){
+                        ans += "[.]";
+                    }
+                    else{
+                        ans += address[i];
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1143
+    class Solution {
+        public:
+            int longestCommonSubsequence(string text1, string text2) {
+                int x = text1.length() + 1, y = text2.length() + 1;
+                int arr[x][y];
+                //in array prev, 0 means from uppper left, 1 means left, 2 means top.
+        
+                //init the array.
+                for(int i = 0; i < x; i++){
+                    for(int j = 0; j < y; j++){
+                        arr[i][j] = 0;
+                    }
+                }
+        
+                //do the adding
+                for(int i = 1; i < x; i++){
+                    for(int j = 1; j < y; j++){
+                        if(text1[i - 1] == text2[j - 1]){
+                            arr[i][j] = arr[i - 1][j - 1] + 1;
+                        }
+                        else{
+                            arr[i][j] = max(arr[i - 1][j], arr[i][j - 1]);
+                        }
+                    }
+                }
+                return (arr[x - 1][y - 1]);
+            }
+        };
+    `,
+    `
+    //LeetCode1221
+    class Solution {
+        public:
+            int balancedStringSplit(string s) {
+                int ans = 0, temp = 0;
+                for(int i = 0; i < s.length(); i++){
+                    if(s[i] == 'R'){
+                        temp++;
+                    }
+                    else{
+                        temp--;
+                    }
+                    if(temp == 0){
+                        ans++;
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1295
+    class Solution {
+        public:
+            int findNumbers(vector&ltint&gt& nums) {
+                int count = 0;
+                for(int i = 0; i < nums.size(); i++){
+                    if(int(log10(nums[i])) % 2 == 1){
+                        count++;
+                    }
+                }
+                return count;
+            }
+        };
+    `,
+    `
+    //LeetCode1313
+    class Solution {
+        public:
+            vector&ltint&gt decompressRLElist(vector&ltint&gt& nums) {
+                vector&ltint&gt ans;
+                for(int i = 0; i < nums.size(); i += 2){
+                    for(int j = 0; j < nums[i]; j++){
+                        ans.push_back(nums[i + 1]);   
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1323
+    class Solution {
+        public:
+            int maximum69Number (int num) {
+                string number = to_string(num);
+                for(int i = 0; i < number.length(); i++){
+                    if(number[i] == '6'){
+                        number[i] = '9';
+                        break;
+                    }
+                }
+                return stoi(number);
+            }
+        };
+    `,
+    `
+    //LeetCode1365
+    class Solution {
+        public:
+            vector&ltint&gt smallerNumbersThanCurrent(vector&ltint&gt& nums) {
+                vector&ltint&gt ans(nums.size(), 0);
+                for(int i = 0; i < nums.size(); i++){
+                    for(int j = 0; j < nums.size(); j++){
+                        if(nums[i] > nums[j]){
+                            ans[i]++;
+                        }
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1389
+    class Solution {
+        public:
+            vector&ltint&gt createTargetArray(vector&ltint&gt& nums, vector&ltint&gt& index) {
+                vector&ltint&gt ans;
+                for(int i = 0; i < nums.size(); i++){
+                    ans.insert(ans.begin() + index[i], nums[i]);
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1431
+    class Solution {
+        public:
+            vector&ltbool&gt kidsWithCandies(vector&ltint&gt& candies, int extraCandies) {
+                int maximum = *max_element(candies.begin(), candies.end());
+                vector&ltbool&gt ans;
+                for(int i = 0; i < candies.size(); i++){
+                    if(candies[i] + extraCandies >= maximum){
+                        ans.push_back(true);
+                    }
+                    else{
+                        ans.push_back(false);
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1450
+    class Solution {
+        public:
+            int busyStudent(vector&ltint&gt& startTime, vector&ltint&gt& endTime, int queryTime) {
+                int ans = 0;
+                for(int i = 0; i < startTime.size(); i++){
+                    if(startTime[i] <= queryTime && queryTime <= endTime[i]){
+                        ans++;
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1470
+    class Solution {
+        public:
+            vector&ltint&gt shuffle(vector&ltint&gt& nums, int n) {
+                vector&ltint&gt ans;
+                for(int i = 0; i < n; i++){
+                    ans.push_back(nums[i]);
+                    ans.push_back(nums[i + n]);
+                }
+                return ans;
+            }
+        };
+        
+    `,
+    `
+    //LeetCode1480
+    class Solution {
+        public:
+            vector&ltint&gt runningSum(vector&ltint&gt& nums) {
+                vector&ltint&gt ans;
+                int temp = 0;
+                for(int i = 0; i < nums.size(); i++){
+                    temp += nums[i];
+                    ans.push_back(temp);
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1486
+    class Solution {
+        public:
+            int xorOperation(int n, int start) {
+                int ans = start;
+                for(int i = 1; i < n; i++){
+                    ans = ans ^ (start + 2 * i);
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1512
+    class Solution {
+        public:
+            int numIdenticalPairs(vector&ltint&gt& nums) {
+                int ans = 0;
+                for(int i = 0; i < nums.size(); i++){
+                    for(int j = i + 1; j < nums.size(); j++){
+                        if(nums[i] == nums[j]){
+                            ans++;
+                        }
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1603
+    class ParkingSystem {
+        public:
+            vector&ltint&gt parking;
+            ParkingSystem(int big, int medium, int small) {
+                parking = {0, big, medium, small};
+            }
+            
+            bool addCar(int carType) {
+                return --parking[carType] >= 0;
+            }
+        };
+        
+        /**
+         * Your ParkingSystem object will be instantiated and called as such:
+         * ParkingSystem* obj = new ParkingSystem(big, medium, small);
+         * bool param_1 = obj->addCar(carType);
+         */
+    `,
+    `
+    //LeetCode1614
+    class Solution {
+        public:
+            int maxDepth(string s) {
+                int ans = 0, temp = 0;
+                for(int i = 0; i < s.length(); i++){
+                    if(s[i] == '('){
+                        temp++;
+                        if(temp > ans){
+                            ans = temp;
+                        }
+                    }
+                    if(s[i] == ')'){
+                        temp--;
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1662
+    class Solution {
+        public:
+            bool arrayStringsAreEqual(vector&ltstring&gt& word1, vector&ltstring&gt& word2) {
+                string str1 = "", str2 = "";
+                for(int i = 0; i < word1.size(); i++){
+                    str1 = str1 + word1[i];
+                }
+                for(int i = 0; i < word2.size(); i++){
+                    str2 = str2 + word2[i];
+                }
+                return (str1 == str2);
+            }
+        };
+    `,
+    `
+    //LeetCode1672
+    class Solution {
+        public:
+            int maximumWealth(vector&ltvector&ltint&gt&gt& accounts) {
+                int ans = 0;
+                for(int i = 0; i < accounts.size(); i++){
+                    int temp = 0;
+                    for(int j = 0; j < accounts[i].size(); j++){
+                        temp += accounts[i][j];
+                    }
+                    if(ans < temp){
+                        ans = temp;
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1688
+    class Solution {
+        public:
+            int numberOfMatches(int n) {
+                return n - 1;
+            }
+        };
+    `,
+    `
+    //LeetCode1704
+    class Solution {
+        public:
+            bool halvesAreAlike(string s) {
+                int count_a = 0, count_b = 0;
+                for(int i = 0; i < s.length() / 2; i++){
+                    if((s[i] == 'a')||(s[i] == 'e')||(s[i] == 'i')||(s[i] == 'o')||(s[i] == 'u')||(s[i] == 'A')||(s[i] == 'E')||(s[i] == 'I')||(s[i] == 'O')||(s[i] == 'U')){
+                        count_a++;
+                    }
+                }
+                for(int i = s.length() / 2; i < s.length(); i++){
+                    if((s[i] == 'a')||(s[i] == 'e')||(s[i] == 'i')||(s[i] == 'o')||(s[i] == 'u')||(s[i] == 'A')||(s[i] == 'E')||(s[i] == 'I')||(s[i] == 'O')||(s[i] == 'U')){
+                        count_b++;
+                    }
+                }
+                return (count_a == count_b);
+            }
+        };
+    `,
+    `
+    //LeetCode1725
+    class Solution {
+        public:
+            int countGoodRectangles(vector&ltvector&ltint&gt&gt& rectangles) {
+                vector&ltint&gt vec;
+                int ans = 0;
+                for(int i = 0; i < rectangles.size(); i++){
+                    vec.push_back( min(rectangles[i][0], rectangles[i][1]) );
+                }
+                sort(vec.begin(), vec.end());
+                int arr[vec.size()], target = vec[ vec.size() - 1 ];
+                for(int i = vec.size() - 1; i >= 0; i--){
+                    if(vec[i] == target){
+                        ans++;
+                    }
+                    else{
+                        break;
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1732
+    class Solution {
+        public:
+            int largestAltitude(vector&ltint&gt& gain) {
+                int ans = 0, temp = 0;
+                for(int i = 0; i < gain.size(); i++){
+                    temp += gain[i];
+                    ans = max(ans, temp);
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1768
+    class Solution {
+        public:
+            string mergeAlternately(string word1, string word2) {
+                string ans = "";
+                int i = 0, j = 0;
+                while(i < word1.length() && j < word2.length()){
+                    ans = ans + word1[i++] + word2[j++];
+                }
+                while(i < word1.length()){
+                    ans = ans + word1[i++];
+                }
+                while(j < word2.length()){
+                    ans = ans + word2[j++];
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1773
+    class Solution {
+        public:
+            int countMatches(vector&ltvector&ltstring&gt&gt& items, string ruleKey, string ruleValue) {
+                int ans = 0;
+                for(int i = 0; i < items.size(); i++){
+                    if(ruleKey == "type" && items[i][0] == ruleValue){
+                        ans++;
+                    }
+                    else if(ruleKey == "color" && items[i][1] == ruleValue){
+                        ans++;
+                    }
+                    else if(ruleKey == "name" && items[i][2] == ruleValue){
+                        ans++;
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode 1796
+    class Solution {
+        public:
+            int secondHighest(string s) {
+                int count[10] = {0};
+                for(int i = 0; i < s.length(); i++){
+                    if(s[i] >= '0' && s[i] <= '9'){
+                        count[ s[i] - '0' ]++;
+                    }
+                }
+                int counting = 0, ans;
+                for(int i = 9; i >= 0; i--){
+                    if(count[i] != 0){
+                        counting++;
+                        if(counting == 2){
+                            ans = i;
+                            break;
+                        }
+                    }
+                }
+                return ans;
+            }
+        };
+    `,
+    `
+    //LeetCode1812
+    class Solution {
+        public:
+            bool squareIsWhite(string coordinates) {
+                if((coordinates[0] - 'a') % 2){
+                    if((coordinates[1] - '0') % 2){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                else{
+                    if((coordinates[1] - '0') % 2){
+                        return false;
+                    }
+                    else{
+                        return true;
+                    }
+                }
+            }
+        };
+    `
+]
+
+// when the webpage is finish loading
+window.onload = function () {
+    /* for the initital condition, shows uva first */
+    for (let i = 0; i < solved_uva.length; i++) {
+        let temp = document.createElement('option')
+        temp.value = 'u' + solved_uva[i]
+        temp.text = 'UVa' + solved_uva[i]
+        document.getElementById('problemSet').add(temp, null);
+    }
+    document.getElementById('codeContainer').style.backgroundColor = "transparent"
+}
+
+// for goes to top button
+function goTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// runs every time when the first select tag changes
+function updateTable(table) {
+    if (table.value === 'uva') {
+        // remove the child(options) first
+        while (document.getElementById('problemSet').firstChild) {
+            document.getElementById('problemSet').removeChild(document.getElementById('problemSet').firstChild)
+        }
+        // add option tag for uva
+        for (let i = 0; i < solved_uva.length; i++) {
+            let temp = document.createElement('option')
+            temp.value = 'u' + solved_uva[i]
+            temp.text = "UVa" + solved_uva[i]
+            document.getElementById('problemSet').add(temp, null);
+        }
+    }
+    else if (table.value === 'leetcode') {
+        // remove the child(options) first
+        while (document.getElementById('problemSet').firstChild) {
+            document.getElementById('problemSet').removeChild(document.getElementById('problemSet').firstChild)
+        }
+        // add option tag for leetcode
+        for (let i = 0; i < solved_leetcode.length; i++) {
+            let temp = document.createElement('option')
+            temp.value = 'l' + solved_leetcode[i]
+            temp.text = "LeetCode" + solved_leetcode[i]
+            document.getElementById('problemSet').add(temp, null);
+        }
+    }
+}
+
 function updateCode(target){
     // display the background color
     document.getElementById('codeContainer').style.backgroundColor = '#ffc4b6'
     //if the user choose uva problems
     if(target.options[target.selectedIndex].value[0] === 'u'){
-        for(var i = 0; i < solved_uva.length; i++){
+        for(let i = 0; i < solved_uva.length; i++){
             if('u' + solved_uva[i] === target.options[target.selectedIndex].value){
                 document.getElementById('codeSpace').innerHTML = UVa_ac[i]
                 document.getElementById('problemTitle').innerHTML = 'UVa' + solved_uva[i]
@@ -1329,4 +2242,12 @@ function updateCode(target){
         }
     }
     //if the user choose leetcode problems
+    if(target.options[target.selectedIndex].value[0] === 'l'){
+        for(let i = 0; i < solved_leetcode.length; i++){
+            if('l' + solved_leetcode[i] === target.options[target.selectedIndex].value){
+                document.getElementById('codeSpace').innerHTML = LeetCode_ac[i]
+                document.getElementById('problemTitle').innerHTML = 'LeetCode' + solved_leetcode[i]
+            }
+        }
+    }
 }

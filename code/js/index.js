@@ -1275,11 +1275,11 @@ var LeetCode_ac = [
     //LeetCode1
     class Solution {
         public:
-            vector<int> twoSum(vector<int>& nums, int target) {
-                vector<int> output;
-                for(int i = 0; i < nums.size(); i++){
+            vector&ltint&gt twoSum(vector&ltint&gt& nums, int target) {
+                vector&ltint&gt output;
+                for(int i = 0; i &lt nums.size(); i++){
                     bool isFinished = false;
-                    for(int j = i + 1; j < nums.size(); j++){
+                    for(int j = i + 1; j &lt nums.size(); j++){
                         if(nums[i] + nums[j] == target){
                             output.push_back(i);
                             output.push_back(j);

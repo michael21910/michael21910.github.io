@@ -14,7 +14,7 @@ var solved_uva = [
 
 // My solved leetcode problems
 var solved_leetcode = [
-    1, 20, 35, 53, 66, 122,
+    1, 9, 20, 35, 53, 66, 122,
     300, 326, 367, 645, 704,
     709, 711, 832, 938, 943,
     946, 977, 1108, 1143, 1221,
@@ -1292,6 +1292,25 @@ var LeetCode_ac = [
                     }
                 }
                 return output;
+            }
+        };
+    `,
+    `
+    //LeetCode9
+    class Solution {
+        public:
+            bool isPalindrome(int x) {
+                if(x &lt 0){
+                    return false;
+                }
+                string intToString = to_string(x), compare;
+                for(int i = intToString.length() - 1; i >= 0; i--){
+                    compare.push_back(intToString[i]);
+                }
+                if(intToString == compare){
+                    return true;
+                }
+                return false;
             }
         };
     `,

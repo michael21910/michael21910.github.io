@@ -14,7 +14,7 @@ var solved_uva = [
 
 // My solved leetcode problems
 var solved_leetcode = [
-    20, 35, 53, 66, 122,
+    1, 20, 35, 53, 66, 122,
     300, 326, 367, 645, 704,
     709, 711, 832, 938, 943,
     946, 977, 1108, 1143, 1221,
@@ -1271,6 +1271,30 @@ var UVa_ac = [
 
 // my LeetCode accept codes
 var LeetCode_ac = [
+    `
+    //LeetCode1
+    class Solution {
+        public:
+            vector<int> twoSum(vector<int>& nums, int target) {
+                vector<int> output;
+                for(int i = 0; i < nums.size(); i++){
+                    bool isFinished = false;
+                    for(int j = i + 1; j < nums.size(); j++){
+                        if(nums[i] + nums[j] == target){
+                            output.push_back(i);
+                            output.push_back(j);
+                            isFinished = !isFinished;
+                            break;
+                        }
+                    }
+                    if(isFinished){
+                        break;
+                    }
+                }
+                return output;
+            }
+        };
+    `,
     `
     //LeetCode20
     class Solution {

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../../css/top.css">
+    <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almendra+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Tech Sharing - JS Sort Visualization</title>
+</head>
+
+<body>
+
+    <!-- header -->
+    <button onclick="goTop()" id="topBtn">top</button>
+    <div id="header" class="jumbotron jumbotron-fluid mt-5 text-center display-4 bg-mine">
+        Tech Sharing - JS Sort Visualization
+    </div>
+
+    <!-- navi -->
+    <div class="pr-5 navi-font">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="../../index.html">Homepage</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../index.html">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://hackmd.io/@michael21910" target="_blank">HackMD</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/michael21910" target="_blank">Github</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- article content -->
+    <div id="article" class="container">
+        <div class="title">
+            Tech Sharing - JS Sort Visualization
+        </div>
+        <div class="paragraph">
+            <p>
+                &emsp;&emsp;In the <a href="repo-story-js-sort-visualization.html"><code>previous article</code></a>
+                I talked about a story about why do I start to do the <a href="../../demo/sort/index.html"><code>sort visualization</a></code> thing.
+                In this article, I will talk about some tech thing about sorting algorithms.
+            </p>
+            <p>
+                &emsp;&emsp;So for the first thing I would like to talk about is sorting.
+                In the demo sort visualization, I showed four sorting algorithms. Bubble sort,
+                Selection sort, Exchange sort and Insertion sort. These sorting algorithms will
+                be taught when students are freshman at NDHU. To be honest, these sorts aren't hard at all.
+                However, sorting is too difficult for those who are exposed to programming languages
+                for the first time, so, I wrote this to let them know more by what is sorting.
+            </p>
+            <p>
+                &emsp;&emsp;Let's have a brief look at the four sorting algorithms. Starting with bubble sort.
+            </p>
+            <p>
+                &emsp;&emsp;<code>Bubble sort</code> is a simple sorting algorithm that repeatedly steps through the list,
+                compares adjacent elements and swaps them if they are in the wrong order. The pass
+                through the list is repeated until the list is sorted.
+            </p>
+            <p>
+                &emsp;&emsp;So the code of <code>bubble sort</code> will be: 
+                <pre>
+                    <code>
+//C++ bubble sort
+for(int i = n - 1; i &gt; 0; i--){
+    for(int j = 0; j &lt; i; j++){
+        if(arr[i] &lt; arr[j]){
+            swap(arr[i], arr[j]);
+        }
+    }
+}
+                    </code>
+                </pre>
+            </p>
+            <p>
+                &emsp;&emsp;That's not to hard to understand, right? Now, it's time for the other three sorting algorithms.
+            </p>
+            <p>
+                &emsp;&emsp;For <code>selection sort</code>, we have a target that goes through the whole array,
+                choosing the element that is the smallest after the target. After the go through the array,
+                swap the two elements. Let's take [5, 2, 3, 1, 9] for example.
+            </p>
+            <p>
+                &emsp;&emsp;For the array [5, 2, 3, 1, 9]. Our target is 5, the compare the smallest element after 5, it's 1.
+                So swap 1 and 5 makes the array [1, 2, 3, 5, 9]. I will leave the last compare loop for you.
+            </p>
+            <p>
+                &emsp;&emsp;On top of that, we can figure the code of <code>selection sort</code> will be: 
+                <pre>
+                    <code>
+//C++ selection sort
+for(int i = 0; i &lt; n; i++){
+    int temp_index = i;
+    for(int j = i + 1; j &lt; n; j++){
+        if(arr[j] &lt; arr[temp_index]){
+            temp_index = j;
+        }
+    }
+    if(i != temp_index){
+        swap(arr[i], arr[temp_index]);
+    }
+}
+                    </code>
+                </pre>
+            </p>
+            <p>
+                &emsp;&emsp;For <code>exchange sort</code>, for me, it's more easy to understand. Starting from the beginning,
+                the target compares all the elements, swap them if the element is smaller than the target.
+                (If you want array is sorted in ascending order) The code is really simple as well: 
+            </p>
+            <p>
+                <pre>
+                    <code>
+//C++ exchange sort
+for(int i = 0; i &lt; array.length(); i++){
+    for(int j = i + 1; j &lt; array.length(); j++){
+        if(array[i] &gt; array[j]){
+            swap(array[i], array[j]);
+        }
+    }
+}
+                    </code>
+                </pre>
+            </p>
+            <p>
+                &emsp;&emsp;For <code>insertion sort</code>, you can think that insertion sort
+                is simillar to ordering a poker card. Choose a card from the first element
+                of the array and insert the card to somewhere until all the cards are sorted.
+                The code of <code>insertion sort</code> are as follows:
+            </p>
+            <p>
+                <pre>
+                    <code>
+//C++ insertion sort
+for(int i = 1; i &lt; n; i++){
+    int key = arr[i];
+    int j = i - 1;
+    while(key &lt; arr[j] && j &gt;= 0){
+        arr[j + 1] = arr[j];
+        j--;
+    }
+    arr[j + 1] = key;
+}
+                    </code>
+                </pre>
+            </p>
+            <p>
+                So now we have gone through all of the sorting algorithms in the sorting
+                visualization webpage, hope that everyone knows well about sorting!
+                See you in the next article!
+            </p>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div id="footer" class="my-5">
+        <div>
+            2021 copyright © | Michael Hsueh
+        </div>
+    </div>
+
+    <!-- bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

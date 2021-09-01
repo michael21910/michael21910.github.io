@@ -17,16 +17,7 @@ body{
         rgba(255, 255, 255, .3) 50%, 
         rgba(255, 255, 255, .3) 75%, 
         transparent 75%, 
-        transparent),
-    linear-gradient(
-        90deg,
-        rgba(255, 255, 255, .3) 25%, 
-        transparent 25%, 
-        transparent 50%, 
-        rgba(255, 255, 255, .3) 50%, 
-        rgba(255, 255, 255, .3) 75%, 
-        transparent 75%, 
-        transparent);
+        transparent)
 }
 
 @media screen and (max-width: 720px){

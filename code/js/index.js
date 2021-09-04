@@ -1,5 +1,5 @@
-// My solved uva problems
-var solved_uva = [
+// My solved cpeOneStar problems
+var solved_cpeOneStar = [
     10041, 10055, 10035, 100, 10929,
     10101, 10420, 10008, 10222, 11332,
     10252, 490, 272, 12019, 10038,
@@ -7,9 +7,9 @@ var solved_uva = [
     11349, 11461, 11063, 10071, 10093,
     948, 10019, 10931, 11005, 10050,
     10193, 10190, 10235, 10922, 11417,
-    10908, 10221, 10642, 10242/*,10057,
+    10908, 10221, 10642, 10242,10057,
     10062, 299, 10226, 10189, 10409,
-    10415, 118, 11150, 11321*/
+    10415, 118, 11150, 11321
 ]
 
 // My solved leetcode problems
@@ -26,7 +26,7 @@ var solved_leetcode = [
 ]
 
 // sort arrays
-solved_uva.sort(function compareNumbers(a, b) {
+solved_cpeOneStar.sort(function compareNumbers(a, b) {
     return a - b;
 })
 
@@ -68,6 +68,90 @@ var UVa_ac = [
     }
     `,
     `
+    //118
+    #include &ltbits/stdc++.h&gt
+    using namespace std;
+    int main()
+    {
+        int row, col;
+        cin &gt&gt row &gt&gt col;
+        int dead[row + 1][col + 1] = {0};
+        int init_row, init_col;
+        string facing, command;
+        while(cin &gt&gt init_row &gt&gt init_col &gt&gt facing &gt&gt command){
+            for(int i = 0; i &lt command.length(); i++){
+                char one_command = command[i];
+                int dead_loc = dead[init_row][init_col];
+                if(init_row &lt 0 || init_col &lt 0 || init_row &gt row || init_col &gt col){
+                    break;
+                }
+                if(one_command == 'R'){
+                    if(facing == "E"){
+                        facing = "S";
+                    }
+                    else if(facing == "S"){
+                        facing = "W";
+                    }
+                    else if(facing == "W"){
+                        facing = "N";
+                    }
+                    else if(facing =="N"){
+                        facing = "E";
+                    }
+                }
+                else if(one_command == 'L'){
+                    if(facing == "E"){
+                        facing = "N";
+                    }
+                    else if(facing == "S"){
+                        facing = "E";
+                    }
+                    else if(facing == "W"){
+                        facing = "S";
+                    }
+                    else if(facing =="N"){
+                        facing = "W";
+                    }
+                }
+                else if(one_command == 'F'){
+                    if(facing == "E" && (dead_loc != 1 || init_row + 1 &lt= row)){
+                        init_row += 1;
+                    }
+                    else if(facing == "S" && (dead_loc != 1 || init_col - 1 &gt 0)){
+                        init_col -= 1;
+                    }
+                    else if(facing == "W" && (dead_loc != 1 || init_row - 1 &gt 0)){
+                        init_row -= 1;
+                    }
+                    else if(facing =="N" && (dead_loc != 1 || init_col + 1 &lt= col)){
+                        init_col += 1;
+                    }
+                }
+            }
+            if(init_row &lt 0){
+                cout &lt&lt init_row + 1 &lt&lt " " &lt&lt init_col &lt&lt " " &lt&lt facing &lt&lt " LOST" &lt&lt endl;
+                dead[init_row + 1][init_col] = 1;
+            }
+            else if(init_col &lt 0){
+                cout &lt&lt init_row &lt&lt " " &lt&lt init_col + 1 &lt&lt " " &lt&lt facing &lt&lt " LOST" &lt&lt endl;
+                dead[init_row][init_col + 1] = 1;
+            }
+            else if(init_row &gt row){
+                cout &lt&lt init_row - 1 &lt&lt " " &lt&lt init_col &lt&lt " " &lt&lt facing &lt&lt " LOST" &lt&lt endl;
+                dead[init_row - 1][init_col] = 1;
+            }
+            else if(init_col &gt col){
+                cout &lt&lt init_row &lt&lt " " &lt&lt init_col - 1 &lt&lt " " &lt&lt facing &lt&lt " LOST" &lt&lt endl;
+                dead[init_row][init_col - 1] = 1;
+            }
+            else{
+                cout &lt&lt init_row &lt&lt " " &lt&lt init_col &lt&lt " " &lt&lt facing &lt&lt endl;
+            }
+        }
+        return 0;
+    }
+    `,
+    `
     //272
     #include &ltbits/stdc++.h&gt
     using namespace std;
@@ -86,6 +170,35 @@ var UVa_ac = [
                 }
             }
             cout &lt&lt endl;
+        }
+        return 0;
+    }
+    `,
+    `
+    //299
+    #include &ltbits/stdc++.h&gt
+    using namespace std;
+    int main()
+    {
+        int cases;
+        cin &gt&gt cases;
+        while(cases--){
+            int number;
+            cin &gt&gt number;
+            int arr[number];
+            for(int i = 0; i &lt number; i++){
+                cin &gt&gt arr[i];
+            }
+            int counter = 0;
+            for(int i = 0; i &lt number; i++){
+                for(int j = i + 1; j &lt number; j++){
+                    if(arr[i] &gt arr[j]){
+                        swap(arr[i], arr[j]);
+                        counter++;
+                    }
+                }
+            }
+            cout &lt&lt "Optimal train swapping takes " &lt&lt counter &lt&lt " swaps." &lt&lt endl;
         }
         return 0;
     }
@@ -426,6 +539,70 @@ var UVa_ac = [
     }
     `,
     `
+    //10057
+    #include &ltbits/stdc++.h&gt
+    using namespace std;
+    int main()
+    {
+        int n;
+        while(cin &gt&gt n){
+            int arr[n];
+            for (int i = 0; i &lt n; i++){
+                cin &gt&gt arr[i];
+            }
+            sort(arr, arr + n);
+            int mid1 = arr[(n - 1) / 2];
+            int mid2 = arr[n / 2];
+            int ans = 0;
+            for (int i = 0; i &lt n; i++){
+                if (arr[i] == mid1 || arr[i] == mid2){
+                    ans++;
+                }
+            }
+            cout &lt&lt mid1 &lt&lt " " &lt&lt ans &lt&lt " " &lt&lt mid2 - mid1 + 1 &lt&lt endl;
+        }
+        return 0;
+    }
+    `,
+    `
+    //10062
+    #include &ltbits/stdc++.h&gt
+    using namespace std;
+    bool cmp(pair&ltint, int&gt a, pair&ltint, int&gt b){
+        if (a.first != b.first) return a.first &lt b.first;
+        else return a.second &gt b.second;
+    }
+
+    int main()
+    {
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);
+        string str;
+        int counter = 0;
+        while(getline(cin, str)){
+            if(counter == 0){
+                counter++;
+            }
+            else{
+                cout &lt&lt endl;
+                counter++;
+            }
+            pair&ltint, int&gt a[256];
+            for (int i = 0; i &lt 256; i++) {
+                a[i] = {0, i};
+            }
+            for (int i = 0; i &lt str.size(); i++) {
+                a[(int)str[i]].first++;
+            }
+            sort(a, a + 256, cmp);
+            for (auto i: a){
+                if (i.first &gt 0) cout &lt&lt i.second &lt&lt " " &lt&lt i.first &lt&lt endl;
+            }
+        }
+        return 0;
+    }
+    `,
+    `
     //10071
     #include &ltbits/stdc++.h&gt
     using namespace std;
@@ -534,6 +711,85 @@ var UVa_ac = [
                 init++;
             }
             cout &lt&lt init - 1 &lt&lt endl;
+        }
+        return 0;
+    }
+    `,
+    `
+    //10189
+    #include &ltbits/stdc++.h&gt
+    using namespace std;
+    int main()
+    {
+        int row, col, counter = 1;
+        bool flag = false;
+        while(cin &gt&gt row &gt&gt col && row && col){
+            char arr[row][col];
+            for(int i = 0; i &lt row; i++){
+                for(int j = 0; j &lt col; j++){
+                    cin &gt&gt arr[i][j];
+                    if(arr[i][j] == '.'){
+                        arr[i][j] = '0';
+                    }
+                }
+            }
+            for(int i = 0; i &lt row; i++){
+                for(int j = 0; j &lt col; j++){
+                    if(arr[i][j] == '*'){
+                        continue;
+                    }
+                    //left upper
+                    if(i - 1 &gt= 0 && j - 1 &gt= 0 && arr[i - 1][j - 1] == '*'){
+                        arr[i][j]++;
+                    }
+                    //upper
+                    if(i - 1 &gt= 0 && arr[i - 1][j] == '*'){
+                        arr[i][j]++;
+                    }
+                    //right upper
+                    if(i - 1 &gt= 0 && j + 1 &lt col && arr[i - 1][j + 1] == '*'){
+                        arr[i][j]++;
+                    }
+                    //left
+                    if(j - 1 &gt= 0 && arr[i][j - 1] == '*'){
+                        arr[i][j]++;
+                    }
+                    //right
+                    if(j + 1 &lt col && arr[i][j + 1] == '*'){
+                        arr[i][j]++;
+                    }
+                    //left lower
+                    if(i + 1 &lt row && j - 1 &gt= 0 && arr[i + 1][j - 1] == '*'){
+                        arr[i][j]++;
+                    }
+                    //lower
+                    if(i + 1 &lt row && arr[i + 1][j] == '*'){
+                        arr[i][j]++;
+                    }
+                    //right lower
+                    if(i + 1 &lt row && j + 1 &lt col && arr[i + 1][j + 1] == '*'){
+                        arr[i][j]++;
+                    }
+                }
+            }
+            if(!flag){
+                flag = !flag;
+            }
+            else{
+                cout &lt&lt endl;
+            }
+            cout &lt&lt "Field #" &lt&lt counter++ &lt&lt ":" &lt&lt endl;
+            for(int i = 0; i &lt row; i++){
+                for(int j = 0; j &lt col; j++){
+                    if(arr[i][j] != '*'){
+                        cout &lt&lt arr[i][j] - '0';
+                    }
+                    else{
+                        cout &lt&lt arr[i][j];
+                    }
+                }
+                cout &lt&lt endl;
+            }
         }
         return 0;
     }
@@ -658,6 +914,38 @@ var UVa_ac = [
                     }
                 }
             }
+        }
+        return 0;
+    }
+    `,
+    `
+    //10226
+    #include &ltbits/stdc++.h&gt
+    using namespace std;
+    int main()
+    {
+        int n, total = 0;
+        string name;
+        map&ltstring, double&gt tree_data;
+        cin &gt&gt n;
+        cin.ignore();
+        getline(cin, name);
+        int counter = 0;
+        while(n--){
+            if(counter == 0){
+                counter++;
+            }
+            else{
+                cout &lt&lt endl;
+            }
+            while (getline(cin, name) && name != ""){
+                    tree_data[name]++, total++;
+            }
+            for (auto it = tree_data.begin(); it != tree_data.end(); it++){
+                cout &lt&lt it -&gt first &lt&lt " " &lt&lt fixed &lt&lt setprecision(4) &lt&lt it -&gt second / total * 100 &lt&lt endl;
+            }
+            tree_data.clear();
+            total = 0;
         }
         return 0;
     }
@@ -789,6 +1077,125 @@ var UVa_ac = [
             }
             run(n,x);
         }
+    }
+    `,
+    `
+    //10409
+    #include &ltbits/stdc++.h&gt
+    using namespace std;
+    void toEast(int* arr){
+        int t = arr[0];
+        arr[0] = arr[3];
+        arr[3] = arr[1];
+        arr[1] = arr[5];
+        arr[5] = t;
+    }
+
+    void toWest(int* arr){
+        int t = arr[0];
+        arr[0] = arr[5];
+        arr[5] = arr[1];
+        arr[1] = arr[3];
+        arr[3] = t;
+    }
+
+    void toNorth(int* arr){
+        int t = arr[0];
+        arr[0] = arr[4];
+        arr[4] = arr[1];
+        arr[1] = arr[2];
+        arr[2] = t;
+    }
+
+    void toSouth(int* arr){
+        int t = arr[0];
+        arr[0] = arr[2];
+        arr[2] = arr[1];
+        arr[1] = arr[4];
+        arr[4] = t;
+    }
+
+    int main(){
+        int times;
+        while(cin &gt&gt times && times){
+            int faces[6] = {1, 6, 2, 3, 5, 4};
+            while(times--){
+                string str;
+                cin &gt&gt str;
+                if(str == "north"){
+                    toNorth(faces);
+                }
+                if(str == "south"){
+                    toSouth(faces);
+                }
+                if(str == "west"){
+                    toWest(faces);
+                }
+                if(str == "east"){
+                    toEast(faces);
+                }
+
+            }
+            cout &lt&lt faces[0] &lt&lt endl;
+        }
+        return 0;
+    }
+    `,
+    `
+    //10415
+    #include &ltbits/stdc++.h&gt
+    using namespace std;
+
+    int main()
+    {
+        map &ltchar, vector&ltint&gt &gt mp;
+        mp['c'] = {0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1};
+        mp['d'] = {0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0};
+        mp['e'] = {0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0};
+        mp['f'] = {0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0};
+        mp['g'] = {0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0};
+        mp['a'] = {0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0};
+        mp['b'] = {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0};
+        mp['C'] = {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0};
+        mp['D'] = {0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0};
+        mp['E'] = {0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0};
+        mp['F'] = {0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0};
+        mp['G'] = {0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0};
+        mp['A'] = {0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0};
+        mp['B'] = {0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0};
+        int cases;
+        string str;
+        cin &gt&gt cases;
+        getline(cin, str);
+        while(cases--){
+            getline(cin, str);
+            int cnt[11] = {0};
+            int a[11] = {0};
+            for(int i = 0; i &lt str.size(); i++){
+                for(int j = 1; j &lt= 10; j++){
+                    if(mp[str[i]][j]){
+                        if(a[j]){
+                            continue;
+                        }
+                        else{
+                            a[j] = 1;
+                            cnt[j]++;
+                        }
+                    }
+                    else{
+                        a[j] = 0;
+                    }
+                }
+            }
+            for(int i = 1; i &lt= 10; i++){
+                cout &lt&lt cnt[i];
+                if(i != 10){
+                    cout &lt&lt " ";
+                }
+            }
+            cout &lt&lt endl;
+        }
+        return 0;
     }
     `,
     `
@@ -1092,6 +1499,63 @@ var UVa_ac = [
     }
     `,
     `
+    //11150
+    #include &ltbits/stdc++.h&gt
+    using namespace std;
+    int main()
+    {
+        int n;
+        while(cin &gt&gt n){
+            cout &lt&lt int(n * 1.5) &lt&lt endl;
+        }
+        return 0;
+    }
+    `,
+    
+    `
+    //11321
+    #include &ltbits/stdc++.h&gt
+    using namespace std;
+    int n, m;
+    int isOdd(int num)
+    {
+        return abs(num % 2);
+    }
+
+    bool cmp(int a, int b)
+    {
+        if(a % m != b % m){
+            return a%m &lt b%m;
+        }
+        if(isOdd(a) != isOdd(b)){
+            return isOdd(a);
+        }
+        if(isOdd(a)){
+            return a &gt b;
+        }
+        return a &lt b;
+    }
+
+    int main ()
+    {
+        int arr[10001];
+        while(cin &gt&gt n &gt&gt m){
+            for(int i = 0; i &lt n; i++){
+                cin &gt&gt arr[i];
+            }
+            sort(arr, arr + n, cmp);
+            cout &lt&lt n &lt&lt " " &lt&lt m &lt&lt endl;
+            for(int i = 0; i &lt n; i++){
+                cout &lt&lt arr[i] &lt&lt endl;
+            }
+            if(n == 0 && m == 0){
+                break;
+            }
+        }
+        return 0;
+    }
+    `,
+    `
     //11332
     #include &ltbits/stdc++.h&gt
     using namespace std;
@@ -1304,7 +1768,7 @@ var LeetCode_ac = [
                     return false;
                 }
                 string intToString = to_string(x), compare;
-                for(int i = intToString.length() - 1; i >= 0; i--){
+                for(int i = intToString.length() - 1; i &gt= 0; i--){
                     compare.push_back(intToString[i]);
                 }
                 if(intToString == compare){
@@ -2228,10 +2692,10 @@ var LeetCode_ac = [
 // when the webpage is finish loading
 window.onload = function () {
     /* for the initital condition, shows uva first */
-    for (let i = 0; i < solved_uva.length; i++) {
+    for (let i = 0; i < solved_cpeOneStar.length; i++) {
         let temp = document.createElement('option')
-        temp.value = 'u' + solved_uva[i]
-        temp.text = 'UVa' + solved_uva[i]
+        temp.value = 'u' + solved_cpeOneStar[i]
+        temp.text = 'UVa' + solved_cpeOneStar[i]
         document.getElementById('problemSet').add(temp, null);
     }
     document.getElementById('codeContainer').style.backgroundColor = "transparent"
@@ -2250,10 +2714,10 @@ function updateTable(table) {
             document.getElementById('problemSet').removeChild(document.getElementById('problemSet').firstChild)
         }
         // add option tag for uva
-        for (let i = 0; i < solved_uva.length; i++) {
+        for (let i = 0; i < solved_cpeOneStar.length; i++) {
             let temp = document.createElement('option')
-            temp.value = 'u' + solved_uva[i]
-            temp.text = "UVa" + solved_uva[i]
+            temp.value = 'u' + solved_cpeOneStar[i]
+            temp.text = "UVa" + solved_cpeOneStar[i]
             document.getElementById('problemSet').add(temp, null);
         }
     }
@@ -2277,10 +2741,10 @@ function updateCode(target){
     document.getElementById('codeContainer').style.backgroundColor = '#ffc4b6'
     //if the user choose uva problems
     if(target.options[target.selectedIndex].value[0] === 'u'){
-        for(let i = 0; i < solved_uva.length; i++){
-            if('u' + solved_uva[i] === target.options[target.selectedIndex].value){
+        for(let i = 0; i < solved_cpeOneStar.length; i++){
+            if('u' + solved_cpeOneStar[i] === target.options[target.selectedIndex].value){
                 document.getElementById('codeSpace').innerHTML = UVa_ac[i]
-                document.getElementById('problemTitle').innerHTML = 'UVa' + solved_uva[i]
+                document.getElementById('problemTitle').innerHTML = 'UVa' + solved_cpeOneStar[i]
             }
         }
     }

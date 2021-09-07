@@ -17,12 +17,11 @@
 .intro{
     background-color: #f2f0dd;
     width: 95vw;
-    height: 80vh;
     border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding: 5vh 0 5vh 0;
+    padding: 7.5vh 0 7.5vh 0;
 }
 
 .introRight{
@@ -57,10 +56,7 @@
     } 
 
     .intro{
-        height: 52.5vh;
-        padding: 0;
-        padding-top: 1vh;
-        padding-bottom: 1vh;
+        padding: 3vh 0 3vh 0;
     }
     
     .intro > div{

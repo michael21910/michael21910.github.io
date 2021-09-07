@@ -44,7 +44,7 @@
 @media screen and (max-width: 720px){
     #contact{
         margin-top: 3vh;
-        margin-bottom: 3vh;
+        margin-bottom: 0vh;
     }
 
     .iconBox{

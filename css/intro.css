@@ -35,9 +35,14 @@
     font-size: 1.825vw;
     color: #727272;
     line-height: 5vh;
+    margin-left: 2em;
 }
 
-.intro > div > span{
+.intro > div > div{
+    text-indent: 2em;
+}
+
+.intro > div > div > span{
     border-bottom: 1px #727272 solid;
 }
 

@@ -16,7 +16,7 @@
 
 .intro{
     background-color: #f2f0dd;
-    width: 90vw;
+    width: 87.5vw;
     border-radius: 24px;
     display: flex;
     align-items: center;
@@ -47,7 +47,7 @@
 }
 
 .introRight > img{
-    width: 65%;
+    width: 70%;
 }
 
 @media screen and (max-width: 720px){

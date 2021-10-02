@@ -1,0 +1,78 @@
+#navi{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5vh;
+    opacity: 0;
+    transition: 2s;
+    font-family: 'Almendra SC', serif;
+    font-weight: 500;
+}
+
+.line{
+    background-color: #F2F0DD;
+    height: 1vh;
+    border: 1px #F2F0DD solid;
+    border-radius: 24px;
+    width: 22.5vw;
+}
+
+.circle{
+    height: 10px;
+    width: 10px;
+    transform: rotate(45deg);
+    background-color: #F2F0DD;
+    border-radius: 50%;
+}
+
+.naviLine{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F2F0DD;
+    border-radius: 24px;
+    padding: 1vh 2.5vw 1vh 2.5vw;
+    height: 2.985vh;
+}
+
+.naviLine > div{
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.naviLine > div > a{
+    color: #000000;
+    text-decoration-line: none;
+    font-size: 1.33vw;
+}
+
+@media screen and (max-width: 720px){
+    #navi{
+        padding-top: 2vh;
+    }
+    
+    .line{
+        display: none;
+    }
+    
+    .square{
+        display: none;
+    }
+    
+    .naviLine{
+        width: 90vw;
+        height: 2vh;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    
+    .naviLine > div{
+        line-height: 100%;
+    }
+
+    .naviLine > div > a{
+        font-size: 3.6vw;
+    }
+}

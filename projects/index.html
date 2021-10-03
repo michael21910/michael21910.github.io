@@ -28,7 +28,7 @@
     <link rel="shortcut icon" href="../img/labelico.ico" type="image/x-icon">
 
     <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
-    <script src="jquery/jquery-3.6.0.min.js"></script>
+    <script src="../jquery/jquery-3.6.0.min.js"></script>
     <title>Tsuen's Projects</title>
 </head>
 <body>
@@ -62,7 +62,56 @@
 
     <!-- content, content.css in css folder -->
     <div id="forJS">
-        
+        <div id="crawling">
+            <div class="title">
+                Crawling
+            </div>
+        </div>
+        <div id="app">
+            <div class="title">
+                App Development
+            </div>
+        </div>
+        <div id="practice">
+            <div class="title">
+                Practice
+            </div>
+        </div>
+        <div id="others">
+            <div class="title">
+                Others
+            </div>
+        </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.extend({
+                'goAnchor': function (to, time) {
+                    $obj = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+                    $($obj).animate({
+                        scrollTop: to
+                    }, time);
+                }
+            });
+
+            $('#goCrawling').click(function () {
+                $.goAnchor($('#crawling').offset().top, 500);
+            });
+            $('#goApp').click(function () {
+                $.goAnchor($('#app').offset().top, 500);
+            });
+            $('#goPractice').click(function () {
+                $.goAnchor($('#practice').offset().top, 500);
+            });
+            $('#goOthers').click(function () {
+                $.goAnchor($('#others').offset().top, 500);
+            });
+            $('#goTopBtn').click(function () {
+                $.goAnchor($('#topBox').offset().top, 500);
+            });
+        });
+    </script>
+
 </body>
 </html>

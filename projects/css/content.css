@@ -44,5 +44,6 @@
 }
 
 .blockImg > a > img{
-    width: 30vw;
+    width: 20vw;
+    border-radius: 24px;
 }

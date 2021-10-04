@@ -27,24 +27,14 @@ window.onload = function () {
         'Top 20 Programming Languages Web Crawler'
     ]
     crawlingContent = [
-        'Web crawl receipt prize number, auto-check in txt file.',
-        'Generates a word cloud image according to ptt.',
-        'Web crawling and Data collation recipes of Harvest Moon.',
-        'Crawls videos by the keyword and the number you input.',
-        'Web crawling dog pictures.',
-        'Web crawling the 5 latest activities on a webpage.',
-        'Crawls the episode URL of running man.',
-        'Crawls the top20 programming languages.'
-    ]
-    crawlingImg = [
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS'
+        'Web crawl receipt prize number and then auto checks your receipt number in txt file.',
+        'Generates a word cloud image according to first 10 pages of ptt.',
+        'Web crawling and Data collation recipes of Harvest Moon, allows users enter multiple ingredients to find the recipe.',
+        'Crawls videos by the keyword and the number you enter after the code execution.',
+        'Web crawling dog pictures according to the webpage of aowoo club in NDHU.',
+        'Web crawling the 5 latest activities according to the webpage of Activity Center in NDHU.',
+        'Crawls the episode URL of running man according to you input.',
+        'Crawls the top20 programming languages on the webpage TIOBE.'
     ]
     crawlingLink = [
         'auto-receipt-check',
@@ -62,17 +52,12 @@ window.onload = function () {
         'Swift ToDo List.',
         'Swift Random Photo Generator.'
     ]
-    
     appContent = [
         'A to do list app, code in swift.',
         'Generates a random photo after you click the button.'
     ]
-    appImg = [
-        'pro_HMDS',
-        'pro_HMDS'
-    ]
     appLink = [
-        'swift-todo-list',
+        'A to do list coded using swift',
         'swift-random-photo-generator'
     ]
 
@@ -92,14 +77,6 @@ window.onload = function () {
         'My submissions on ZeroJudge.',
         'My practice code, 1 star UVa problems.',
         'My submissions on LeetCode.'
-    ]
-    practiceImg = [
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS'
     ]
     practiceLink = [
         'dynamic-programming',
@@ -123,12 +100,6 @@ window.onload = function () {
         'Sorts your "to do list.txt" by date in a fixed format.',
         'This is a mini math game you can play on console.'
     ]
-    othersImg = [
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS',
-        'pro_HMDS'
-    ]
     othersLink = [
         'js-face-detection',
         'js-sort-visualization',
@@ -148,12 +119,11 @@ window.onload = function () {
              + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + crawlingLink[i] + `">
-                    <img src="../img/` + crawlingImg[i] + `.png">
+                    <img src="../img/project_images/` + crawlingLink[i] + `.PNG">
                 </a>
             </div>
         </div>
         `
-        console.log("https://github.com/michael21910/" + crawlingLink[i]);
         crawlingBlocks.insertAdjacentHTML('beforeend', temp);
     }
 
@@ -169,7 +139,7 @@ window.onload = function () {
              + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + appLink[i] + `">
-                    <img src="../img/` + appImg[i] + `.png">
+                    <img src="../img/project_images/` + appLink[i] + `.PNG">
                 </a>
             </div>
         </div>
@@ -189,7 +159,7 @@ window.onload = function () {
              + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + practiceLink[i] + `">
-                    <img src="../img/` + practiceImg[i] + `.png">
+                    <img src="../img/project_images/` + practiceLink[i] + `.PNG">
                 </a>
             </div>
         </div>
@@ -209,7 +179,7 @@ window.onload = function () {
              + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + othersLink[i] + `">
-                    <img src="../img/` + othersImg[i] + `.png">
+                    <img src="../img/project_images/` + othersLink[i] + `.PNG">
                 </a>
             </div>
         </div>

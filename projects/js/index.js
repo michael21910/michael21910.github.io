@@ -15,7 +15,7 @@ window.onload = function () {
     practiceBlocks = document.getElementById('practiceBlocks')
     othersBlocks = document.getElementById('othersBlocks')
 
-    // Crawling part
+    // projects - Crawling part
     crawlingTitle = [
         'Auto Receipt Check',
         'PTT Word Cloud Generator',
@@ -47,7 +47,7 @@ window.onload = function () {
         'top20-programming-langs-web-crawler'
     ]
 
-    // App Development part
+    // projects - App Development part
     appTitle = [
         'Swift ToDo List.',
         'Swift Random Photo Generator.'
@@ -57,11 +57,11 @@ window.onload = function () {
         'Generates a random photo after you click the button.'
     ]
     appLink = [
-        'A to do list coded using swift',
+        'swift-todo-list',
         'swift-random-photo-generator'
     ]
 
-    // Practice part
+    // projects - Practice part
     practiceTitle = [
         'Dynamic Programming',
         'C Programming Lab',
@@ -87,7 +87,7 @@ window.onload = function () {
         'leetcode'
     ]
 
-    // Others part
+    // projects - Others part
     othersTitle = [
         'JS Face Detection',
         'JS Sort Visualization',
@@ -108,18 +108,18 @@ window.onload = function () {
     ]
 
     // add projects block - crawling
-    for(let i = 0; i < crawlingTitle.length; i++) {
-        let temp=`
-        <div class="blockTitle">` + 
+    for (let i = 0; i < crawlingTitle.length; i++) {
+        let temp = `
+        <div class="blockTitle">` +
             crawlingTitle[i]
-         + `</div>
+            + `</div>
         <div class="block">
-            <div class="blockContent">` + 
-                crawlingContent[i]
-             + `</div>
+            <div class="blockContent">` +
+            crawlingContent[i]
+            + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + crawlingLink[i] + `">
-                    <img src="../img/project_images/` + crawlingLink[i] + `.PNG">
+                    <img src="../img/project_images/` + crawlingLink[i] + `.jpg">
                 </a>
             </div>
         </div>
@@ -128,18 +128,18 @@ window.onload = function () {
     }
 
     // add projects block - app development
-    for(let i = 0; i < appTitle.length; i++) {
-        let temp=`
-        <div class="blockTitle">` + 
+    for (let i = 0; i < appTitle.length; i++) {
+        let temp = `
+        <div class="blockTitle">` +
             appTitle[i]
-         + `</div>
+            + `</div>
         <div class="block">
-            <div class="blockContent">` + 
-                appContent[i]
-             + `</div>
+            <div class="blockContent">` +
+            appContent[i]
+            + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + appLink[i] + `">
-                    <img src="../img/project_images/` + appLink[i] + `.PNG">
+                    <img src="../img/project_images/` + appLink[i] + `.jpg">
                 </a>
             </div>
         </div>
@@ -148,18 +148,18 @@ window.onload = function () {
     }
 
     // add projects block - practice
-    for(let i = 0; i < practiceTitle.length; i++) {
-        let temp=`
-        <div class="blockTitle">` + 
+    for (let i = 0; i < practiceTitle.length; i++) {
+        let temp = `
+        <div class="blockTitle">` +
             practiceTitle[i]
-         + `</div>
+            + `</div>
         <div class="block">
-            <div class="blockContent">` + 
-                practiceContent[i]
-             + `</div>
+            <div class="blockContent">` +
+            practiceContent[i]
+            + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + practiceLink[i] + `">
-                    <img src="../img/project_images/` + practiceLink[i] + `.PNG">
+                    <img src="../img/project_images/` + practiceLink[i] + `.jpg">
                 </a>
             </div>
         </div>
@@ -168,18 +168,18 @@ window.onload = function () {
     }
 
     // add projects block - others
-    for(let i = 0; i < othersTitle.length; i++) {
-        let temp=`
-        <div class="blockTitle">` + 
+    for (let i = 0; i < othersTitle.length; i++) {
+        let temp = `
+        <div class="blockTitle">` +
             othersTitle[i]
-         + `</div>
+            + `</div>
         <div class="block">
-            <div class="blockContent">` + 
-                othersContent[i]
-             + `</div>
+            <div class="blockContent">` +
+            othersContent[i]
+            + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + othersLink[i] + `">
-                    <img src="../img/project_images/` + othersLink[i] + `.PNG">
+                    <img src="../img/project_images/` + othersLink[i] + `.jpg">
                 </a>
             </div>
         </div>

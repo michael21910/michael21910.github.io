@@ -57,7 +57,7 @@ window.onload = function () {
         'Generates a random photo after you click the button.'
     ]
     appLink = [
-        'A to do list coded using swift',
+        'swift-todo-list',
         'swift-random-photo-generator'
     ]
 
@@ -119,7 +119,7 @@ window.onload = function () {
             + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + crawlingLink[i] + `">
-                    <img src="../img/project_images/` + crawlingLink[i] + `.PNG">
+                    <img src="../img/project_images/` + crawlingLink[i] + `.jpg">
                 </a>
             </div>
         </div>
@@ -139,7 +139,7 @@ window.onload = function () {
             + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + appLink[i] + `">
-                    <img src="../img/project_images/` + appLink[i] + `.PNG">
+                    <img src="../img/project_images/` + appLink[i] + `.jpg">
                 </a>
             </div>
         </div>
@@ -159,7 +159,7 @@ window.onload = function () {
             + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + practiceLink[i] + `">
-                    <img src="../img/project_images/` + practiceLink[i] + `.PNG">
+                    <img src="../img/project_images/` + practiceLink[i] + `.jpg">
                 </a>
             </div>
         </div>
@@ -179,7 +179,7 @@ window.onload = function () {
             + `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + othersLink[i] + `">
-                    <img src="../img/project_images/` + othersLink[i] + `.PNG">
+                    <img src="../img/project_images/` + othersLink[i] + `.jpg">
                 </a>
             </div>
         </div>

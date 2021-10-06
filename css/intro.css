@@ -22,6 +22,7 @@
     align-items: center;
     justify-content: center;
     padding: 7.5vh 0 7.5vh 0;
+    text-align: justify;
 }
 
 .introRight{
@@ -39,7 +40,7 @@
 }
 
 .intro > div > div{
-    text-indent: 2em;
+    text-indent: 1em;
 }
 
 .intro > div > div > span{

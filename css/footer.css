@@ -2,22 +2,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 15vh;
+    margin: 2.5vh 0 5vh 0;
 }
 
 #footer > div{
     color: #f2f0dd;
-    font-size: 1.625vw;
+    font-size: 1.25vw;
 }
 
 @media screen and (max-width: 720px){
     #footer{
-        height: 5vh;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 2vh;
         margin-bottom: 3vh;
     }
-    
-    #footer > div{
-        font-size: 3vw;
-    }
-
 }

@@ -17,11 +17,11 @@
 
 @media screen and (max-width: 720px){
     .title{
-        font-size: 6vw !important;
+        font-size: 8vw !important;
         margin-bottom: 1.125vh;
     }
     
     .title > span{
-        font-size: 8vw !important;
+        font-size: 10vw !important;
     }
 }

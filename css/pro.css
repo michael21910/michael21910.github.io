@@ -13,9 +13,10 @@
 }
 
 .blocks{
-    width: 65vw;
-    height: 50vh;
-    border-radius: 18px;
+    width: 80vw;
+    height: auto;
+    border-radius: 0 24px 24px 0;
+    padding: 6vh 0 6vh 0;
     margin-bottom: 10vh;
     background-color: #f2f0dd;
     display: flex;
@@ -27,6 +28,7 @@
     background-color: #fffbdb;
     flex-direction: row-reverse;
     float: right;
+    border-radius: 24px 0 0 24px !important;
 }
 
 .paragraphContainer{
@@ -54,12 +56,7 @@
     font-size: 1.35vw;
     font-weight: normal;
     color: #565656;
-}
-
-.paragraphContent > a{
-    text-decoration: none;
-    color: #565656;
-    border-bottom: 1px #565656 solid;
+    text-align: justify;
 }
 
 .paragraphBtnContainer{
@@ -89,13 +86,13 @@
         margin-top: 3vh;
         margin-bottom: 3vh;
     }
-    
+
     #projects > div > a{
-        width: 50vw;
+        width: 80vw;
     }
     
     #projects > div > a > img{
-        width: inherit;
+        width: 80vw;
     }
 
     .proTitleLoc{
@@ -104,42 +101,56 @@
     
     .blocks{
         width: 100vw;
-        height: 25vh;
+        height: auto;
         margin-bottom: 3vh;
-        border-radius: 12px;
+        border-radius: 0 0 0 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5vh 0 2.5vh 0;
     }
-    
+
     .blockright{
+        border-radius: 0 0 0 0 !important;
         transform: translate(0%, 0%);
     }
     
+    .paragraphContainer{
+        width: 80vw;
+    }
+
     .paragraphContainer > div{
-        line-height: 1.85vh;
+        line-height: auto;
     }
     
     .paragraphTitle{
-        font-size: 3.5vw;
-        padding-bottom: 0vh;
+        font-size: 5.5vw;
+        padding: 1vh 0 1vh 0;
+        margin: 0 auto;
     }
     
     .paragraphContent{
-        font-size: 2.25vw;
+        font-size: 4vw;
     }
     
-    .paragraphContent > a{
-        border-bottom: 0.5px #484848 solid;
-        border-radius: 0;
+    .paragraphBtnContainer-margin-top-more{
+        margin-top: 1vh !important;
     }
 
-    .paragraphBtnContainer-margin-top-more{
-        margin-top: 0.5vh;
+    .paragraphBtnContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        margin: 0 auto;
     }
 
     .paragraphBtnContainer > a{
-        font-size: 2vw;
-        height: 1vh;
-        line-height: 1vh;
-        margin-top: 0.5vh;
-        margin-bottom: 0.5vh;
+        font-size: 1vw !important;
+        height: auto;
+        padding: 0.25vh 5vw 0.25vh 5vw;
+        margin: 0.5vh 0 0.5vh 0;
+        width: 50vw;
     }
 }

@@ -44,7 +44,10 @@
 }
 
 .intro > div > div > span{
-    border-bottom: 1px #727272 solid;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 0 10px;
+    border-radius: 20px;
+    color: #f2f0dd;
 }
 
 .introRight > img{
@@ -62,6 +65,10 @@
     } 
 
     .intro{
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
         padding: 3vh 0 3vh 0;
     }
     
@@ -73,7 +80,8 @@
         line-height: 3.25vh;
     }
 
-    .introRight{
-        display: none;
+    .introRight > img{
+        width: 50%;
+        padding-bottom: 3vh;
     }
 }

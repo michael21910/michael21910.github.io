@@ -1,61 +1,9 @@
-#topBtn{
-    display: block;
-    position: fixed;
-    bottom: 3vw;
-    right: 3vw;
-    width: 5vw;
-    height: 5vw;
-    z-index: 99;
-
-    font-family: 'Almendra SC', serif;
-    font-size: 2vw;
-    background-color: white;
-    border: 2px white solid;
-    border-radius: 50%;
-    
-    cursor: pointer;
-    opacity: 0.75;
-}
-
-#topContainer{
-    text-align: center;
-    padding-top: 10vh;
-    padding-bottom: 5vh;
-}
-
-.title{
-    font-size: 3vw;
-    padding-right: 10vw;
-}
-
-.subtitle{
-    font-size: 4vw;
-    padding-left: 10vw;
-    border-bottom: 2px black solid;
-}
-
 @media screen and (max-width: 720px){
-
-    #topBtn{
-        width: 10vw;
-        height: 10vw;
-        bottom: 5vw;
-        right: 5vw;
-        font-size: 3.5vw;
+    #topBox {
+        opacity: 1;
     }
 
-    #topContainer{
-        text-align: center;
-    }
-    
-    .title{
-        font-size: 6vw;
-        padding-right: 35vw;
-    }
-    
-    .subtitle{
-        font-size: 8vw;
-        padding-left: 25vw;
-        border-bottom: 0.5px black solid;
+    #topBox > div {
+        padding-right: 0;
     }
 }

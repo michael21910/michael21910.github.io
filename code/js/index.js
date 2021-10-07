@@ -2737,7 +2737,7 @@ function updateTable(table) {
 
 function updateCode(target){
     // display the background color
-    document.getElementById('codeContainer').style.backgroundColor = '#ffc4b6'
+    document.getElementById('codeContainer').style.backgroundColor = '#f2f0dd'
     //if the user choose uva problems
     if(target.options[target.selectedIndex].value[0] === 'u'){
         for(let i = 0; i < solved_cpeOneStar.length; i++){

@@ -1,9 +1,87 @@
-#navi > ul > li > a{
-    font-size: 1.5vw;
+#navi{
+    opacity: 1 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5vh;
+    opacity: 0;
+    transition: 2s;
+    font-family: 'Almendra SC', serif;
+    font-weight: 500;
+}
+
+.line{
+    background-color: #F2F0DD;
+    height: 1vh;
+    border: 1px #F2F0DD solid;
+    width: 22.5vw;
+}
+
+.line-left{
+    border-radius: 0 24px 24px 0;
+}
+
+.line-right{
+    border-radius: 24px 0 0 24px;
+}
+
+.square{
+    height: 20px;
+    width: 20px;
+    transform: rotate(45deg);
+    background-color: #F2F0DD;
+    border-radius: 4px;
+}
+
+.naviLine{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F2F0DD;
+    border-radius: 24px;
+    padding: 1vh 2.5vw 1vh 2.5vw !important;
+    height: 2.985vh;
+}
+
+.naviLine > div{
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.naviLine > div > a{
+    color: #000000;
+    text-decoration-line: none;
+    font-size: 1.33vw;
 }
 
 @media screen and (max-width: 720px){
-    #navi > ul > li > a{
-        font-size: 4vw;
+    #navi{
+        padding-top: 2vh;
+    }
+    
+    .line{
+        display: none;
+    }
+    
+    .square{
+        display: none;
+    }
+    
+    .naviLine{
+        padding: 2vh 2.5vw 2vh 2.5vw !important;
+        width: 90vw;
+        height: 2vh;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    
+    .naviLine > div{
+        line-height: 100%;
+    }
+
+    .naviLine > div > a{
+        font-size: 3.6vw;
     }
 }

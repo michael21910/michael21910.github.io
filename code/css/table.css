@@ -7,8 +7,9 @@
 #tableContainer div{
     font-size: 2vw;
     text-align: center;
-    border-left: 2px black solid;
-    border-right: 2px black solid;
+    color: #f0eccd;
+    border-left: 2px #f0eccd solid;
+    border-right: 2px #f0eccd solid;
 }
 
 #table{
@@ -40,9 +41,9 @@
 
     #tableContainer div{
         margin-top: 3vh;
-        font-size: 4.25vw;
-        border-left: 0.25px black solid;
-        border-right: 0.25px black solid;
+        font-size: 5vw;
+        border-left: 0.25px #f0eccd solid;
+        border-right: 0.25px #f0eccd solid;
     }
     
     #table{

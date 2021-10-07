@@ -153,4 +153,8 @@
         margin: 0.5vh 0 0.5vh 0;
         width: 50vw;
     }
+
+    .paragraphBtnContainer > a > div{
+        font-size: 4vw;
+    }
 }

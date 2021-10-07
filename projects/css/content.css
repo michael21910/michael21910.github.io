@@ -41,9 +41,56 @@
 .blockContent {
     width: 30vw;
     font-size: 1.75vw;
+    text-align: justify;
 }
 
 .blockImg > a > img{
     width: 20vw;
     border-radius: 24px;
+}
+
+@media screen and (max-width: 720px) {
+    .title > div {
+        font-size: 8vw;
+    }
+
+    .title > div > span {
+        font-size: 10vw;
+    }
+
+    .decoLine {
+        width: 95vw;
+    }
+
+    .blockTitle {
+        font-size: 5.5vw;
+        margin: 0 auto;
+        margin-bottom: 1vh;
+        text-align: center;
+    }
+
+    .block {
+        width: 100vw;
+        height: auto;
+        border-radius: 0;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .blockContent {
+        font-size: 4vw;
+        width: 70vw;
+        text-align: justify;
+        margin: 1.5vh 0 3vh 0;
+    }
+
+    .blockImg {
+        margin-top: 3vh;
+    }
+
+    .blockImg > a > img {
+        width: 70vw;
+    }
 }

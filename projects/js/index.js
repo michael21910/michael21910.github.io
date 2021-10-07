@@ -49,8 +49,8 @@ window.onload = function () {
 
     // projects - App Development part
     appTitle = [
-        'Swift ToDo List.',
-        'Swift Random Photo Generator.'
+        'Swift ToDo List',
+        'Swift Random Photo Generator'
     ]
     appContent = [
         'A to do list app, code in swift.',

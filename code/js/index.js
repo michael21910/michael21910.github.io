@@ -22,7 +22,7 @@ var solved_leetcode = [
     1431, 1450, 1470, 1480, 1486,
     1512, 1603, 1614, 1662, 1672,
     1688, 1704, 1725, 1732, 1768,
-    1773, 1796, 1812
+    1773, 1796, 1812, 1920
 ]
 
 // sort arrays
@@ -1735,7 +1735,7 @@ var UVa_ac = [
 // my LeetCode accept codes
 var LeetCode_ac = [
     `
-    //LeetCode1
+    // LeetCode 1
     class Solution {
         public:
             vector&ltint&gt twoSum(vector&ltint&gt& nums, int target) {
@@ -1759,7 +1759,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode9
+    // LeetCode 9
     class Solution {
         public:
             bool isPalindrome(int x) {
@@ -1778,7 +1778,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode20
+    // LeetCode 20
     class Solution {
         public:
             bool isValid(string s){
@@ -1813,7 +1813,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode35
+    // LeetCode 35
     class Solution {
         public:
             int searchInsert(vector&ltint&gt& nums, int target) {
@@ -1822,7 +1822,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode53
+    // LeetCode 53
     class Solution {
         public:
             int maxSubArray(vector&ltint&gt& nums) {
@@ -1841,7 +1841,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode66
+    // LeetCode 66
     class Solution {
         public:
             vector&ltint&gt plusOne(vector&ltint&gt& digits) {
@@ -1859,7 +1859,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode122
+    // LeetCode1 22
     class Solution {
         public:
             int maxProfit(vector&ltint&gt& prices) {
@@ -1874,7 +1874,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode300
+    // LeetCode 300
     class Solution {
         public:
             int lengthOfLIS(vector&ltint&gt& nums) {
@@ -1895,7 +1895,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode326
+    // LeetCode 326
     class Solution {
         public:
             bool isPowerOfThree(int n) {
@@ -1907,7 +1907,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode367
+    // LeetCode 367
     class Solution {
         public:
             bool isPowerOfThree(int n) {
@@ -1919,7 +1919,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode645
+    // LeetCode 645
     class Solution {
         public:
             vector&ltint&gt findErrorNums(vector&ltint&gt& nums) {
@@ -1943,7 +1943,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode704
+    // LeetCode 704
     class Solution {
         public:
             int search(vector&ltint&gt& nums, int target) {
@@ -1955,7 +1955,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode709
+    // LeetCode 709
     class Solution {
         public:
             string toLowerCase(string str) {
@@ -1967,7 +1967,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode771
+    // LeetCode 771
     class Solution {
         public:
             int numJewelsInStones(string jewels, string stones) {
@@ -1984,7 +1984,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode832
+    // LeetCode 832
     class Solution {
         public:
             vector&ltvector&ltint&gt&gt flipAndInvertImage(vector&ltvector&ltint&gt&gt& image) {
@@ -1999,7 +1999,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode938
+    // LeetCode 938
     /**
      * Definition for a binary tree node.
      * struct TreeNode {
@@ -2034,7 +2034,7 @@ var LeetCode_ac = [
     };
     `,
     `
-    //LeetCode943
+    // LeetCode 943
     class Solution {
         vector&ltvector&ltint&gt&gt kmp;   // store prev for each string
         vector&ltvector&ltint&gt&gt edges; // store length of string j - string i
@@ -2158,7 +2158,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode946
+    // LeetCode 946
     class Solution
     {
     public:
@@ -2201,7 +2201,7 @@ var LeetCode_ac = [
     };
     `,
     `
-    //LeetCode977
+    // LeetCode 977
     class Solution {
         public:
             vector&ltint&gt sortedSquares(vector&ltint&gt& nums) {
@@ -2214,7 +2214,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1108
+    // LeetCode 1108
     class Solution {
         public:
             string defangIPaddr(string address) {
@@ -2232,7 +2232,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1143
+    // LeetCode 1143
     class Solution {
         public:
             int longestCommonSubsequence(string text1, string text2) {
@@ -2263,7 +2263,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1221
+    // LeetCode 1221
     class Solution {
         public:
             int balancedStringSplit(string s) {
@@ -2284,7 +2284,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1295
+    // LeetCode 1295
     class Solution {
         public:
             int findNumbers(vector&ltint&gt& nums) {
@@ -2299,7 +2299,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1313
+    // LeetCode 1313
     class Solution {
         public:
             vector&ltint&gt decompressRLElist(vector&ltint&gt& nums) {
@@ -2314,7 +2314,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1323
+    // LeetCode 1323
     class Solution {
         public:
             int maximum69Number (int num) {
@@ -2330,7 +2330,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1365
+    // LeetCode 1365
     class Solution {
         public:
             vector&ltint&gt smallerNumbersThanCurrent(vector&ltint&gt& nums) {
@@ -2347,7 +2347,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1389
+    // LeetCode 1389
     class Solution {
         public:
             vector&ltint&gt createTargetArray(vector&ltint&gt& nums, vector&ltint&gt& index) {
@@ -2360,7 +2360,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1431
+    // LeetCode 1431
     class Solution {
         public:
             vector&ltbool&gt kidsWithCandies(vector&ltint&gt& candies, int extraCandies) {
@@ -2379,7 +2379,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1450
+    // LeetCode 1450
     class Solution {
         public:
             int busyStudent(vector&ltint&gt& startTime, vector&ltint&gt& endTime, int queryTime) {
@@ -2394,7 +2394,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1470
+    // LeetCode 1470
     class Solution {
         public:
             vector&ltint&gt shuffle(vector&ltint&gt& nums, int n) {
@@ -2409,7 +2409,7 @@ var LeetCode_ac = [
         
     `,
     `
-    //LeetCode1480
+    // LeetCode 1480
     class Solution {
         public:
             vector&ltint&gt runningSum(vector&ltint&gt& nums) {
@@ -2424,7 +2424,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1486
+    // LeetCode 1486
     class Solution {
         public:
             int xorOperation(int n, int start) {
@@ -2437,7 +2437,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1512
+    // LeetCode 1512
     class Solution {
         public:
             int numIdenticalPairs(vector&ltint&gt& nums) {
@@ -2454,7 +2454,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1603
+    // LeetCode 1603
     class ParkingSystem {
         public:
             vector&ltint&gt parking;
@@ -2474,7 +2474,7 @@ var LeetCode_ac = [
          */
     `,
     `
-    //LeetCode1614
+    // LeetCode 1614
     class Solution {
         public:
             int maxDepth(string s) {
@@ -2495,7 +2495,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1662
+    // LeetCode 1662
     class Solution {
         public:
             bool arrayStringsAreEqual(vector&ltstring&gt& word1, vector&ltstring&gt& word2) {
@@ -2511,7 +2511,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1672
+    // LeetCode 1672
     class Solution {
         public:
             int maximumWealth(vector&ltvector&ltint&gt&gt& accounts) {
@@ -2530,7 +2530,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1688
+    // LeetCode 1688
     class Solution {
         public:
             int numberOfMatches(int n) {
@@ -2539,7 +2539,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1704
+    // LeetCode 1704
     class Solution {
         public:
             bool halvesAreAlike(string s) {
@@ -2559,7 +2559,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1725
+    // LeetCode 1725
     class Solution {
         public:
             int countGoodRectangles(vector&ltvector&ltint&gt&gt& rectangles) {
@@ -2583,7 +2583,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1732
+    // LeetCode 1732
     class Solution {
         public:
             int largestAltitude(vector&ltint&gt& gain) {
@@ -2597,7 +2597,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1768
+    // LeetCode 1768
     class Solution {
         public:
             string mergeAlternately(string word1, string word2) {
@@ -2617,7 +2617,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1773
+    // LeetCode 1773
     class Solution {
         public:
             int countMatches(vector&ltvector&ltstring&gt&gt& items, string ruleKey, string ruleValue) {
@@ -2638,7 +2638,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode 1796
+    // LeetCode 1796
     class Solution {
         public:
             int secondHighest(string s) {
@@ -2663,7 +2663,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    //LeetCode1812
+    // LeetCode 1812
     class Solution {
         public:
             bool squareIsWhite(string coordinates) {
@@ -2683,6 +2683,19 @@ var LeetCode_ac = [
                         return true;
                     }
                 }
+            }
+        };
+    `,
+    `
+    // LeetCode 1920
+    class Solution {
+        public:
+            vector<int> buildArray(vector<int>& nums) {
+                vector<int> output(nums.size(), 0);
+                for(int i = 0; i < nums.size(); i++) {
+                    output[i] = nums[nums[i]];
+                }
+                return output;
             }
         };
     `

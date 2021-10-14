@@ -22,7 +22,7 @@ var solved_leetcode = [
     1431, 1450, 1470, 1480, 1486,
     1512, 1603, 1614, 1662, 1672,
     1688, 1704, 1725, 1732, 1768,
-    1773, 1796, 1812, 1920
+    1773, 1796, 1812, 1920, 1929
 ]
 
 // sort arrays
@@ -2696,6 +2696,19 @@ var LeetCode_ac = [
                     output[i] = nums[nums[i]];
                 }
                 return output;
+            }
+        };
+    `,
+    `
+    // LeetCode 1929
+    class Solution {
+        public:
+            vector<int> getConcatenation(vector<int>& nums) {
+                int n = nums.size();
+                for(int i = 0; i < n; i++) {
+                    nums.push_back(nums[i]);
+                }
+                return nums;
             }
         };
     `

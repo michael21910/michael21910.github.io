@@ -49,14 +49,17 @@ window.onload = function () {
 
     // projects - App Development part
     appTitle = [
+        'Swift Temperature Converter',
         'Swift ToDo List',
         'Swift Random Photo Generator'
     ]
     appContent = [
+        'An app that converts the temperature in Fahrenheit your input, and then changes to Celsius.',
         'A to do list app, code in swift.',
         'Generates a random photo after you click the button.'
     ]
     appLink = [
+        'swift-temperature-converter',
         'swift-todo-list',
         'swift-random-photo-generator'
     ]

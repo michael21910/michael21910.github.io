@@ -22,7 +22,7 @@ window.onload = function () {
         'Harvest Moon Recipe Web Crawler',
         'YouTube Video Web Crawler',
         'NDHU Dogs Web Crawler',
-        'NDHUAC Latest Activity Web Crawler',
+        'NDHU Arts Center Activity Web Crawler',
         'Running Man Web Crawler',
         'Top 20 Programming Languages Web Crawler'
     ]
@@ -42,7 +42,7 @@ window.onload = function () {
         'harvest-moon-recipe-web-crawler',
         'yt-video-web-crawler',
         'NDHU-dogs-web-crawler',
-        'NDHUAC-latest-activity-web-crawler',
+        'NDHU-arts-center-activity-web-crawler',
         'running-man-web-crawler',
         'top20-programming-langs-web-crawler'
     ]

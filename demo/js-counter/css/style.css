@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-size: 100vw 100vw;
+
+    background-color: #694635;
+    
+    background-image: 
+    linear-gradient(
+        45deg,
+        rgba(255, 255, 255, .3) 25%, 
+        transparent 25%, 
+        transparent 50%, 
+        rgba(255, 255, 255, .3) 50%, 
+        rgba(255, 255, 255, .3) 75%, 
+        transparent 75%, 
+        transparent),
+    linear-gradient(
+        135deg,
+        rgba(255, 255, 255, .3) 25%, 
+        transparent 25%, 
+        transparent 50%, 
+        rgba(255, 255, 255, .3) 50%, 
+        rgba(255, 255, 255, .3) 75%, 
+        transparent 75%, 
+        transparent);
+
+    font-family: 'Pacifico', cursive;
+    color: white;
+}

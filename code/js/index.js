@@ -7,7 +7,7 @@ var solved_cpeOneStar = [
     11349, 11461, 11063, 10071, 10093,
     948, 10019, 10931, 11005, 10050,
     10193, 10190, 10235, 10922, 11417,
-    10908, 10221, 10642, 10242,10057,
+    10908, 10221, 10642, 10242, 10057,
     10062, 299, 10226, 10189, 10409,
     10415, 118, 11150, 11321
 ]
@@ -22,7 +22,8 @@ var solved_leetcode = [
     1431, 1450, 1470, 1480, 1486,
     1512, 1603, 1614, 1662, 1672,
     1688, 1704, 1725, 1732, 1768,
-    1773, 1796, 1812, 1920, 1929
+    1773, 1796, 1812, 1920, 1929,
+    141, 700
 ]
 
 // sort arrays
@@ -1510,7 +1511,7 @@ var UVa_ac = [
         return 0;
     }
     `,
-    
+
     `
     //11321
     #include &ltbits/stdc++.h&gt
@@ -1859,7 +1860,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    // LeetCode1 22
+    // LeetCode 122
     class Solution {
         public:
             int maxProfit(vector&ltint&gt& prices) {
@@ -1870,6 +1871,35 @@ var LeetCode_ac = [
                     }
                 }
                 return ans;
+            }
+        };
+    `,
+    `
+    // LeetCode1 141
+    /**
+     * Definition for singly-linked list.
+     * struct ListNode {
+     *     int val;
+     *     ListNode *next;
+     *     ListNode(int x) : val(x), next(NULL) {}
+     * };
+     */
+    class Solution {
+        public:
+            bool hasCycle(ListNode *head) {
+                if(head == NULL) {
+                    return false;
+                }
+                ListNode *fast = head;
+                ListNode *slow = head;
+                while(fast -&gt; next != NULL && fast -&gt; next -&gt; next != NULL) {
+                    fast = fast -&gt; next -&gt; next;
+                    slow = slow -&gt; next;
+                    if(fast == slow) {
+                        return true;
+                    }
+                }
+                return false;
             }
         };
     `,
@@ -1939,6 +1969,38 @@ var LeetCode_ac = [
                     }
                 }
                 return {nums[l], l + 1};
+            }
+        };
+    `,
+    `
+    // LeetCode 700
+    /**
+     * Definition for a binary tree node.
+     * struct TreeNode {
+     *     int val;
+     *     TreeNode *left;
+     *     TreeNode *right;
+     *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+     *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+     *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+     * };
+     */
+    class Solution {
+        public:
+            TreeNode* searchBST(TreeNode* root, int val) {
+                if(root == NULL) {
+                    return NULL;
+                }
+                if(root -> val == val) {
+                    return root;
+                }
+                else if(root -> val < val) {
+                    return searchBST(root -> right, val);
+                }
+                else if(root -> val > val) {
+                    return searchBST(root -> left, val);
+                }
+                return NULL;
             }
         };
     `,
@@ -2690,9 +2752,9 @@ var LeetCode_ac = [
     // LeetCode 1920
     class Solution {
         public:
-            vector<int> buildArray(vector<int>& nums) {
-                vector<int> output(nums.size(), 0);
-                for(int i = 0; i < nums.size(); i++) {
+            vector&lt;int&gt; buildArray(vector&lt;int&gt;& nums) {
+                vector&lt;int&gt; output(nums.size(), 0);
+                for(int i = 0; i &lt; nums.size(); i++) {
                     output[i] = nums[nums[i]];
                 }
                 return output;
@@ -2703,9 +2765,9 @@ var LeetCode_ac = [
     // LeetCode 1929
     class Solution {
         public:
-            vector<int> getConcatenation(vector<int>& nums) {
+            vector&lt;int&gt; getConcatenation(vector&lt;int&gt;& nums) {
                 int n = nums.size();
-                for(int i = 0; i < n; i++) {
+                for(int i = 0; i &lt; n; i++) {
                     nums.push_back(nums[i]);
                 }
                 return nums;
@@ -2761,22 +2823,22 @@ function updateTable(table) {
     }
 }
 
-function updateCode(target){
+function updateCode(target) {
     // display the background color
     document.getElementById('codeContainer').style.backgroundColor = '#f2f0dd'
     //if the user choose uva problems
-    if(target.options[target.selectedIndex].value[0] === 'u'){
-        for(let i = 0; i < solved_cpeOneStar.length; i++){
-            if('u' + solved_cpeOneStar[i] === target.options[target.selectedIndex].value){
+    if (target.options[target.selectedIndex].value[0] === 'u') {
+        for (let i = 0; i < solved_cpeOneStar.length; i++) {
+            if ('u' + solved_cpeOneStar[i] === target.options[target.selectedIndex].value) {
                 document.getElementById('codeSpace').innerHTML = UVa_ac[i]
                 document.getElementById('problemTitle').innerHTML = 'CPE 1 star - UVa' + solved_cpeOneStar[i]
             }
         }
     }
     //if the user choose leetcode problems
-    if(target.options[target.selectedIndex].value[0] === 'l'){
-        for(let i = 0; i < solved_leetcode.length; i++){
-            if('l' + solved_leetcode[i] === target.options[target.selectedIndex].value){
+    if (target.options[target.selectedIndex].value[0] === 'l') {
+        for (let i = 0; i < solved_leetcode.length; i++) {
+            if ('l' + solved_leetcode[i] === target.options[target.selectedIndex].value) {
                 document.getElementById('codeSpace').innerHTML = LeetCode_ac[i]
                 document.getElementById('problemTitle').innerHTML = 'LeetCode' + solved_leetcode[i]
             }

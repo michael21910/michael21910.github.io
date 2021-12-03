@@ -23,7 +23,7 @@ var solved_leetcode = [
     1512, 1603, 1614, 1662, 1672,
     1688, 1704, 1725, 1732, 1768,
     1773, 1796, 1812, 1920, 1929,
-    141, 700
+    141, 700, 217, 206, 234, 21
 ]
 
 // sort arrays
@@ -1814,6 +1814,38 @@ var LeetCode_ac = [
         };
     `,
     `
+    // LeetCode 21
+    /**
+     * Definition for singly-linked list.
+     * struct ListNode {
+     *     int val;
+     *     ListNode *next;
+     *     ListNode() : val(0), next(nullptr) {}
+     *     ListNode(int x) : val(x), next(nullptr) {}
+     *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+     * };
+     */
+    class Solution {
+        public:
+            ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+                ListNode returnThis(INT_MIN);
+                ListNode *tail = &returnThis;
+                while (list1 && list2) {
+                    if (list1 -> val < list2 -> val) {
+                        tail -> next = list1;
+                        list1 = list1 -> next;
+                    } else {
+                        tail -> next = list2;
+                        list2 = list2 -> next;
+                    }
+                    tail = tail -> next;
+                }
+                tail -> next = list1 ? list1 : list2;
+                return returnThis.next;
+            }
+        };
+    `,
+    `
     // LeetCode 35
     class Solution {
         public:
@@ -1875,7 +1907,7 @@ var LeetCode_ac = [
         };
     `,
     `
-    // LeetCode1 141
+    // LeetCode 141
     /**
      * Definition for singly-linked list.
      * struct ListNode {
@@ -1900,6 +1932,80 @@ var LeetCode_ac = [
                     }
                 }
                 return false;
+            }
+        };
+    `,
+    `
+    // LeetCode 206
+    /**
+     * Definition for singly-linked list.
+     * struct ListNode {
+     *     int val;
+     *     ListNode *next;
+     *     ListNode() : val(0), next(nullptr) {}
+     *     ListNode(int x) : val(x), next(nullptr) {}
+     *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+     * };
+     */
+    class Solution {
+        public:
+            ListNode* reverseList(ListNode* head) {
+                ListNode *curr = head, *prev = NULL, *next = NULL;
+                while(curr != NULL) {
+                    next = curr -> next;
+                    curr -> next = prev;
+                    prev = curr;
+                    curr = next;
+                }
+                head = prev;
+                return head;
+            }
+        };
+    `,
+    `
+    // LeetCode 217
+    class Solution {
+        public:
+            bool containsDuplicate(vector<int>& nums) {
+                sort(nums.begin(), nums.end());
+                int temp = nums[0];
+                for(int i = 1; i < nums.size(); i++) {
+                    if(temp == nums[i]) {
+                        return true;
+                    }
+                    else {
+                        temp = nums[i];
+                        continue;
+                    }
+                }
+                return false;
+            }
+        };
+    `,
+    `
+    // LeetCode 234
+    /**
+     * Definition for singly-linked list.
+     * struct ListNode {
+     *     int val;
+     *     ListNode *next;
+     *     ListNode() : val(0), next(nullptr) {}
+     *     ListNode(int x) : val(x), next(nullptr) {}
+     *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+     * };
+     */
+    class Solution {
+        public:
+            ListNode* reverseList(ListNode* head) {
+                ListNode *curr = head, *prev = NULL, *next = NULL;
+                while(curr != NULL) {
+                    next = curr -> next;
+                    curr -> next = prev;
+                    prev = curr;
+                    curr = next;
+                }
+                head = prev;
+                return head;
             }
         };
     `,

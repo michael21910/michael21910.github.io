@@ -23,7 +23,8 @@ var solved_leetcode = [
     1512, 1603, 1614, 1662, 1672,
     1688, 1704, 1725, 1732, 1768,
     1773, 1796, 1812, 1920, 1929,
-    141, 700, 217, 206, 234, 21
+    141, 700, 217, 206, 234, 21,
+    88, 350, 121
 ]
 
 // sort arrays
@@ -1892,6 +1893,56 @@ var LeetCode_ac = [
         };
     `,
     `
+    // LeetCode 88
+    class Solution {
+        public:
+            void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+                vector<int> temp(n + m, 0);
+                int i = 0, j = 0;
+                while(i < m && j < n) {
+                    if(nums1[i] < nums2[j]) {
+                        temp[i + j] = nums1[i];
+                        i++;
+                    }
+                    else {
+                        temp[i + j] = nums2[j];
+                        j++;
+                    }
+                }
+                while(i < m) {
+                    temp[i + j] = nums1[i];
+                    i++;
+                }
+                while(j < n) {
+                    temp[i + j] = nums2[j];
+                    j++;
+                }
+                for(int t = 0; t < i + j; t++) {
+                    nums1[t] = temp[t];
+                }
+            }
+        };
+    `,
+    `
+    // LeetCode 121
+    class Solution {
+        public:
+            int maxProfit(vector<int>& prices) {
+                int smallest_value = 10001;
+                int max_profit = 0;
+                for(int i = 0; i < prices.size(); i++) {
+                    if(smallest_value > prices[i]) {
+                        smallest_value = prices[i];
+                    }
+                    else if(prices[i] - smallest_value > max_profit) {
+                        max_profit = prices[i] - smallest_value;
+                    }
+                }
+                return max_profit;
+            }
+        };
+    `,
+    `
     // LeetCode 122
     class Solution {
         public:
@@ -2039,6 +2090,32 @@ var LeetCode_ac = [
                     n /= 3;
                 }
                 return (n == 1);
+            }
+        };
+    `,
+    `
+    // LeetCode 350
+    class Solution {
+        public:
+            vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+                sort(nums1.begin(), nums1.end());
+                sort(nums2.begin(), nums2.end());
+                vector<int> result;
+                int i = 0, j = 0;
+                while(i < nums1.size() && j < nums2.size()) {
+                    if(nums1[i] == nums2[j]) {
+                        result.push_back(nums1[i]);
+                        i++;
+                        j++;
+                    }
+                    else if(nums1[i] < nums2[j]) {
+                        i++;
+                    }
+                    else if(nums1[i] > nums2[j]) {
+                        j++;
+                    }
+                }
+                return result;
             }
         };
     `,

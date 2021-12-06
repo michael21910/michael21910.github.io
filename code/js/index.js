@@ -24,7 +24,7 @@ var solved_leetcode = [
     1688, 1704, 1725, 1732, 1768,
     1773, 1796, 1812, 1920, 1929,
     141, 700, 217, 206, 234, 21,
-    88, 350, 121
+    88, 350, 121, 566, 118
 ]
 
 // sort arrays
@@ -1924,6 +1924,24 @@ var LeetCode_ac = [
         };
     `,
     `
+    // LeetCode 118
+    class Solution {
+        public:
+            vector<vector<int>> generate(int numRows) {
+                vector<vector<int>> result;
+                vector<int> temp(1, 1);
+                for(int i = 1; i <= numRows; i++) {
+                    result.push_back(temp);
+                    temp.push_back(0);
+                    for(int j = temp.size() - 1; j >= 1; j--) {
+                        temp[j] = temp[j] + temp[j - 1];
+                    }
+                }
+                return result;
+            }
+        };
+    `,
+    `
     // LeetCode 121
     class Solution {
         public:
@@ -2128,6 +2146,24 @@ var LeetCode_ac = [
                     n /= 3;
                 }
                 return (n == 1);
+            }
+        };
+    `,
+    `
+    // LeetCode 566
+    class Solution {
+        public:
+            vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+                int row = mat.size();
+                int col = mat[0].size();
+                if((row * col != r * c) || (row == r && col == c)) {
+                    return mat;
+                }
+                vector<vector<int>> result(r, vector<int>(c, 0));
+                for(int i = 0; i < row * col; i++) {
+                    result[i / c][i % c] = mat[i / col][i % col];
+                }
+                return result;
             }
         };
     `,

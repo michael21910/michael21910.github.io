@@ -1823,16 +1823,16 @@ var LeetCode_ac = [
                 ListNode returnThis(INT_MIN);
                 ListNode *tail = &returnThis;
                 while (list1 && list2) {
-                    if (list1 -> val < list2 -> val) {
-                        tail -> next = list1;
-                        list1 = list1 -> next;
+                    if (list1 -&gt; val &lt; list2 -&gt; val) {
+                        tail -&gt; next = list1;
+                        list1 = list1 -&gt; next;
                     } else {
-                        tail -> next = list2;
-                        list2 = list2 -> next;
+                        tail -&gt; next = list2;
+                        list2 = list2 -&gt; next;
                     }
-                    tail = tail -> next;
+                    tail = tail -&gt; next;
                 }
-                tail -> next = list1 ? list1 : list2;
+                tail -&gt; next = list1 ? list1 : list2;
                 return returnThis.next;
             }
         };
@@ -1887,11 +1887,11 @@ var LeetCode_ac = [
     // LeetCode 88
     class Solution {
         public:
-            void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-                vector<int> temp(n + m, 0);
+            void merge(vector&lt;int&gt;& nums1, int m, vector&lt;int&gt;& nums2, int n) {
+                vector&lt;int&gt; temp(n + m, 0);
                 int i = 0, j = 0;
-                while(i < m && j < n) {
-                    if(nums1[i] < nums2[j]) {
+                while(i &lt; m && j &lt; n) {
+                    if(nums1[i] &lt; nums2[j]) {
                         temp[i + j] = nums1[i];
                         i++;
                     }
@@ -1900,15 +1900,15 @@ var LeetCode_ac = [
                         j++;
                     }
                 }
-                while(i < m) {
+                while(i &lt; m) {
                     temp[i + j] = nums1[i];
                     i++;
                 }
-                while(j < n) {
+                while(j &lt; n) {
                     temp[i + j] = nums2[j];
                     j++;
                 }
-                for(int t = 0; t < i + j; t++) {
+                for(int t = 0; t &lt; i + j; t++) {
                     nums1[t] = temp[t];
                 }
             }
@@ -1918,13 +1918,13 @@ var LeetCode_ac = [
     // LeetCode 118
     class Solution {
         public:
-            vector<vector<int>> generate(int numRows) {
-                vector<vector<int>> result;
-                vector<int> temp(1, 1);
-                for(int i = 1; i <= numRows; i++) {
+            vector&lt;vector&lt;int&gt;&gt; generate(int numRows) {
+                vector&lt;vector&lt;int&gt;&gt; result;
+                vector&lt;int&gt; temp(1, 1);
+                for(int i = 1; i &lt;= numRows; i++) {
                     result.push_back(temp);
                     temp.push_back(0);
-                    for(int j = temp.size() - 1; j >= 1; j--) {
+                    for(int j = temp.size() - 1; j &gt;= 1; j--) {
                         temp[j] = temp[j] + temp[j - 1];
                     }
                 }
@@ -1936,14 +1936,14 @@ var LeetCode_ac = [
     // LeetCode 121
     class Solution {
         public:
-            int maxProfit(vector<int>& prices) {
+            int maxProfit(vector&lt;int&gt;& prices) {
                 int smallest_value = 10001;
                 int max_profit = 0;
-                for(int i = 0; i < prices.size(); i++) {
-                    if(smallest_value > prices[i]) {
+                for(int i = 0; i &lt; prices.size(); i++) {
+                    if(smallest_value &gt; prices[i]) {
                         smallest_value = prices[i];
                     }
-                    else if(prices[i] - smallest_value > max_profit) {
+                    else if(prices[i] - smallest_value &gt; max_profit) {
                         max_profit = prices[i] - smallest_value;
                     }
                 }
@@ -2012,8 +2012,8 @@ var LeetCode_ac = [
             ListNode* reverseList(ListNode* head) {
                 ListNode *curr = head, *prev = NULL, *next = NULL;
                 while(curr != NULL) {
-                    next = curr -> next;
-                    curr -> next = prev;
+                    next = curr -&gt; next;
+                    curr -&gt; next = prev;
                     prev = curr;
                     curr = next;
                 }
@@ -2026,10 +2026,10 @@ var LeetCode_ac = [
     // LeetCode 217
     class Solution {
         public:
-            bool containsDuplicate(vector<int>& nums) {
+            bool containsDuplicate(vector&lt;int&gt;& nums) {
                 sort(nums.begin(), nums.end());
                 int temp = nums[0];
-                for(int i = 1; i < nums.size(); i++) {
+                for(int i = 1; i &lt; nums.size(); i++) {
                     if(temp == nums[i]) {
                         return true;
                     }
@@ -2059,8 +2059,8 @@ var LeetCode_ac = [
             ListNode* reverseList(ListNode* head) {
                 ListNode *curr = head, *prev = NULL, *next = NULL;
                 while(curr != NULL) {
-                    next = curr -> next;
-                    curr -> next = prev;
+                    next = curr -&gt; next;
+                    curr -&gt; next = prev;
                     prev = curr;
                     curr = next;
                 }
@@ -2106,21 +2106,21 @@ var LeetCode_ac = [
     // LeetCode 350
     class Solution {
         public:
-            vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+            vector&lt;int&gt; intersect(vector&lt;int&gt;& nums1, vector&lt;int&gt;& nums2) {
                 sort(nums1.begin(), nums1.end());
                 sort(nums2.begin(), nums2.end());
-                vector<int> result;
+                vector&lt;int&gt; result;
                 int i = 0, j = 0;
-                while(i < nums1.size() && j < nums2.size()) {
+                while(i &lt; nums1.size() && j &lt; nums2.size()) {
                     if(nums1[i] == nums2[j]) {
                         result.push_back(nums1[i]);
                         i++;
                         j++;
                     }
-                    else if(nums1[i] < nums2[j]) {
+                    else if(nums1[i] &lt; nums2[j]) {
                         i++;
                     }
-                    else if(nums1[i] > nums2[j]) {
+                    else if(nums1[i] &gt; nums2[j]) {
                         j++;
                     }
                 }
@@ -2144,14 +2144,14 @@ var LeetCode_ac = [
     // LeetCode 566
     class Solution {
         public:
-            vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+            vector&lt;vector&lt;int&gt;&gt; matrixReshape(vector&lt;vector&lt;int&gt;&gt;& mat, int r, int c) {
                 int row = mat.size();
                 int col = mat[0].size();
                 if((row * col != r * c) || (row == r && col == c)) {
                     return mat;
                 }
-                vector<vector<int>> result(r, vector<int>(c, 0));
-                for(int i = 0; i < row * col; i++) {
+                vector&lt;vector&lt;int&gt;&gt; result(r, vector&lt;int&gt;(c, 0));
+                for(int i = 0; i &lt; row * col; i++) {
                     result[i / c][i % c] = mat[i / col][i % col];
                 }
                 return result;
@@ -2201,14 +2201,14 @@ var LeetCode_ac = [
                 if(root == NULL) {
                     return NULL;
                 }
-                if(root -> val == val) {
+                if(root -&gt; val == val) {
                     return root;
                 }
-                else if(root -> val < val) {
-                    return searchBST(root -> right, val);
+                else if(root -&gt; val &lt; val) {
+                    return searchBST(root -&gt; right, val);
                 }
-                else if(root -> val > val) {
-                    return searchBST(root -> left, val);
+                else if(root -&gt; val &gt; val) {
+                    return searchBST(root -&gt; left, val);
                 }
                 return NULL;
             }
@@ -2988,9 +2988,9 @@ var LeetCode_ac = [
     // LeetCode 2011
     class Solution {
         public:
-            int finalValueAfterOperations(vector<string>& operations) {
+            int finalValueAfterOperations(vector&lt;string&gt;& operations) {
                 int result = 0;
-                for(int i = 0; i < operations.size(); i++) {
+                for(int i = 0; i &lt; operations.size(); i++) {
                     if(operations[i][0] == '+' || operations[i][2] == '+') {
                         result++;
                     }

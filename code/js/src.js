@@ -24,7 +24,8 @@ var solved_leetcode = [
     1688, 1704, 1725, 1732, 1768,
     1773, 1796, 1812, 1920, 1929,
     141, 700, 217, 206, 234, 21,
-    88, 350, 121, 566, 118, 2011
+    88, 350, 121, 566, 118, 2011,
+    74
 ]
 
 // My UVa accept codes
@@ -1880,6 +1881,38 @@ var LeetCode_ac = [
                 vector&ltint&gt ans(digits.size() + 1, 0);
                 ans[0] = 1;
                 return ans;
+            }
+        };
+    `,
+    `
+    // LeetCode 74
+    class Solution {
+        public:
+            bool searchMatrix(vector<vector<int>>& matrix, int target) {
+                int row = matrix.size(), col = matrix[0].size();
+                int start = 0, end = row - 1;
+                while(start <= end) {
+                    int mid = (start + end) / 2;
+                    if(matrix[mid][0] == target) {
+                        return true;
+                    }
+                    else if(matrix[mid][0] < target) {
+                        start = mid + 1;
+                    }
+                    else if(matrix[mid][0] > target) {
+                        end = mid - 1;
+                    }
+                }
+                row = end;
+                if(row < 0) {
+                    return false;
+                }
+                for(int i = 0; i < col; i++) {
+                    if(matrix[row][i] == target) {
+                        return true;
+                    }
+                }
+                return false;
             }
         };
     `,

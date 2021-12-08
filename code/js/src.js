@@ -25,7 +25,7 @@ var solved_leetcode = [
     1773, 1796, 1812, 1920, 1929,
     141, 700, 217, 206, 234, 21,
     88, 350, 121, 566, 118, 2011,
-    74
+    74, 387, 383, 242, 36
 ]
 
 // My UVa accept codes
@@ -1848,6 +1848,27 @@ var LeetCode_ac = [
         };
     `,
     `
+    // LeetCode 36
+    class Solution {
+        public:
+            bool isValidSudoku(vector<vector<char>>& board) {
+                int ROW[9][9] = {0}, COL[9][9] = {0}, BOX[9][9] = {0};
+                for(int i = 0; i < board.size(); i++) {
+                    for(int j = 0; j < board[i].size(); j++) {
+                        if(board[i][j] != '.') {
+                            int num = board[i][j] - '0' - 1, k = i / 3 * 3 + j / 3;
+                            if(ROW[i][num] || COL[j][num] || BOX[k][num]) {
+                                return false;
+                            }
+                            ROW[i][num] = COL[j][num] = BOX[k][num] = 1;
+                        }   
+                    }   
+                }
+                return true;
+            }
+        };
+    `,
+    `
     // LeetCode 53
     class Solution {
         public:
@@ -2103,6 +2124,28 @@ var LeetCode_ac = [
         };
     `,
     `
+    // LeetCode 242
+    class Solution {
+        public:
+            bool isAnagram(string s, string t) {
+                int arrS[26] = {0};
+                int arrT[26] = {0};
+                for(int i = 0; i < s.length(); i++) {
+                    arrS[ s[i] - 'a' ]++;
+                }
+                for(int i = 0; i < t.length(); i++) {
+                    arrT[ t[i] - 'a' ]++;
+                }
+                for(int i = 0; i < 26; i++) {
+                    if(arrS[i] != arrT[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        };
+    `,
+    `
     // LeetCode 300
     class Solution {
         public:
@@ -2170,6 +2213,43 @@ var LeetCode_ac = [
                     n /= 3;
                 }
                 return (n == 1);
+            }
+        };
+    `,
+    `
+    // LeetCode 383
+    class Solution {
+        public:
+            bool canConstruct(string ransomNote, string magazine) {
+                int arr[26] = {0};
+                for(int i = 0; i < magazine.length(); i++) {
+                    arr[ magazine[i] - 'a' ]++;
+                }
+                for(int i = 0;  i< ransomNote.length(); i++) {
+                    arr[ ransomNote[i] - 'a' ]--;
+                    if(arr[ ransomNote[i] - 'a' ] == -1) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        };
+    `,
+    `
+    // LeetCode 387
+    class Solution {
+        public:
+            int firstUniqChar(string s) {
+                int arr[26] = {0};
+                for(int i = 0; i < s.length(); i++) {
+                    arr[ s[i] - 'a' ]++;
+                }
+                for(int i = 0; i < s.length(); i++) {
+                    if(arr[ s[i] - 'a' ] == 1) {
+                        return i;
+                    }
+                }
+                return -1;
             }
         };
     `,

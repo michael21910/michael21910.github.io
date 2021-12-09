@@ -25,7 +25,7 @@ var solved_leetcode = [
     1773, 1796, 1812, 1920, 1929,
     141, 700, 217, 206, 234, 21,
     88, 350, 121, 566, 118, 2011,
-    74, 387, 383, 242, 36
+    74, 387, 383, 242, 36, 203
 ]
 
 // My UVa accept codes
@@ -1851,10 +1851,10 @@ var LeetCode_ac = [
     // LeetCode 36
     class Solution {
         public:
-            bool isValidSudoku(vector<vector<char>>& board) {
+            bool isValidSudoku(vector&lt;vector&lt;char&gt;&gt;& board) {
                 int ROW[9][9] = {0}, COL[9][9] = {0}, BOX[9][9] = {0};
-                for(int i = 0; i < board.size(); i++) {
-                    for(int j = 0; j < board[i].size(); j++) {
+                for(int i = 0; i &lt; board.size(); i++) {
+                    for(int j = 0; j &lt; board[i].size(); j++) {
                         if(board[i][j] != '.') {
                             int num = board[i][j] - '0' - 1, k = i / 3 * 3 + j / 3;
                             if(ROW[i][num] || COL[j][num] || BOX[k][num]) {
@@ -1909,26 +1909,26 @@ var LeetCode_ac = [
     // LeetCode 74
     class Solution {
         public:
-            bool searchMatrix(vector<vector<int>>& matrix, int target) {
+            bool searchMatrix(vector&lt;vector&lt;int&gt;&gt;& matrix, int target) {
                 int row = matrix.size(), col = matrix[0].size();
                 int start = 0, end = row - 1;
-                while(start <= end) {
+                while(start &lt;= end) {
                     int mid = (start + end) / 2;
                     if(matrix[mid][0] == target) {
                         return true;
                     }
-                    else if(matrix[mid][0] < target) {
+                    else if(matrix[mid][0] &lt; target) {
                         start = mid + 1;
                     }
-                    else if(matrix[mid][0] > target) {
+                    else if(matrix[mid][0] &gt; target) {
                         end = mid - 1;
                     }
                 }
                 row = end;
-                if(row < 0) {
+                if(row &lt; 0) {
                     return false;
                 }
-                for(int i = 0; i < col; i++) {
+                for(int i = 0; i &lt; col; i++) {
                     if(matrix[row][i] == target) {
                         return true;
                     }
@@ -2050,6 +2050,29 @@ var LeetCode_ac = [
         };
     `,
     `
+    // LeetCode 203
+    /**
+     * Definition for singly-linked list.
+     * struct ListNode {
+     *     int val;
+     *     ListNode *next;
+     *     ListNode() : val(0), next(nullptr) {}
+     *     ListNode(int x) : val(x), next(nullptr) {}
+     *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+     * };
+     */
+    class Solution {
+        public:
+            ListNode* removeElements(ListNode* head, int val) {
+                if(!head) {
+                    return NULL;
+                }
+                head -&gt; next = removeElements(head -&gt; next, val);
+                return head -&gt; val == val ? head -&gt; next : head;
+            }
+        };
+    `,
+    `
     // LeetCode 206
     /**
      * Definition for singly-linked list.
@@ -2130,13 +2153,13 @@ var LeetCode_ac = [
             bool isAnagram(string s, string t) {
                 int arrS[26] = {0};
                 int arrT[26] = {0};
-                for(int i = 0; i < s.length(); i++) {
+                for(int i = 0; i &lt; s.length(); i++) {
                     arrS[ s[i] - 'a' ]++;
                 }
-                for(int i = 0; i < t.length(); i++) {
+                for(int i = 0; i &lt; t.length(); i++) {
                     arrT[ t[i] - 'a' ]++;
                 }
-                for(int i = 0; i < 26; i++) {
+                for(int i = 0; i &lt; 26; i++) {
                     if(arrS[i] != arrT[i]) {
                         return false;
                     }
@@ -2222,10 +2245,10 @@ var LeetCode_ac = [
         public:
             bool canConstruct(string ransomNote, string magazine) {
                 int arr[26] = {0};
-                for(int i = 0; i < magazine.length(); i++) {
+                for(int i = 0; i &lt; magazine.length(); i++) {
                     arr[ magazine[i] - 'a' ]++;
                 }
-                for(int i = 0;  i< ransomNote.length(); i++) {
+                for(int i = 0;  i&lt; ransomNote.length(); i++) {
                     arr[ ransomNote[i] - 'a' ]--;
                     if(arr[ ransomNote[i] - 'a' ] == -1) {
                         return false;
@@ -2241,10 +2264,10 @@ var LeetCode_ac = [
         public:
             int firstUniqChar(string s) {
                 int arr[26] = {0};
-                for(int i = 0; i < s.length(); i++) {
+                for(int i = 0; i &lt; s.length(); i++) {
                     arr[ s[i] - 'a' ]++;
                 }
-                for(int i = 0; i < s.length(); i++) {
+                for(int i = 0; i &lt; s.length(); i++) {
                     if(arr[ s[i] - 'a' ] == 1) {
                         return i;
                     }

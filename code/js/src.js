@@ -25,7 +25,7 @@ var solved_leetcode = [
     1773, 1796, 1812, 1920, 1929,
     141, 700, 217, 206, 234, 21,
     88, 350, 121, 566, 118, 2011,
-    74, 387, 383, 242, 36, 203
+    74, 387, 383, 242, 36, 203, 83
 ]
 
 // My UVa accept codes
@@ -1934,6 +1934,41 @@ var LeetCode_ac = [
                     }
                 }
                 return false;
+            }
+        };
+    `,
+    `
+    // LeetCode 83
+    /**
+     * Definition for singly-linked list.
+     * struct ListNode {
+     *     int val;
+     *     ListNode *next;
+     *     ListNode() : val(0), next(nullptr) {}
+     *     ListNode(int x) : val(x), next(nullptr) {}
+     *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+     * };
+     */
+    class Solution {
+        public:
+            ListNode* deleteDuplicates(ListNode* head) {
+                if(head == NULL || head -> next == NULL) {
+                    return head;
+                }
+                ListNode *temp = head;
+                ListNode *check = head -> next;
+                while(true) {
+                    if(temp -> val != check -> val) {
+                        temp -> next = check;
+                        temp = check;
+                    }
+                    check = check -> next;
+                    if(check == NULL) {
+                        temp -> next = NULL;
+                        break;
+                    }
+                }
+                return head;
             }
         };
     `,

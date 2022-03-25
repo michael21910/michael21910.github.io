@@ -6,14 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <!-- SEO and descriptions -->
-    <meta name="description"
-        content="This is Tsuen's webpage, including an introduction to myself and projects on Github.">
-    <meta name="keywords"
-        content="michael21910, tsuen, tsuen hsueh, peronsal webpage, webpage, michael21910 github, tsuen hsueh github">
+    <meta name="description" content="This is Tsuen's webpage, including an introduction to myself and projects on Github.">
+    <meta name="keywords" content="michael21910, tsuen, tsuen hsueh, peronsal webpage, webpage, michael21910 github, tsuen hsueh github">
     <meta property="og:url" content="https://michael21910.github.io/index.html" />
     <meta property="og:title" content="All about Tsuen Hsueh" />
-    <meta property="og:description"
-        content="This is Tsuen's webpage, including an introduction to myself and projects on Github." />
+    <meta property="og:description" content="This is Tsuen's webpage, including an introduction to myself and projects on Github." />
     <meta property="og:image" content="img/me.svg" />
 
     <!-- css and js links -->
@@ -45,7 +42,10 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJQNVWESHC"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
         gtag('config', 'G-YJQNVWESHC');
@@ -90,19 +90,16 @@
                 <div class="intro">
                     <div>
                         <div>
-                            Hello! I am a junior at National Dong Hwa University (NDHU) in Taiwan (ROC),
-                            studying in the Department of Computer Science and Information Engineering (CSIE).
+                            Hello! I am a junior at National Dong Hwa University (NDHU) in Taiwan (ROC), studying in the Department of Computer Science and Information Engineering (CSIE).
                         </div>
                         <br>
                         <div>
                             I am the <span>Founder</span> of CSIE Tech Community (CTC), a Medium writer at
-                            <span>FAUN</span> and <span>Enlear Academy</span>, the <span>Secretary</span> of GDSC NDHU
-                            and a TA of three programming lab courses.
+                            <span>FAUN</span> and <span>Enlear Academy</span>, the <span>Secretary</span> of GDSC NDHU.
                         </div>
                         <br>
                         <div>
-                            Although I am quite busy, I am still full of enthusiasm and I hope that I can learn more and
-                            make more friends!
+                            Although I am quite busy, I am still full of enthusiasm and I hope that I can learn more and make more friends!
                         </div>
                     </div>
                     <div class="introRight">
@@ -132,8 +129,7 @@
                     </div>
                     <div class="paragraphContent">
                         A webpage that shows the code I have written and got AC in both UVa and LeetCode.
-                        <br>
-                        Language using JavaScript, HTML and CSS, using bootstrap as framework.
+                        <br> Language using JavaScript, HTML and CSS, using bootstrap as framework.
                     </div>
                     <div class="paragraphBtnContainer paragraphBtnContainer-margin-top-more">
                         <a target="_blank" href="https://github.com/michael21910/codeshare">
@@ -162,8 +158,7 @@
                     </div>
                     <div class="paragraphContent">
                         Web crawl receipt prize number on government webpage.
-                        <br>
-                        Checks the number in the txt file after the program is executed.
+                        <br> Checks the number in the txt file after the program is executed.
                     </div>
                     <div class="paragraphBtnContainer paragraphBtnContainer-margin-top-more">
                         <a target="_blank" href="https://github.com/michael21910/auto-receipt-check">
@@ -187,8 +182,7 @@
                     </div>
                     <div class="paragraphContent">
                         A sort visualization using JavaScript.
-                        <br>
-                        Sorts included: Bubble sort, Selection sort, Exchange sort, Insertion sort.
+                        <br> Sorts included: Bubble sort, Selection sort, Exchange sort, Insertion sort.
                     </div>
                     <div class="paragraphBtnContainer paragraphBtnContainer-margin-top-more">
                         <a target="_blank" href="https://github.com/michael21910/js-sort-visualization">
@@ -239,15 +233,15 @@
         <!-- footer, footer.css in css folder -->
         <div id="footer">
             <div>
-                © 2020-2021 Tsuen Hsueh. All rights reserved.
+                © 2020-2022 Tsuen Hsueh. All rights reserved.
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $.extend({
-                'goAnchor': function (to, time) {
+                'goAnchor': function(to, time) {
                     $obj = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
                     $($obj).animate({
                         scrollTop: to
@@ -255,19 +249,19 @@
                 }
             });
 
-            $('#goIntroduction').click(function () {
+            $('#goIntroduction').click(function() {
                 $.goAnchor($('#introduction').offset().top, 500);
             });
-            $('#goProjects').click(function () {
+            $('#goProjects').click(function() {
                 $.goAnchor($('#projects').offset().top, 500);
             });
-            $('#goNotes').click(function () {
+            $('#goNotes').click(function() {
                 $.goAnchor($('#notes').offset().top, 500);
             });
-            $('#goContact').click(function () {
+            $('#goContact').click(function() {
                 $.goAnchor($('#contact').offset().top, 500);
             });
-            $('#goTopBtn').click(function () {
+            $('#goTopBtn').click(function() {
                 $.goAnchor($('#topBox').offset().top, 500);
             });
         });

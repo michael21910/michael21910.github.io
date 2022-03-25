@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,15 +35,19 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJQNVWESHC"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-    gtag('config', 'G-YJQNVWESHC');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-YJQNVWESHC');
     </script>
-    
+
     <title>Tsuen's Projects</title>
 </head>
+
 <body>
     <!-- some toppings, ../top.css in css folder -->
     <button onclick="goTop()" id="topBtn">top</button>
@@ -104,7 +109,7 @@
             </div>
             <div class="decoLine"></div>
             <div id="practiceBlocks">
-                
+
             </div>
         </div>
         <div id="others">
@@ -122,15 +127,15 @@
         <!-- footer, footer.css in css folder -->
         <div id="footer">
             <div>
-                © 2020-2021 Tsuen Hsueh. All rights reserved.
+                © 2020-2022 Tsuen Hsueh. All rights reserved.
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $.extend({
-                'goAnchor': function (to, time) {
+                'goAnchor': function(to, time) {
                     $obj = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
                     $($obj).animate({
                         scrollTop: to
@@ -138,23 +143,24 @@
                 }
             });
 
-            $('#goCrawling').click(function () {
+            $('#goCrawling').click(function() {
                 $.goAnchor($('#crawling').offset().top, 500);
             });
-            $('#goApp').click(function () {
+            $('#goApp').click(function() {
                 $.goAnchor($('#app').offset().top, 500);
             });
-            $('#goPractice').click(function () {
+            $('#goPractice').click(function() {
                 $.goAnchor($('#practice').offset().top, 500);
             });
-            $('#goOthers').click(function () {
+            $('#goOthers').click(function() {
                 $.goAnchor($('#others').offset().top, 500);
             });
-            $('#goTopBtn').click(function () {
+            $('#goTopBtn').click(function() {
                 $.goAnchor($('#topBox').offset().top, 500);
             });
         });
     </script>
 
 </body>
+
 </html>

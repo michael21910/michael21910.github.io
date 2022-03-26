@@ -1,13 +1,13 @@
-#contact{
+#contact {
     margin-top: 10vh;
     margin-bottom: 3vh;
 }
 
-#contact > div{
+#contact>div {
     text-align: center;
 }
 
-.iconBox{
+.iconBox {
     margin: 0 auto;
     display: flex;
     flex-direction: row-reverse;
@@ -16,42 +16,38 @@
     width: 20vw;
 }
 
-.iconBox > a{
+.iconBox>a {
     width: 3vw;
     margin: 0 auto;
 }
 
-.iconBox > a > div > img{
+.iconBox>a>div>img {
     width: 3vw;
 }
 
-.contactDecoLine{
+.contactDecoLine {
     background-color: #f2f0dd;
-    border: 1px #f2f0dd solid;
+    border: 0.0521vw #f2f0dd solid;
     margin: 0 auto;
     margin-bottom: 5vh;
 }
 
-@media screen and (max-width: 720px){
-    #contact{
+@media screen and (max-width: 720px) {
+    #contact {
         margin-top: 3vh;
         margin-bottom: 0vh;
     }
-
-    .iconBox{
+    .iconBox {
         width: 80vw;
         height: auto;
     }
-    
-    .iconBox > a{
+    .iconBox>a {
         width: 11.125vw;
     }
-
-    .iconBox > a > div > img{
+    .iconBox>a>div>img {
         width: 10vw;
     }
-    
-    .contactDecoLine{
+    .contactDecoLine {
         display: none;
     }
 }

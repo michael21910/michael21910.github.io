@@ -1,23 +1,23 @@
-#introBigBox{
+#introBigBox {
     margin-top: 10vh;
     margin-bottom: 10vh;
 }
 
-#introduction{
+#introduction {
     display: flex;
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
 }
 
-.introTitleLoc{
+.introTitleLoc {
     padding-right: 60vw;
-} 
+}
 
-.intro{
+.intro {
     background-color: #f2f0dd;
     width: 87.5vw;
-    border-radius: 24px;
+    border-radius: 1.25vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,13 +25,13 @@
     text-align: justify;
 }
 
-.introRight{
+.introRight {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.intro > div{
+.intro>div {
     width: 40%;
     font-size: 1.825vw;
     color: #727272;
@@ -39,48 +39,44 @@
     margin-left: 2em;
 }
 
-.intro > div > div{
+.intro>div>div {
     text-indent: 1em;
 }
 
-.intro > div > div > span{
+.intro>div>div>span {
     background-color: rgba(0, 0, 0, 0.4);
-    padding: 0 10px;
-    border-radius: 20px;
+    padding: 0 0.521vw;
+    border-radius: 1.042vw;
     color: #f2f0dd;
 }
 
-.introRight > img{
+.introRight>img {
     width: 70%;
 }
 
-@media screen and (max-width: 720px){
-    #introBigBox{
+@media screen and (max-width: 720px) {
+    #introBigBox {
         margin-top: 3vh;
         margin-bottom: 3vh;
     }
-    
-    .introTitleLoc{
+    .introTitleLoc {
         padding: 0;
-    } 
-
-    .intro{
+    }
+    .intro {
         display: flex;
         flex-direction: column-reverse;
         align-items: center;
         justify-content: center;
         padding: 3vh 0 3vh 0;
     }
-    
-    .intro > div{
+    .intro>div {
         margin: 0 auto;
         width: 90%;
         font-size: 3.5925vw;
         align-items: center;
         line-height: 3.25vh;
     }
-
-    .introRight > img{
+    .introRight>img {
         width: 50%;
         padding-bottom: 3vh;
     }

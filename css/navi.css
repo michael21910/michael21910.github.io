@@ -1,4 +1,4 @@
-#navi{
+#navi {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,64 +9,61 @@
     font-weight: 500;
 }
 
-.line{
+.line {
     background-color: #F2F0DD;
     height: 1vh;
-    border: 1px #F2F0DD solid;
+    border: 0.0251vw #F2F0DD solid;
     width: 22.5vw;
 }
 
-.line-left{
-    border-radius: 0 24px 24px 0;
+.line-left {
+    border-radius: 0 1.25vw 1.25vw 0;
 }
 
-.line-right{
-    border-radius: 24px 0 0 24px;
+.line-right {
+    border-radius: 1.25vw 0 0 1.25vw;
 }
 
-.square{
-    height: 20px;
-    width: 20px;
+.square {
+    height: 1.041vw;
+    width: 1.041vw;
     transform: rotate(45deg);
     background-color: #F2F0DD;
-    border-radius: 4px;
+    border-radius: 0.2083vw;
 }
 
-.naviLine{
+.naviLine {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #F2F0DD;
-    border-radius: 24px;
+    border-radius: 1.25vw;
     padding: 1vh 2.5vw 1vh 2.5vw;
     height: 2.985vh;
 }
 
-.naviLine > div{
+.naviLine>div {
     padding-left: 1vw;
     padding-right: 1vw;
 }
 
-.naviLine > div > a{
+.naviLine>div>a {
     color: #000000;
     text-decoration-line: none;
     font-size: 1.33vw;
 }
 
-@media screen and (max-width: 720px){
-    #navi{
+@media screen and (max-width: 720px) {
+    #navi {
         padding-top: 2vh;
     }
-    
-    .line{
+    .line {
         display: none;
     }
-    
-    .square{
+    .square {
         display: none;
     }
-    
-    .naviLine{
+    .naviLine {
         width: 90vw;
         height: 2vh;
         margin: 0 auto;
@@ -74,12 +71,10 @@
         align-items: center;
         justify-content: space-around;
     }
-    
-    .naviLine > div{
+    .naviLine>div {
         line-height: 100%;
     }
-
-    .naviLine > div > a{
+    .naviLine>div>a {
         font-size: 3.6vw;
     }
 }

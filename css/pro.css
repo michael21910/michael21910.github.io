@@ -1,14 +1,14 @@
-#projects{
+#projects {
     margin-top: 10vh;
     font-size: 2.25vw;
 }
 
-#projects > div > a > img{
+#projects>div>a>img {
     width: 26vw;
-    border-radius: 12px;
+    border-radius: 0.6252vw;
 }
 
-.proTitleLoc{
+.proTitleLoc {
     text-align: center;
 }
 
@@ -20,32 +20,32 @@
     margin-bottom: 3vh;
 }
 
-.blocks-view-all > div {
+.blocks-view-all>div {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.blocks-view-all > a {
+.blocks-view-all>a {
     text-decoration: none;
     font-size: 2vw;
     padding: 1vh 1.5vw 1vh 1.5vw;
     background-color: #f2f0dd;
     color: #694635;
-    border-radius: 24px;
+    border-radius: 1.25vw;
     transition: background-color 0.5s, color 0.5s;
 }
 
-.blocks-view-all > a:hover {
+.blocks-view-all>a:hover {
     background-color: #694635;
     color: #f2f0dd;
     transition: 0.5s;
 }
 
-.blocks{
+.blocks {
     width: 80vw;
     height: auto;
-    border-radius: 0 24px 24px 0;
+    border-radius: 0 1.25vw 1.25vw 0;
     padding: 6vh 0 6vh 0;
     margin-bottom: 10vh;
     background-color: #f2f0dd;
@@ -54,14 +54,14 @@
     justify-content: space-evenly;
 }
 
-.blockright{
+.blockright {
     background-color: #fffbdb;
     flex-direction: row-reverse;
     float: right;
-    border-radius: 24px 0 0 24px !important;
+    border-radius: 1.25vw 0 0 1.25vw !important;
 }
 
-.paragraphContainer{
+.paragraphContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,33 +69,33 @@
     width: 40%;
 }
 
-.paragraphTitle{
+.paragraphTitle {
     font-size: 1.9vw;
     font-weight: bold;
     color: #363636;
     margin-bottom: 1.5vh;
 }
 
-.paragraphTitle > a{
+.paragraphTitle>a {
     text-decoration: none;
     color: #363636;
-    border-bottom: 1px #363636 solid;
+    border-bottom: 0.0521vw #363636 solid;
 }
 
-.paragraphContent{
+.paragraphContent {
     font-size: 1.35vw;
     font-weight: normal;
     color: #565656;
     text-align: justify;
 }
 
-.paragraphBtnContainer{
+.paragraphBtnContainer {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.paragraphBtnContainer > a{
+.paragraphBtnContainer>a {
     text-decoration: none;
     font-size: 1vw;
     height: 3.5vh;
@@ -106,38 +106,33 @@
     text-align: center;
     line-height: 3.5vh;
     background-color: #694635;
-    border: 2px #694635 solid;
+    border: 0.1042vw #694635 solid;
     color: #F2F0DD;
-    border-radius: 24px;
+    border-radius: 1.25vw;
 }
 
-@media screen and (max-width: 720px){
-    #projects{
+@media screen and (max-width: 720px) {
+    #projects {
         margin-top: 3vh;
         margin-bottom: 3vh;
     }
-
-    #projects > div > a{
+    #projects>div>a {
         width: 80vw;
     }
-    
-    #projects > div > a > img{
+    #projects>div>a>img {
         width: 80vw;
     }
-
-    .proTitleLoc{
+    .proTitleLoc {
         margin: 0;
     }
-    
-    .blocks-view-all > a {
+    .blocks-view-all>a {
         text-align: center;
         transition: background-color 0s, color 0s;
         color: #694635;
         background-color: #f2f0dd;
         font-size: 4vw !important;
     }
-
-    .blocks{
+    .blocks {
         width: 100vw;
         height: auto;
         margin-bottom: 3vh;
@@ -148,51 +143,42 @@
         justify-content: center;
         padding: 2.5vh 0 2.5vh 0;
     }
-
-    .blockright{
+    .blockright {
         border-radius: 0 0 0 0 !important;
         transform: translate(0%, 0%);
     }
-    
-    .paragraphContainer{
+    .paragraphContainer {
         width: 80vw;
     }
-
-    .paragraphContainer > div{
+    .paragraphContainer>div {
         line-height: auto;
     }
-    
-    .paragraphTitle{
+    .paragraphTitle {
         font-size: 5.5vw;
         padding: 1vh 0 1vh 0;
         margin: 0 auto;
     }
-    
-    .paragraphContent{
+    .paragraphContent {
         font-size: 4vw;
     }
-    
-    .paragraphBtnContainer-margin-top-more{
+    .paragraphBtnContainer-margin-top-more {
         margin-top: 1vh !important;
     }
-
-    .paragraphBtnContainer{
+    .paragraphBtnContainer {
         display: flex;
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
         margin: 0 auto;
     }
-
-    .paragraphBtnContainer > a{
+    .paragraphBtnContainer>a {
         font-size: 1vw !important;
         height: auto;
         padding: 0.25vh 5vw 0.25vh 5vw;
         margin: 0.5vh 0 0.5vh 0;
         width: 50vw;
     }
-
-    .paragraphBtnContainer > a > div{
+    .paragraphBtnContainer>a>div {
         font-size: 4vw;
     }
 }

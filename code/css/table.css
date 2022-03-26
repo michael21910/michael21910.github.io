@@ -1,78 +1,71 @@
-#tableContainer{
+#tableContainer {
     margin-top: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#tableContainer div{
+#tableContainer div {
     font-size: 2vw;
     text-align: center;
     color: #f0eccd;
-    border-left: 2px #f0eccd solid;
-    border-right: 2px #f0eccd solid;
+    border-left: 0.1042vw #f0eccd solid;
+    border-right: 0.1042vw #f0eccd solid;
 }
 
-#table{
+#table {
     font-size: 1.125vw;
 }
 
-#problemSet{
+#problemSet {
     font-size: 1vw;
 }
 
-#codeContainer{
+#codeContainer {
     width: 80vw;
-    border-radius: 24px;
+    border-radius: 1.25vw;
     margin: 0 auto;
     margin-bottom: 5vh;
     padding-left: 3vw;
 }
 
-#problemTitle{
+#problemTitle {
     padding-left: 3vw;
     padding-top: 5vh;
     font-size: 1.5vw;
 }
 
-#codeSpace{
+#codeSpace {
     font-size: 1.125vw;
 }
 
-@media screen and (max-width: 720px){
-
-    #tableContainer{
+@media screen and (max-width: 720px) {
+    #tableContainer {
         margin-top: 0vh;
     }
-
-    #tableContainer div{
+    #tableContainer div {
         margin-top: 3vh;
         font-size: 5vw;
-        border-left: 0.25px #f0eccd solid;
-        border-right: 0.25px #f0eccd solid;
+        border-left: 0.013025vw #f0eccd solid;
+        border-right: 0.013025vw #f0eccd solid;
     }
-    
-    #table{
+    #table {
         font-size: 4vw;
     }
-    
-    #problemSet{
+    #problemSet {
         font-size: 4vw;
     }
-    
-    #codeContainer{
+    #codeContainer {
         width: 95vw;
-        border-radius: 24px;
+        border-radius: 1.25vw;
         margin: 0 auto;
     }
-    
-    #problemTitle{
+    #problemTitle {
         padding-left: 3vw;
         padding-top: 5vh;
         font-size: 5vw;
     }
-    
-    #codeSpace{
+    #codeSpace {
         font-size: 3.5vw;
     }
 }

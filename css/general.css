@@ -1,27 +1,26 @@
-.title{
+.title {
     font-size: 3vw;
     color: white;
     margin-bottom: 3vh;
     font-family: 'Almendra SC', serif;
 }
 
-.title > div > span{
+.title>div>span {
     font-weight: bold;
     font-size: 3.5vw;
 }
 
-#forJS{
+#forJS {
     opacity: 0;
     transition: 1s;
 }
 
-@media screen and (max-width: 720px){
-    .title{
+@media screen and (max-width: 720px) {
+    .title {
         font-size: 8vw !important;
         margin-bottom: 1.125vh;
     }
-    
-    .title > span{
+    .title>span {
         font-size: 10vw !important;
     }
 }

@@ -1,8 +1,8 @@
-.sortName{
+.sortName {
     font-size: 2.25vw;
 }
 
-.circles{
+.circles {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -10,7 +10,7 @@
     padding: 3vw;
 }
 
-.circles > div{
+.circles>div {
     background-color: rgb(155, 84, 84);
     width: 6vw;
     height: 6vw;
@@ -21,7 +21,7 @@
     font-size: 3vw;
 }
 
-.Btns{
+.Btns {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -29,47 +29,43 @@
     margin-bottom: 2vh;
 }
 
-.Btns > button{
+.Btns>button {
     width: 15vw;
     height: 5vh;
-    border: 1px black solid;
+    border: 0.0521vw black solid;
     background: none;
     cursor: pointer;
     font-size: 1.25vw;
 }
 
-.Btns > button:hover{
+.Btns>button:hover {
     transform: scale(1.25);
     transition: 0.5s;
 }
 
-.Btns > button:not(:hover){
+.Btns>button:not(:hover) {
     transition: 0.5s;
 }
 
-@media screen and (max-width: 720px){
-    .sortName{
+@media screen and (max-width: 720px) {
+    .sortName {
         font-size: 4.25vw;
     }
-    
-    .circles{
+    .circles {
         padding: 3vw;
     }
-    
-    .circles > div{
+    .circles>div {
         width: 12.5vw;
         height: 12.5vw;
         line-height: 12.5vw;
         text-align: center;
         font-size: 4vw;
     }
-
-    .Btns{
+    .Btns {
         margin-top: 1.75vh;
         margin-bottom: 1.75vh;
     }
-
-    .Btns > button{
+    .Btns>button {
         width: 25.5vw;
         height: 3.75vh;
         border: 1px black solid;
@@ -77,12 +73,10 @@
         cursor: pointer;
         font-size: 2.625vw;
     }
-    
-    .Btns > button:hover{
+    .Btns>button:hover {
         transform: scale(1);
     }
-    
-    .Btns > button:not(:hover){
+    .Btns>button:not(:hover) {
         transition: 1s;
     }
 }

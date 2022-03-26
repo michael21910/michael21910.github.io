@@ -45,7 +45,7 @@
         gtag('config', 'G-YJQNVWESHC');
     </script>
 
-    <title>Tsuen's Projects</title>
+    <title>Tsu-en's Projects</title>
 </head>
 
 <body>
@@ -67,10 +67,9 @@
         <div class="circle"></div>
         <div class="naviLine">
             <div><a id="goCrawling" href="#crawling">Crawling</a></div>
-            <div><a id="goApp" href="#app">App Dev</a></div>
-            <div><a id="goPractice" href="#practice">Practice</a></div>
+            <div><a id="goWeb" href="#web">Web Dev</a></div>
             <div><a id="goOthers" href="#others">Others</a></div>
-            <div><a href="https://github.com/michael21910">Github</a></div>
+            <div><a target="_blank" href="https://github.com/michael21910">Github</a></div>
             <div><a href="../index.html">HomePage</a></div>
         </div>
         <div class="circle"></div>
@@ -90,25 +89,14 @@
 
             </div>
         </div>
-        <div id="app">
+        <div id="web">
             <div class="title">
                 <div>
-                    <span>A</span>pp Development
+                    <span>W</span>eb Development
                 </div>
             </div>
             <div class="decoLine"></div>
-            <div id="appBlocks">
-
-            </div>
-        </div>
-        <div id="practice">
-            <div class="title">
-                <div>
-                    <span>P</span>ractice
-                </div>
-            </div>
-            <div class="decoLine"></div>
-            <div id="practiceBlocks">
+            <div id="webBlocks">
 
             </div>
         </div>
@@ -146,11 +134,8 @@
             $('#goCrawling').click(function() {
                 $.goAnchor($('#crawling').offset().top, 500);
             });
-            $('#goApp').click(function() {
-                $.goAnchor($('#app').offset().top, 500);
-            });
-            $('#goPractice').click(function() {
-                $.goAnchor($('#practice').offset().top, 500);
+            $('#goWeb').click(function() {
+                $.goAnchor($('#web').offset().top, 500);
             });
             $('#goOthers').click(function() {
                 $.goAnchor($('#others').offset().top, 500);

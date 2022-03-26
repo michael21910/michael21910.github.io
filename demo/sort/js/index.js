@@ -6,7 +6,7 @@ var BS_num_arr = new Array(5)
 var SS_num_arr = new Array(5)
 var ES_num_arr = new Array(5)
 var IS_num_arr = new Array(5)
-window.onload = function () {
+window.onload = function() {
     //fade in
     setTimeout(() => {
         var forJS = document.getElementById("forJS");
@@ -18,14 +18,14 @@ window.onload = function () {
 
     //For Bubble sort
     //If click reset then reset all (color, number, next step btn)
-    document.getElementById("BSresetBtn").addEventListener('click', function () {
+    document.getElementById("BSresetBtn").addEventListener('click', function() {
         BS_resetAll()
     })
 
     //if click next step then check finish sort or not
     //if need sort then change all color red then sort, swapped element both by color blue
     //if no need to sort then all color green, cannot press next step button
-    document.getElementById("BSnextBtn").addEventListener('click', function () {
+    document.getElementById("BSnextBtn").addEventListener('click', function() {
         var BS_needSort = false
         for (var i = 0; i < BS_num_arr.length - 1; i++) {
             if (BS_num_arr[i] > BS_num_arr[i + 1]) {
@@ -59,8 +59,7 @@ window.onload = function () {
             for (var i = 0; i < BS_num_arr.length; i++) {
                 document.getElementById("BScircle" + (i + 1)).innerHTML = BS_num_arr[i]
             }
-        }
-        else {
+        } else {
             document.getElementById("BSnextBtn").innerHTML = "Finish sorting!"
             document.getElementById("BSnextBtn").style.cursor = "not-allowed"
             for (var i = 0; i < BS_num_arr.length; i++) {
@@ -71,14 +70,14 @@ window.onload = function () {
 
     //for selection sort
     //If click reset then reset all (color, number, next step btn)
-    document.getElementById("SSresetBtn").addEventListener('click', function () {
+    document.getElementById("SSresetBtn").addEventListener('click', function() {
         SS_resetAll()
     })
 
     //if click next step then check finish sort or not
     //if need sort then change all color red then sort, swapped element both by color blue
     //if no need to sort then all color green, cannot press next step button
-    document.getElementById("SSnextBtn").addEventListener('click', function () {
+    document.getElementById("SSnextBtn").addEventListener('click', function() {
         var SS_needSort = false
         for (var i = 0; i < SS_num_arr.length - 1; i++) {
             if (SS_num_arr[i] > SS_num_arr[i + 1]) {
@@ -105,8 +104,7 @@ window.onload = function () {
                     document.getElementById("SScircle" + (i + 1)).style.backgroundColor = "rgb(156, 168, 184)"
                     document.getElementById("SScircle" + (temp_index + 1)).style.backgroundColor = "rgb(156, 168, 184)"
                     break
-                }
-                else {
+                } else {
                     continue
                 }
             }
@@ -114,8 +112,7 @@ window.onload = function () {
             for (var i = 0; i < SS_num_arr.length; i++) {
                 document.getElementById("SScircle" + (i + 1)).innerHTML = SS_num_arr[i]
             }
-        }
-        else {
+        } else {
             document.getElementById("SSnextBtn").innerHTML = "Finish sorting!"
             document.getElementById("SSnextBtn").style.cursor = "not-allowed"
             for (var i = 0; i < SS_num_arr.length; i++) {
@@ -126,14 +123,14 @@ window.onload = function () {
 
     //for exchange sort
     //If click reset then reset all (color, number, next step btn)
-    document.getElementById("ESresetBtn").addEventListener('click', function () {
+    document.getElementById("ESresetBtn").addEventListener('click', function() {
         ES_resetAll()
     })
 
     //if click next step then check finish sort or not
     //if need sort then change all color red then sort, swapped element both by color blue
     //if no need to sort then all color green, cannot press next step button
-    document.getElementById("ESnextBtn").addEventListener('click', function () {
+    document.getElementById("ESnextBtn").addEventListener('click', function() {
         var ES_needSort = false
         for (var i = 0; i < ES_num_arr.length - 1; i++) {
             if (ES_num_arr[i] > ES_num_arr[i + 1]) {
@@ -167,8 +164,7 @@ window.onload = function () {
             for (var i = 0; i < ES_num_arr.length; i++) {
                 document.getElementById("EScircle" + (i + 1)).innerHTML = ES_num_arr[i]
             }
-        }
-        else {
+        } else {
             document.getElementById("ESnextBtn").innerHTML = "Finish sorting!"
             document.getElementById("ESnextBtn").style.cursor = "not-allowed"
             for (var i = 0; i < ES_num_arr.length; i++) {
@@ -179,14 +175,14 @@ window.onload = function () {
 
     //For Insertion sort
     //If click reset then reset all (color, number, next step btn)
-    document.getElementById("ISresetBtn").addEventListener('click', function () {
+    document.getElementById("ISresetBtn").addEventListener('click', function() {
         IS_resetAll()
     })
 
     //if click next step then check finish sort or not
     //if need sort then change all color red then sort, swapped element both by color blue
     //if no need to sort then all color green, cannot press next step button
-    document.getElementById("ISnextBtn").addEventListener('click', function () {
+    document.getElementById("ISnextBtn").addEventListener('click', function() {
         var IS_needSort = false
         for (var i = 0; i < IS_num_arr.length; i++) {
             if (IS_num_arr[i] > IS_num_arr[i + 1]) {
@@ -230,8 +226,7 @@ window.onload = function () {
             for (var i = 0; i < IS_num_arr.length; i++) {
                 document.getElementById("IScircle" + (i + 1)).innerHTML = IS_num_arr[i]
             }
-        }
-        else {
+        } else {
             document.getElementById("ISnextBtn").innerHTML = "Finish sorting!"
             document.getElementById("ISnextBtn").style.cursor = "not-allowed"
             for (var i = 0; i < IS_num_arr.length; i++) {

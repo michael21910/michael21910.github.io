@@ -1,4 +1,4 @@
-#footer{
+#footer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,20 +6,19 @@
     font-family: 'Arvo', serif;
 }
 
-#footer > div{
+#footer>div {
     color: #f2f0dd;
     font-size: 1.25vw;
 }
 
-@media screen and (max-width: 720px){
-    #footer{
+@media screen and (max-width: 720px) {
+    #footer {
         height: auto;
         margin: 0 auto;
         margin-top: 2vh;
         margin-bottom: 3vh;
     }
-
-    #footer > div{
+    #footer>div {
         font-size: 4.125vw !important;
     }
 }

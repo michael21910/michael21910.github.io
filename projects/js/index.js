@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = function() {
     var topBox = document.getElementById("topBox");
     topBox.style.opacity = 1;
     setTimeout(() => {
@@ -11,102 +11,61 @@ window.onload = function () {
     }, 750);
 
     crawlingBlocks = document.getElementById('crawlingBlocks')
-    appBlocks = document.getElementById('appBlocks')
+    webBlocks = document.getElementById('webBlocks')
     practiceBlocks = document.getElementById('practiceBlocks')
     othersBlocks = document.getElementById('othersBlocks')
 
     // projects - Crawling part
     crawlingTitle = [
         'Auto Receipt Check',
-        'PTT Word Cloud Generator',
         'Harvest Moon Recipe Web Crawler',
-        'YouTube Video Web Crawler',
         'NDHU Dogs Web Crawler',
-        'NDHU Arts Center Activity Web Crawler',
-        'Running Man Web Crawler',
-        'Top 20 Programming Languages Web Crawler'
     ]
     crawlingContent = [
         'Web crawl receipt prize number and then auto checks your receipt number in txt file.',
-        'Generates a word cloud image according to first 10 pages of ptt.',
         'Web crawling and Data collation recipes of Harvest Moon, allows users enter multiple ingredients to find the recipe.',
-        'Crawls videos by the keyword and the number you enter after the code execution.',
-        'Web crawling dog pictures according to the webpage of aowoo club in NDHU.',
-        'Web crawling the 5 latest activities according to the webpage of Activity Center in NDHU.',
-        'Crawls the episode URL of running man according to you input.',
-        'Crawls the top20 programming languages on the webpage TIOBE.'
+        'Web crawling dog pictures according to the webpage of aowoo club in NDHU.'
     ]
     crawlingLink = [
         'auto-receipt-check',
-        'ptt-word-cloud-generator',
         'harvest-moon-recipe-web-crawler',
-        'yt-video-web-crawler',
-        'NDHU-dogs-web-crawler',
-        'NDHU-arts-center-activity-web-crawler',
-        'running-man-web-crawler',
-        'top20-programming-langs-web-crawler'
+        'NDHU-dogs-web-crawler'
     ]
 
-    // projects - App Development part
-    appTitle = [
-        'Swift Temperature Converter',
-        'Swift ToDo List',
-        'Swift Random Photo Generator'
+    // projects - web Development part
+    webTitle = [
+        'JS Counter',
+        'JS Face Detection',
+        'JS Sort Visualization'
     ]
-    appContent = [
-        'An app that converts the temperature in Fahrenheit your input, and then changes to Celsius.',
-        'A to do list app, code in swift.',
-        'Generates a random photo after you click the button.'
+    webContent = [
+        'A simple JS counter that can count up and down.',
+        'Face detection that can detect faces and your emoji in the webcam.',
+        'A visualization of sorting algorithm. Including bubble sort, exchange sort, selection sort, and insertion sort.'
     ]
-    appLink = [
-        'swift-temperature-converter',
-        'swift-todo-list',
-        'swift-random-photo-generator'
-    ]
-
-    // projects - Practice part
-    practiceTitle = [
-        'Dynamic Programming',
-        'C Programming Lab',
-        'C Data Structure',
-        'ZeroJudge',
-        'CPE 1 star Problems',
-        'LeetCode',
-    ]
-    practiceContent = [
-        'Implement some problems using dynamic programming.',
-        'Implementation using C in programming lab class when being Teacher Assistant.',
-        'Practice Data Structure using C.',
-        'My submissions on ZeroJudge.',
-        'My practice code, 1 star UVa problems.',
-        'My submissions on LeetCode.'
-    ]
-    practiceLink = [
-        'dynamic-programming',
-        'c-programming-lab',
-        'c-data-structure',
-        'zerojudge',
-        'CPE-1-star-problems',
-        'leetcode'
+    webLink = [
+        'js-counter',
+        'js-face-detection',
+        'js-sort-visualization'
     ]
 
     // projects - Others part
     othersTitle = [
-        'JS Face Detection',
-        'JS Sort Visualization',
-        'To Do List',
+        'Swift Temperature Converter',
+        'Swift Todo List',
+        'Dynamic Programming in C++',
         'A Mini Math Game'
     ]
     othersContent = [
-        'Detects your face emotions.',
-        'Sort visualization using JavaScript.',
-        'Sorts your "to do list.txt" by date in a fixed format.',
+        'A iOS application that can convert Celsius to Fahrenheit.',
+        'A iOS application that can ro CRUD to a todo list.',
+        'Some dynamic programming problems and implementation in C++.',
         'This is a mini math game you can play on console.'
     ]
     othersLink = [
-        'js-face-detection',
-        'js-sort-visualization',
-        'to-do-list',
+        'swift-temperature-converter',
+        'swift-todo-list',
+        'dynamic-programming',
         'A-mini-math-game'
     ]
 
@@ -114,12 +73,12 @@ window.onload = function () {
     for (let i = 0; i < crawlingTitle.length; i++) {
         let temp = `
         <div class="blockTitle">` +
-            crawlingTitle[i]
-            + `</div>
+            crawlingTitle[i] +
+            `</div>
         <div class="block">
             <div class="blockContent">` +
-            crawlingContent[i]
-            + `</div>
+            crawlingContent[i] +
+            `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + crawlingLink[i] + `">
                     <img src="../img/project_images/` + crawlingLink[i] + `.jpg">
@@ -130,56 +89,36 @@ window.onload = function () {
         crawlingBlocks.insertAdjacentHTML('beforeend', temp);
     }
 
-    // add projects block - app development
-    for (let i = 0; i < appTitle.length; i++) {
+    // add projects block - web development
+    for (let i = 0; i < webTitle.length; i++) {
         let temp = `
         <div class="blockTitle">` +
-            appTitle[i]
-            + `</div>
+            webTitle[i] +
+            `</div>
         <div class="block">
             <div class="blockContent">` +
-            appContent[i]
-            + `</div>
+            webContent[i] +
+            `</div>
             <div class="blockImg">
-                <a target="_blank" href="https://github.com/michael21910/` + appLink[i] + `">
-                    <img src="../img/project_images/` + appLink[i] + `.jpg">
+                <a target="_blank" href="https://github.com/michael21910/` + webLink[i] + `">
+                    <img src="../img/project_images/` + webLink[i] + `.jpg">
                 </a>
             </div>
         </div>
         `
-        appBlocks.insertAdjacentHTML('beforeend', temp);
-    }
-
-    // add projects block - practice
-    for (let i = 0; i < practiceTitle.length; i++) {
-        let temp = `
-        <div class="blockTitle">` +
-            practiceTitle[i]
-            + `</div>
-        <div class="block">
-            <div class="blockContent">` +
-            practiceContent[i]
-            + `</div>
-            <div class="blockImg">
-                <a target="_blank" href="https://github.com/michael21910/` + practiceLink[i] + `">
-                    <img src="../img/project_images/` + practiceLink[i] + `.jpg">
-                </a>
-            </div>
-        </div>
-        `
-        practiceBlocks.insertAdjacentHTML('beforeend', temp);
+        webBlocks.insertAdjacentHTML('beforeend', temp);
     }
 
     // add projects block - others
     for (let i = 0; i < othersTitle.length; i++) {
         let temp = `
         <div class="blockTitle">` +
-            othersTitle[i]
-            + `</div>
+            othersTitle[i] +
+            `</div>
         <div class="block">
             <div class="blockContent">` +
-            othersContent[i]
-            + `</div>
+            othersContent[i] +
+            `</div>
             <div class="blockImg">
                 <a target="_blank" href="https://github.com/michael21910/` + othersLink[i] + `">
                     <img src="../img/project_images/` + othersLink[i] + `.jpg">

@@ -38,10 +38,10 @@ window.onload = function() {
                 document.getElementById("BScircle" + (i + 1)).style.backgroundColor = "rgb(155, 84, 84)"
             }
 
-            for (var i = BS_num_arr.length - 1; i > 0; i--) {
+            for (var i = 0; i < BS_num_arr.length; i++) {
                 var BS_stop = false
-                for (var j = 0; j < i; j++) {
-                    if (BS_num_arr[i] < BS_num_arr[j]) {
+                for (var j = i; j < BS_num_arr.length; j++) {
+                    if (BS_num_arr[i] > BS_num_arr[j]) {
                         var temp = BS_num_arr[i]
                         BS_num_arr[i] = BS_num_arr[j]
                         BS_num_arr[j] = temp

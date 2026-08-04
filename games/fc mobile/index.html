@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>長榮盃賽事資料庫</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .metric-card { transition: all 0.2s ease-in-out; }
+        .metric-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        /* 隱藏捲軸但可滾動 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col">
+
+    <header class="bg-blue-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <h1 class="text-xl font-black tracking-wider cursor-pointer flex items-center gap-2" onclick="navigateTo('editions')">
+                    ⚽ 長榮盃賽事系統
+                </h1>
+                
+                <!-- 麵包屑導覽 -->
+                <nav class="hidden md:flex items-center text-sm text-blue-200 font-medium" id="breadcrumbs">
+                    <!-- 動態生成 -->
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow p-4 md:p-8 max-w-6xl mx-auto w-full">
+        <!-- 載入中畫面 -->
+        <div id="loading-screen" class="flex flex-col items-center justify-center py-20">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center max-w-md w-full">
+                <div class="text-5xl mb-4 animate-bounce">🌐</div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">同步賽事資料庫</h3>
+                <p class="text-slate-500 mb-6 text-sm">正在從雲端抓取最新的賽事數據...</p>
+                <p id="loading-text" class="text-blue-500 font-bold mt-4 text-sm"></p>
+            </div>
+        </div>
+
+        <!-- 視圖 1：歷屆賽事總覽（父頁面） -->
+        <div id="view-editions" class="hidden space-y-6">
+            <div class="flex justify-between items-end border-b border-slate-300 pb-2">
+                <h2 class="text-2xl font-bold text-slate-800">🏆 歷屆長榮盃足球大賽</h2>
+            </div>
+            
+            <div id="edition-list" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 第一屆卡片動態生成 -->
+            </div>
+        </div>
+
+        <!-- 視圖 2：該屆賽事的四大賽制區塊選單 -->
+        <div id="view-sections" class="hidden space-y-6">
+            <div class="flex justify-between items-end border-b border-slate-300 pb-2">
+                <h2 id="current-edition-title" class="text-2xl font-bold text-slate-800">賽事選單</h2>
+            </div>
+            
+            <div id="section-list" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 賽制區塊卡片動態生成 -->
+            </div>
+        </div>
+
+        <!-- 視圖 3：特定區塊的選手排行榜 -->
+        <div id="view-tournament" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <h2 id="current-tournament-title" class="text-3xl font-black text-slate-800">賽事名稱</h2>
+                        <p class="text-slate-500 mt-1">參賽選手排行榜</p>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-lg border border-slate-200">
+                    <table class="min-w-full text-left text-sm whitespace-nowrap">
+                        <thead class="uppercase tracking-wider border-b-2 border-slate-200 bg-slate-50 text-slate-600 font-bold">
+                            <tr>
+                                <th scope="col" class="px-6 py-4 text-center">編號</th>
+                                <th scope="col" class="px-6 py-4">選手名稱</th>
+                                <th scope="col" class="px-6 py-4 text-center">勝</th>
+                                <th scope="col" class="px-6 py-4 text-center">平</th>
+                                <th scope="col" class="px-6 py-4 text-center">負</th>
+                                <th scope="col" class="px-6 py-4 text-center text-blue-600">淨勝球 (GD)</th>
+                                <th scope="col" class="px-6 py-4 text-center text-yellow-600">積分 (Pts)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="player-list-body" class="divide-y divide-slate-200 bg-white">
+                            <!-- 選手列表動態生成 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 視圖 4：選手個人進階數據儀表板 -->
+        <div id="view-player" class="hidden space-y-6">
+            
+            <!-- 賽事切換頁籤 (Tab) -->
+            <div class="flex items-center space-x-3 overflow-x-auto no-scrollbar pb-2" id="player-tabs">
+                <!-- 動態生成分頁 -->
+            </div>
+
+            <!-- 選手標題區塊 -->
+            <div class="bg-blue-900 rounded-2xl p-6 text-white shadow-lg flex justify-between items-center relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 text-9xl opacity-10 pointer-events-none">⚽</div>
+                <div class="relative z-10">
+                    <p class="text-blue-300 text-sm font-bold mb-1" id="player-view-tournament-name">賽事名稱</p>
+                    <h1 class="text-4xl font-black tracking-wider" id="player-view-name">選手名稱</h1>
+                    <p class="text-blue-200 mt-2">進階數據結算儀表板</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                
+                <!-- 模塊 1：基礎積分與賽果 (總場次、戰績、積分、賽事淨勝球、勝率、不敗率) -->
+                <div class="md:col-span-4 bg-slate-800 text-white rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">1. 基礎積分與賽果</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+                        <div class="text-center bg-slate-700/50 rounded-lg p-3">
+                            <p class="text-xs text-slate-400 mb-1">總場次</p>
+                            <p id="out-matches" class="text-2xl font-black">-</p>
+                        </div>
+                        <div class="text-center bg-slate-700/50 rounded-lg p-3">
+                            <p class="text-xs text-slate-400 mb-1">戰績 (W-D-L)</p>
+                            <p id="out-record" class="text-2xl font-black">-</p>
+                        </div>
+                        <div class="text-center bg-slate-700/50 rounded-lg p-3">
+                            <p class="text-xs text-slate-400 mb-1">積分 (Pts)</p>
+                            <p id="out-pts" class="text-2xl font-black text-yellow-400">-</p>
+                        </div>
+                        <div class="text-center bg-slate-700/50 rounded-lg p-3">
+                            <p class="text-xs text-slate-400 mb-1">賽事淨勝球 (GD)</p>
+                            <p id="out-gd" class="text-2xl font-black text-blue-300">-</p>
+                        </div>
+                        <div class="text-center bg-slate-700/50 rounded-lg p-3">
+                            <p class="text-xs text-slate-400 mb-1">勝率 (Win %)</p>
+                            <p id="out-winrate" class="text-2xl font-black">-</p>
+                        </div>
+                        <div class="text-center bg-slate-700/50 rounded-lg p-3">
+                            <p class="text-xs text-slate-400 mb-1">不敗率 (Unbeaten)</p>
+                            <p id="out-unbeaten" class="text-2xl font-black">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 模塊 2：球風與場均表現 -->
+                <div class="md:col-span-4 bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">2. 球風與場均表現</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <div class="metric-card bg-slate-50 rounded-xl p-4 text-center border border-slate-100">
+                            <p class="text-xs font-bold text-slate-500 mb-1">總進球</p>
+                            <p id="out-total-gf" class="text-2xl font-black text-blue-600">-</p>
+                        </div>
+                        <div class="metric-card bg-slate-50 rounded-xl p-4 text-center border border-slate-100">
+                            <p class="text-xs font-bold text-slate-500 mb-1">總失球</p>
+                            <p id="out-total-ga" class="text-2xl font-black text-red-600">-</p>
+                        </div>
+                        <div class="metric-card bg-slate-50 rounded-xl p-4 text-center border border-slate-100">
+                            <p class="text-xs font-bold text-slate-500 mb-1">場均進球</p>
+                            <p id="out-gpg" class="text-2xl font-black text-slate-800">-</p>
+                        </div>
+                        <div class="metric-card bg-slate-50 rounded-xl p-4 text-center border border-slate-100">
+                            <p class="text-xs font-bold text-slate-500 mb-1">場均失球</p>
+                            <p id="out-gapg" class="text-2xl font-black text-slate-800">-</p>
+                        </div>
+                        
+                        <!-- 帶有提示的指標：賽事淨勝球率 -->
+                        <div class="col-span-2 md:col-span-1 metric-card bg-slate-50 rounded-xl p-4 text-center border border-slate-100 group relative">
+                            <p class="text-xs font-bold text-slate-500 mb-1 cursor-help underline decoration-slate-300 underline-offset-2">賽事淨勝球率</p>
+                            <p id="out-gdrate" class="text-2xl font-black text-blue-600">-</p>
+                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-800 text-white text-xs rounded-lg py-2 px-3 absolute z-10 bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-56 text-left shadow-lg pointer-events-none">
+                                <span class="font-bold text-blue-300">公式：</span>淨勝球 / 場次<br>
+                                <span class="font-bold text-blue-300">意義：</span>平均每場比賽的淨勝球數據。標準化各選手每場比賽平均「壓倒對手」或「落後對手」的球數差距。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 模塊 3：進階效益與抗壓分析 -->
+                <div class="md:col-span-4 bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">3. 進階效益分析</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-full pb-8">
+                        <div class="metric-card bg-blue-50 rounded-xl p-4 flex flex-col justify-center items-center text-center border border-blue-100 group relative">
+                            <p class="text-xs font-bold text-blue-600 mb-1 cursor-help underline decoration-blue-300 underline-offset-2">得失球比</p>
+                            <p id="out-goalratio" class="text-2xl font-black text-blue-900">-</p>
+                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-800 text-white text-xs rounded-lg py-2 px-3 absolute z-20 bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-56 text-left shadow-lg pointer-events-none">
+                                <span class="font-bold text-blue-300">公式：</span>進球 / 失球<br>
+                                <span class="font-bold text-blue-300">意義：</span>比單純的「淨勝球」更能客觀呈現攻防平衡度。例如進10丟5與進2丟1比值皆為2.0；若小於1.0則屬於防守負債。
+                            </div>
+                        </div>
+                        <div class="metric-card bg-emerald-50 rounded-xl p-4 flex flex-col justify-center items-center text-center border border-emerald-100 group relative">
+                            <p class="text-xs font-bold text-emerald-600 mb-1 cursor-help underline decoration-emerald-300 underline-offset-2">進球轉化積分率</p>
+                            <p id="out-ptspergoal" class="text-2xl font-black text-emerald-900">-</p>
+                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-800 text-white text-xs rounded-lg py-2 px-3 absolute z-20 bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-56 text-left shadow-lg pointer-events-none">
+                                <span class="font-bold text-emerald-300">公式：</span>積分 / 進球<br>
+                                <span class="font-bold text-emerald-300">意義：</span>平均一顆進球賺多少積分。數值越高，代表擅長踢出 1:0 等關鍵勝場，不浪費進球。
+                            </div>
+                        </div>
+                        <div class="metric-card bg-orange-50 rounded-xl p-4 flex flex-col justify-center items-center text-center border border-orange-100 group relative">
+                            <p class="text-xs font-bold text-orange-600 mb-1 cursor-help underline decoration-orange-300 underline-offset-2">防守容錯率</p>
+                            <p id="out-gaperpt" class="text-2xl font-black text-orange-900">-</p>
+                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-800 text-white text-xs rounded-lg py-2 px-3 absolute z-20 bottom-full right-0 transform translate-x-1/4 md:-translate-x-1/2 md:left-1/2 mb-2 w-48 text-left shadow-lg pointer-events-none">
+                                <span class="font-bold text-orange-300">公式：</span>失球 / 積分<br>
+                                <span class="font-bold text-orange-300">意義：</span>每拿到1分積分，平均需要承受多少次失球。衡量球隊在失球狀態下的抗壓得分能力。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 狀態管理
+        window.appState = {
+            currentView: 'editions', // 預設從父頁面（歷屆賽事）開始
+            editions: [
+                { id: 'edition-1', name: '第一屆長榮盃足球大賽' }
+            ],
+            selectedEdition: null,
+            tournaments: [],
+            players: [],
+            rawData: {},           
+            tournamentPlayers: {}, 
+            selectedTournament: null,
+            selectedPlayer: null,
+            playerActiveTab: null  
+        };
+
+        // ==========================================
+        // 設定 Google 試算表 CSV 發佈連結
+        // ==========================================
+        const RAW_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7xh2REb9TXEVDMy8RBiHES8Yz2YpN-qJy_a-HC1RRgK-yS2VrGgp1jg0o7ppb9Uu72OHVdd0PzWl/pub?gid=1007921436&single=true&output=csv';
+        const CSV_URL = RAW_CSV_URL;
+
+        const getVal = (obj, keys, defaultVal = '-') => {
+            if (!obj) return defaultVal;
+            for (let k of keys) {
+                if (obj[k] !== undefined && obj[k] !== null && obj[k] !== '') {
+                    let v = obj[k];
+                    if (v === '#DIV/0!' || v === '#VALUE!') return defaultVal;
+                    return v;
+                }
+            }
+            return defaultVal;
+        };
+
+        const views = {
+            editions: document.getElementById('view-editions'),
+            sections: document.getElementById('view-sections'),
+            tournament: document.getElementById('view-tournament'),
+            player: document.getElementById('view-player'),
+            loading: document.getElementById('loading-screen')
+        };
+        const breadcrumbs = document.getElementById('breadcrumbs');
+
+        function initApp() {
+            fetchAndProcessData();
+        }
+
+        function fetchAndProcessData() {
+            const errEl = document.getElementById('loading-text');
+            errEl.innerText = "載入中，請稍候...";
+
+            Papa.parse(CSV_URL, {
+                download: true,
+                header: false,
+                skipEmptyLines: false,
+                complete: function(results) {
+                    processData(results.data);
+                },
+                error: function(err) {
+                    errEl.classList.remove('text-blue-500');
+                    errEl.classList.add('text-red-500');
+                    errEl.innerText = "讀取線上資料失敗：" + err + "。請確認網路連線。";
+                }
+            });
+        }
+
+        function processData(data) {
+            window.appState.tournaments = [];
+            window.appState.players = [];
+            window.appState.rawData = {};
+            window.appState.tournamentPlayers = {};
+            
+            let titleRowIdx = 0;
+            let nameRowIdx = 1;
+            for (let i = 0; i < Math.min(5, data.length); i++) {
+                if (data[i] && data[i].includes("姓名")) {
+                    nameRowIdx = i;
+                    titleRowIdx = Math.max(0, i - 1);
+                    break;
+                }
+            }
+
+            const titleRow = data[titleRowIdx] || [];
+            const nameRow = data[nameRowIdx] || [];
+
+            let blocks = [];
+            for (let c = 0; c < nameRow.length; c++) {
+                if (nameRow[c] && nameRow[c].trim() === "姓名") {
+                    let sectionName = titleRow[c] ? titleRow[c].trim() : `賽事區塊 ${blocks.length + 1}`;
+                    blocks.push({ startCol: c, name: sectionName });
+                }
+            }
+
+            let parsedPlayers = new Map(); 
+            let rawData = {};
+            let tourPlayersMap = {};
+
+            blocks.forEach((block, bIdx) => {
+                let nextBlockStart = blocks[bIdx + 1] ? blocks[bIdx + 1].startCol : nameRow.length;
+                let tid = 'tour-' + bIdx;
+                window.appState.tournaments.push({ id: tid, name: block.name });
+                tourPlayersMap[tid] = [];
+
+                for (let c = block.startCol + 1; c < nextBlockStart; c++) {
+                    let playerName = nameRow[c] ? nameRow[c].trim() : "";
+                    if (!playerName) continue;
+
+                    if (!parsedPlayers.has(playerName)) {
+                        parsedPlayers.set(playerName, { name: playerName, id: 'p-' + Math.random().toString(36).substring(7) });
+                    }
+                    tourPlayersMap[tid].push(playerName);
+
+                    if (!rawData[playerName]) rawData[playerName] = {};
+                    if (!rawData[playerName][block.name]) rawData[playerName][block.name] = {};
+
+                    for (let r = nameRowIdx + 1; r < data.length; r++) {
+                        if (!data[r]) continue;
+                        let metricName = data[r][block.startCol] ? data[r][block.startCol].trim() : "";
+                        if (metricName) {
+                            let val = data[r][c] ? data[r][c].trim() : "";
+                            rawData[playerName][block.name][metricName] = val;
+                        }
+                    }
+                }
+            });
+
+            window.appState.rawData = rawData;
+            window.appState.tournamentPlayers = tourPlayersMap;
+            window.appState.players = Array.from(parsedPlayers.values());
+
+            if(window.appState.players.length === 0) {
+                const errEl = document.getElementById('loading-text');
+                errEl.classList.remove('hidden');
+                errEl.innerText = "無法解析資料：找不到橫向排列的「姓名」欄位，請確認 CSV 格式。";
+                return;
+            }
+
+            renderViews();
+        }
+
+        window.navigateTo = function(viewName, data = null) {
+            window.appState.currentView = viewName;
+            
+            if (viewName === 'editions') {
+                window.appState.selectedEdition = null;
+                window.appState.selectedTournament = null;
+                window.appState.selectedPlayer = null;
+            } else if (viewName === 'sections') {
+                window.appState.selectedEdition = data;
+                window.appState.selectedTournament = null;
+                window.appState.selectedPlayer = null;
+            } else if (viewName === 'tournament') {
+                window.appState.selectedTournament = data;
+                window.appState.selectedPlayer = null;
+            } else if (viewName === 'player') {
+                window.appState.selectedPlayer = data;
+                window.appState.playerActiveTab = window.appState.selectedTournament 
+                    ? window.appState.selectedTournament.name 
+                    : window.appState.tournaments[0]?.name;
+            }
+            
+            renderViews();
+        };
+
+        function renderViews() {
+            views.loading.classList.add('hidden');
+            Object.values(views).forEach(v => {
+                if(v !== views.loading) v.classList.add('hidden');
+            });
+
+            const state = window.appState;
+            updateBreadcrumbs();
+
+            if (state.currentView === 'editions') {
+                views.editions.classList.remove('hidden');
+                renderEditions();
+            } else if (state.currentView === 'sections') {
+                views.sections.classList.remove('hidden');
+                renderSections();
+            } else if (state.currentView === 'tournament' && state.selectedTournament) {
+                views.tournament.classList.remove('hidden');
+                renderTournament();
+            } else if (state.currentView === 'player' && state.selectedPlayer) {
+                views.player.classList.remove('hidden');
+                renderPlayerDashboard();
+            }
+        }
+
+        function updateBreadcrumbs() {
+            const state = window.appState;
+            let html = `<span class="cursor-pointer hover:text-white transition-colors" onclick="navigateTo('editions')">歷屆賽事</span>`;
+            
+            if (state.selectedEdition) {
+                html += `<span class="mx-2">></span><span class="cursor-pointer hover:text-white transition-colors" onclick="navigateTo('sections', window.appState.selectedEdition)">${state.selectedEdition.name}</span>`;
+            }
+            if (state.selectedTournament) {
+                html += `<span class="mx-2">></span><span class="cursor-pointer hover:text-white transition-colors" onclick="navigateTo('tournament', window.appState.selectedTournament)">${state.selectedTournament.name}</span>`;
+            }
+            if (state.selectedPlayer) {
+                html += `<span class="mx-2">></span><span class="text-white font-bold">${state.selectedPlayer.name}</span>`;
+            }
+            breadcrumbs.innerHTML = html;
+        }
+
+        function renderEditions() {
+            const list = document.getElementById('edition-list');
+            list.innerHTML = '';
+            
+            window.appState.editions.forEach(edition => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 cursor-pointer hover:shadow-md transition-shadow group";
+                
+                card.innerHTML = `
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">⚽</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">${edition.name}</h3>
+                    <p class="text-slate-500 text-sm">點擊進入查看各賽制與排行榜</p>
+                `;
+                card.onclick = () => navigateTo('sections', edition);
+                list.appendChild(card);
+            });
+        }
+
+        function renderSections() {
+            const edition = window.appState.selectedEdition;
+            document.getElementById('current-edition-title').innerText = `🏆 ${edition.name} - 賽事選單`;
+            
+            const list = document.getElementById('section-list');
+            list.innerHTML = '';
+            
+            window.appState.tournaments.forEach(tour => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 cursor-pointer hover:shadow-md transition-shadow group";
+                const playerCount = window.appState.tournamentPlayers[tour.id]?.length || 0;
+                
+                card.innerHTML = `
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📊</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">${tour.name}</h3>
+                    <p class="text-slate-500 text-sm">參賽選手：${playerCount} 人</p>
+                `;
+                card.onclick = () => navigateTo('tournament', tour);
+                list.appendChild(card);
+            });
+        }
+
+        function renderTournament() {
+            const tour = window.appState.selectedTournament;
+            document.getElementById('current-tournament-title').innerText = tour.name;
+            
+            const tbody = document.getElementById('player-list-body');
+            tbody.innerHTML = '';
+
+            let pNames = window.appState.tournamentPlayers[tour.id] || [];
+
+            pNames.forEach((pName, index) => {
+                let pData = window.appState.rawData[pName][tour.name] || {};
+                let pObj = window.appState.players.find(p => p.name === pName);
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 cursor-pointer transition-colors";
+                tr.onclick = () => navigateTo('player', pObj);
+                
+                let rankVisual = `${index + 1}`;
+
+                const W = getVal(pData, ['獲勝場次', '勝', 'W', 'Wins', '勝場'], '-');
+                const D = getVal(pData, ['踢平場次', '平', '和', 'D', 'Draws', '平手', '平局'], '-');
+                const L = getVal(pData, ['落敗場次', '負', '敗', 'L', 'Losses', '敗場'], '-');
+                const GD = getVal(pData, ['賽事淨勝球', '淨勝球', 'GD', '淨勝球 (GD)'], '-');
+                const Pts = getVal(pData, ['積分', 'Pts', '積分 (Pts)'], '-');
+                
+                let gdClass = 'text-slate-400';
+                let formattedGD = GD;
+                if (GD !== '-') {
+                    const gdNum = parseFloat(GD);
+                    gdClass = gdNum > 0 ? 'text-emerald-500' : (gdNum < 0 ? 'text-red-500' : 'text-slate-400');
+                    formattedGD = (gdNum > 0 && !GD.toString().startsWith('+')) ? '+' + GD : GD;
+                }
+                
+                tr.innerHTML = `
+                    <td class="px-6 py-4 text-center font-bold text-slate-500">${rankVisual}</td>
+                    <td class="px-6 py-4 font-bold text-slate-800 flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-black">${pName.charAt(0)}</div>
+                        ${pName}
+                    </td>
+                    <td class="px-6 py-4 text-center">${W}</td>
+                    <td class="px-6 py-4 text-center">${D}</td>
+                    <td class="px-6 py-4 text-center">${L}</td>
+                    <td class="px-6 py-4 text-center font-bold ${gdClass}">${formattedGD}</td>
+                    <td class="px-6 py-4 text-center font-black text-lg text-yellow-500">${Pts}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+            
+            if(pNames.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-8 text-center text-slate-400">目前尚無選手資料。</td></tr>`;
+            }
+        }
+
+        function renderPlayerDashboard() {
+            const p = window.appState.selectedPlayer;
+            document.getElementById('player-view-name').innerText = p.name;
+
+            const tabsContainer = document.getElementById('player-tabs');
+            tabsContainer.innerHTML = '';
+            
+            window.appState.tournaments.forEach(tour => {
+                const isActive = (window.appState.playerActiveTab === tour.name);
+                const btn = document.createElement('button');
+                btn.className = `px-5 py-2 font-bold rounded-full text-sm transition-all shadow-sm border whitespace-nowrap outline-none ${
+                    isActive ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-300 ring-offset-1' 
+                             : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'
+                }`;
+                btn.innerText = tour.name;
+                btn.onclick = () => {
+                    window.appState.playerActiveTab = tour.name;
+                    renderPlayerDashboard();
+                };
+                tabsContainer.appendChild(btn);
+            });
+
+            const activeTourName = window.appState.playerActiveTab;
+            document.getElementById('player-view-tournament-name').innerText = activeTourName;
+
+            const pData = window.appState.rawData[p.name][activeTourName] || {};
+
+            const W = getVal(pData, ['獲勝場次', '勝', 'W', 'Wins', '勝場'], '-');
+            const D = getVal(pData, ['踢平場次', '平', '和', 'D', 'Draws', '平手', '平局'], '-');
+            const L = getVal(pData, ['落敗場次', '負', '敗', 'L', 'Losses', '敗場'], '-');
+            const GF = getVal(pData, ['賽事總進球', '進球', '得球', 'GF', 'Goals For', '進'], '-');
+            const GA = getVal(pData, ['賽事總失球', '失球', 'GA', 'Goals Against', '失'], '-');
+
+            const totalMatches = getVal(pData, ['總場次', '場次', 'Matches'], '-');
+            const pts = getVal(pData, ['積分', 'Pts', '積分 (Pts)', '積分(Pts)'], '-');
+            const gd = getVal(pData, ['賽事淨勝球', '淨勝球', 'GD', '淨勝球 (GD)'], '-');
+
+            const winRate = getVal(pData, ['勝率', '勝率 (Win %)', 'Win%'], '-');
+            const unbeatenRate = getVal(pData, ['不敗率', '不敗率 (Unbeaten)'], '-');
+            
+            const gpg = getVal(pData, ['場均進球'], '-');
+            const gapg = getVal(pData, ['場均失球'], '-');
+            const gdRate = getVal(pData, ['賽事淨勝球率', '淨勝球率'], '-');
+
+            const goalRatio = getVal(pData, ['得失球比'], '-');
+            const ptsPerGoal = getVal(pData, ['進球轉化積分率', '進球轉化率'], '-');
+            const gaPerPt = getVal(pData, ['防守容錯率', '防守容錯'], '-');
+
+            document.getElementById('out-matches').innerText = totalMatches;
+            document.getElementById('out-record').innerText = (W === '-' && D === '-' && L === '-') ? '-' : `${W}-${D}-${L}`;
+            document.getElementById('out-pts').innerText = pts;
+            
+            const gdEl = document.getElementById('out-gd');
+            if (gd === '-') {
+                gdEl.innerText = '-';
+                gdEl.className = 'text-2xl font-black text-slate-300';
+            } else {
+                const gdNum = parseFloat(gd);
+                gdEl.innerText = (gdNum > 0 && !gd.toString().startsWith('+')) ? '+' + gd : gd;
+                gdEl.className = `text-2xl font-black ${gdNum > 0 ? 'text-emerald-400' : (gdNum < 0 ? 'text-red-400' : 'text-slate-300')}`;
+            }
+
+            document.getElementById('out-winrate').innerText = winRate;
+            document.getElementById('out-unbeaten').innerText = unbeatenRate;
+
+            document.getElementById('out-total-gf').innerText = GF;
+            document.getElementById('out-total-ga').innerText = GA;
+            document.getElementById('out-gpg').innerText = gpg;
+            document.getElementById('out-gapg').innerText = gapg;
+            
+            const gdRateEl = document.getElementById('out-gdrate');
+            if (gdRate === '-') {
+                gdRateEl.innerText = '-';
+                gdRateEl.className = 'text-2xl font-black text-slate-400';
+            } else {
+                const gdRateNum = parseFloat(gdRate);
+                gdRateEl.innerText = (gdRateNum > 0 && !gdRate.toString().startsWith('+')) ? '+' + gdRate : gdRate;
+                gdRateEl.className = `text-2xl font-black ${gdRateNum > 0 ? 'text-emerald-500' : (gdRateNum < 0 ? 'text-red-500' : 'text-slate-400')}`;
+            }
+
+            document.getElementById('out-goalratio').innerText = goalRatio;
+            document.getElementById('out-ptspergoal').innerText = ptsPerGoal;
+            document.getElementById('out-gaperpt').innerText = gaPerPt;
+        }
+
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>

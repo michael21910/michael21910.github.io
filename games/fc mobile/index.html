@@ -16,7 +16,7 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex flex-col">
+<body class="bg-slate-100 min-h-screen flex flex-col relative">
 
     <header class="bg-blue-900 text-white shadow-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -33,7 +33,7 @@
         </div>
     </header>
 
-    <main class="flex-grow p-4 md:p-8 max-w-6xl mx-auto w-full">
+    <main class="flex-grow p-4 md:p-8 max-w-6xl mx-auto w-full pb-24">
         <!-- 載入中畫面 -->
         <div id="loading-screen" class="flex flex-col items-center justify-center py-20">
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center max-w-md w-full">
@@ -216,10 +216,18 @@
         </div>
     </main>
 
+    <!-- 固定在右下角的即時同步按鈕 -->
+    <button onclick="manualSyncData()" class="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 transition-transform hover:scale-105 active:scale-95 group font-bold text-sm" title="點擊同步雲端最新數據">
+        <svg id="sync-icon" class="w-5 h-5 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        <span>同步最新數據</span>
+    </button>
+
     <script>
         // 狀態管理
         window.appState = {
-            currentView: 'editions', // 預設從父頁面（歷屆賽事）開始
+            currentView: 'editions', 
             editions: [
                 { id: 'edition-1', name: '第一屆長榮盃足球大賽' }
             ],
@@ -234,10 +242,9 @@
         };
 
         // ==========================================
-        // 設定 Google 試算表 CSV 發佈連結
+        // 設定 Google 試算表 CSV 發佈連結（加上時間戳記避免瀏覽器快取）
         // ==========================================
-        const RAW_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7xh2REb9TXEVDMy8RBiHES8Yz2YpN-qJy_a-HC1RRgK-yS2VrGgp1jg0o7ppb9Uu72OHVdd0PzWl/pub?gid=1007921436&single=true&output=csv';
-        const CSV_URL = RAW_CSV_URL;
+        const BASE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7xh2REb9TXEVDMy8RBiHES8Yz2YpN-qJy_a-HC1RRgK-yS2VrGgp1jg0o7ppb9Uu72OHVdd0PzWl/pub?gid=1007921436&single=true&output=csv';
 
         const getVal = (obj, keys, defaultVal = '-') => {
             if (!obj) return defaultVal;
@@ -261,33 +268,56 @@
         const breadcrumbs = document.getElementById('breadcrumbs');
 
         function initApp() {
-            fetchAndProcessData();
+            fetchAndProcessData(false);
         }
 
-        function fetchAndProcessData() {
+        function fetchAndProcessData(isManualSync = false) {
             const errEl = document.getElementById('loading-text');
-            errEl.innerText = "載入中，請稍候...";
+            if (!isManualSync) {
+                errEl.innerText = "載入中，請稍候...";
+            }
 
-            Papa.parse(CSV_URL, {
+            // 加上時間戳記避免快取
+            const csvUrl = BASE_CSV_URL + '&t=' + new Date().getTime();
+
+            Papa.parse(csvUrl, {
                 download: true,
                 header: false,
                 skipEmptyLines: false,
                 complete: function(results) {
-                    processData(results.data);
+                    processData(results.data, isManualSync);
                 },
                 error: function(err) {
-                    errEl.classList.remove('text-blue-500');
-                    errEl.classList.add('text-red-500');
-                    errEl.innerText = "讀取線上資料失敗：" + err + "。請確認網路連線。";
+                    if (!isManualSync) {
+                        errEl.classList.remove('text-blue-500');
+                        errEl.classList.add('text-red-500');
+                        errEl.innerText = "讀取線上資料失敗：" + err + "。請確認網路連線。";
+                    } else {
+                        alert("同步失敗：" + err);
+                    }
                 }
             });
         }
 
-        function processData(data) {
-            window.appState.tournaments = [];
-            window.appState.players = [];
-            window.appState.rawData = {};
-            window.appState.tournamentPlayers = {};
+        function manualSyncData() {
+            const icon = document.getElementById('sync-icon');
+            icon.classList.add('animate-spin');
+            fetchAndProcessData(true);
+        }
+
+        function processData(data, isManualSync = false) {
+            // 記錄當前使用者所在的視圖與選取物件名稱，以便同步後恢復
+            const state = window.appState;
+            const curView = state.currentView;
+            const edObj = state.selectedEdition;
+            const tourName = state.selectedTournament?.name;
+            const playerName = state.selectedPlayer?.name;
+            const activeTab = state.playerActiveTab;
+
+            state.tournaments = [];
+            state.players = [];
+            state.rawData = {};
+            state.tournamentPlayers = {};
             
             let titleRowIdx = 0;
             let nameRowIdx = 1;
@@ -317,7 +347,7 @@
             blocks.forEach((block, bIdx) => {
                 let nextBlockStart = blocks[bIdx + 1] ? blocks[bIdx + 1].startCol : nameRow.length;
                 let tid = 'tour-' + bIdx;
-                window.appState.tournaments.push({ id: tid, name: block.name });
+                state.tournaments.push({ id: tid, name: block.name });
                 tourPlayersMap[tid] = [];
 
                 for (let c = block.startCol + 1; c < nextBlockStart; c++) {
@@ -343,18 +373,44 @@
                 }
             });
 
-            window.appState.rawData = rawData;
-            window.appState.tournamentPlayers = tourPlayersMap;
-            window.appState.players = Array.from(parsedPlayers.values());
+            state.rawData = rawData;
+            state.tournamentPlayers = tourPlayersMap;
+            state.players = Array.from(parsedPlayers.values());
 
-            if(window.appState.players.length === 0) {
+            if(state.players.length === 0) {
                 const errEl = document.getElementById('loading-text');
                 errEl.classList.remove('hidden');
                 errEl.innerText = "無法解析資料：找不到橫向排列的「姓名」欄位，請確認 CSV 格式。";
                 return;
             }
 
-            renderViews();
+            // 如果是手動同步，旋轉動畫停下，並恢復原本的使用者位置
+            if (isManualSync) {
+                const icon = document.getElementById('sync-icon');
+                icon.classList.remove('animate-spin');
+
+                // 根據記錄的狀態恢復畫面
+                if (curView === 'sections' && edObj) {
+                    navigateTo('sections', edObj);
+                } else if (curView === 'tournament' && tourName) {
+                    let matchedTour = state.tournaments.find(t => t.name === tourName);
+                    if (matchedTour) navigateTo('tournament', matchedTour);
+                    else navigateTo('sections', { id: 'edition-1', name: '第一屆長榮盃足球大賽' });
+                } else if (curView === 'player' && playerName) {
+                    let matchedPlayer = state.players.find(p => p.name === playerName);
+                    if (matchedPlayer) {
+                        navigateTo('player', matchedPlayer);
+                        if (activeTab) state.playerActiveTab = activeTab;
+                        renderPlayerDashboard();
+                    } else {
+                        navigateTo('editions');
+                    }
+                } else {
+                    navigateTo('editions');
+                }
+            } else {
+                renderViews();
+            }
         }
 
         window.navigateTo = function(viewName, data = null) {

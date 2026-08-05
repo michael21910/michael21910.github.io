@@ -1,21 +1,23 @@
 window.appState = {
     currentView: 'editions', 
     editions: [
-        { id: 'edition-1', name: '第一屆長榮盃足球大賽' }
+        {
+            id: 'edition-1',
+            name: '第一屆長榮盃足球大賽',
+            csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7xh2REb9TXEVDMy8RBiHES8Yz2YpN-qJy_a-HC1RRgK-yS2VrGgp1jg0o7ppb9Uu72OHVdd0PzWl/pub?gid=1007921436&single=true&output=csv',
+        }
     ],
     selectedEdition: null,
     tournaments: [],
     players: [],
     rawData: {},           
     tournamentPlayers: {}, 
-    matchFixtures: {},     // 儲存各賽制的對戰比分與分組紀錄
+    matchFixtures: {},     // 儲存各賽制的對戰比分、分組紀錄與判罰
     selectedTournament: null,
     selectedPlayer: null,
-    playerActiveTab: null  
+    playerActiveTab: null,
 };
 
-const SPREADSHEET_ID = '1QhxShxPc72Ge5Vg71qHJKubrizfJ4-D_m3truE1s_Oc';
-const BASE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7xh2REb9TXEVDMy8RBiHES8Yz2YpN-qJy_a-HC1RRgK-yS2VrGgp1jg0o7ppb9Uu72OHVdd0PzWl/pub?gid=1007921436&single=true&output=csv';
 
 const getVal = (obj, keys, defaultVal = '-') => {
     if (!obj) return defaultVal;
@@ -39,40 +41,96 @@ const views = {
 const breadcrumbs = document.getElementById('breadcrumbs');
 
 function initApp() {
-    fetchAndProcessData(false);
+    renderViews();
 }
 
-function fetchAndProcessData(isManualSync = false) {
+function openEdition(edition) {
+    const state = window.appState;
+
+    state.selectedEdition = edition;
+    state.selectedTournament = null;
+    state.selectedPlayer = null;
+    state.playerActiveTab = null;
+
+    // CSV 載入完成後，要進入該屆的賽制選單
+    state.currentView = 'sections';
+
+    fetchAndProcessData(false, edition);
+}
+
+function fetchAndProcessData(
+    isManualSync = false,
+    edition = window.appState.selectedEdition
+) {
     const errEl = document.getElementById('loading-text');
-    if (!isManualSync) {
-        errEl.innerText = "載入中，請稍候...";
+    const icon = document.getElementById('sync-icon');
+
+    // 沒有選擇屆次，或該屆沒有設定 CSV 網址
+    if (!edition || !edition.csvUrl) {
+        if (icon) {
+            icon.classList.remove('animate-spin');
+        }
+
+        alert('找不到這一屆的資料來源，請確認 csvUrl 是否已設定。');
+        return;
     }
 
-    const csvUrl = BASE_CSV_URL + '&t=' + new Date().getTime();
+    if (!isManualSync) {
+        // 隱藏其他畫面
+        Object.values(views).forEach(view => {
+            view.classList.add('hidden');
+        });
+
+        // 顯示載入畫面
+        views.loading.classList.remove('hidden');
+
+        errEl.classList.remove('text-red-500');
+        errEl.classList.add('text-blue-500');
+        errEl.innerText = `正在載入「${edition.name}」資料，請稍候...`;
+    }
+
+    // 避免瀏覽器使用舊的 CSV 快取
+    const separator = edition.csvUrl.includes('?') ? '&' : '?';
+    const csvUrl = edition.csvUrl + separator + 't=' + Date.now();
 
     Papa.parse(csvUrl, {
         download: true,
         header: false,
         skipEmptyLines: false,
+
         complete: function(results) {
             processData(results.data, isManualSync);
         },
+
         error: function(err) {
+            if (icon) {
+                icon.classList.remove('animate-spin');
+            }
+
             if (!isManualSync) {
                 errEl.classList.remove('text-blue-500');
                 errEl.classList.add('text-red-500');
-                errEl.innerText = "讀取線上資料失敗：" + err + "。請確認網路連線。";
+                errEl.innerText =
+                    `讀取「${edition.name}」資料失敗：${err}。請確認網路連線與 CSV 網址。`;
             } else {
-                alert("同步失敗：" + err);
+                alert(`同步「${edition.name}」失敗：${err}`);
             }
         }
     });
 }
 
 function manualSyncData() {
+    const edition = window.appState.selectedEdition;
+
+    if (!edition) {
+        alert('請先選擇要查看的賽事屆次。');
+        return;
+    }
+
     const icon = document.getElementById('sync-icon');
     icon.classList.add('animate-spin');
-    fetchAndProcessData(true);
+
+    fetchAndProcessData(true, edition);
 }
 
 function processData(data, isManualSync = false) {
@@ -152,7 +210,7 @@ function processData(data, isManualSync = false) {
             }
         }
 
-        // 2. 嚴格侷限於該 block 欄位範圍內抓取賽程階段與對戰組合
+        // 2. 嚴格侷限於該 block 欄位範圍內抓取賽程階段與對戰組合、比分及判罰
         let currentSubGroup = "一般賽程";
         let currentMatchTime = "";
         for (let r = nameRowIdx + 1; r < data.length; r++) {
@@ -162,18 +220,31 @@ function processData(data, isManualSync = false) {
 
             if (statLabels.includes(colLeft)) continue;
 
+<<<<<<< HEAD
             // 判斷是否為時間字串，若是則記錄為當前賽程時間，不覆蓋分組標題
             if (colLeft.includes("/") || colLeft.includes("PM") || colLeft.includes("AM") || colLeft.includes("下午") || colLeft.includes("上午") || colLeft.includes(":") || colLeft.includes("2026")) {
                 currentMatchTime = colLeft;
                 continue;
             }
 
+=======
+>>>>>>> cb846459e6c77f047d266f70c526d869ce943488
             if (colLeft.includes("vs")) {
                 let score = "尚未開賽";
+                let penaltyA = "";
+                let penaltyB = "";
+
                 for (let c = block.startCol + 1; c < nextBlockStart; c++) {
                     let cellVal = data[r][c] ? data[r][c].trim() : "";
                     if (cellVal && cellVal !== '-' && cellVal !== '' && !cellVal.toLowerCase().includes('vs')) {
                         score = cellVal;
+                        // 讀取右側兩格作為 A隊判罰 與 B隊判罰
+                        if (c + 1 < nextBlockStart) {
+                            penaltyA = data[r][c + 1] ? data[r][c + 1].trim() : "";
+                        }
+                        if (c + 2 < nextBlockStart) {
+                            penaltyB = data[r][c + 2] ? data[r][c + 2].trim() : "";
+                        }
                         break;
                     }
                 }
@@ -182,12 +253,16 @@ function processData(data, isManualSync = false) {
                     subGroup: currentSubGroup,
                     time: currentMatchTime || "賽程時間未定",
                     fixture: colLeft,
-                    score: score
+                    score: score,
+                    penaltyA: penaltyA,
+                    penaltyB: penaltyB
                 });
+            } else if (colLeft.includes("/") || colLeft.includes("PM") || colLeft.includes("AM") || colLeft.includes("下午") || colLeft.includes("上午") || colLeft.includes(":") || colLeft.includes("2026")) {
+                // 如果這行是時間格式，則記錄為當前比賽時間，不覆蓋分組標題
+                currentMatchTime = colLeft;
             } else {
-                // 正確對應試算表中的標題行（例如「小組循環賽 A組」、「淘汰賽」、「銅牌戰」、「總決賽」）
+                // 否則這是組別/階段標題（例如「小組循環賽 A組」、「淘汰賽」、「銅牌戰」等）
                 currentSubGroup = colLeft;
-                currentMatchTime = ""; // 切換群組時重設時間
             }
         }
     });
@@ -197,10 +272,20 @@ function processData(data, isManualSync = false) {
     state.matchFixtures = matchFixturesMap;
     state.players = Array.from(parsedPlayers.values());
 
-    if(state.players.length === 0) {
+    if (state.players.length === 0) {
         const errEl = document.getElementById('loading-text');
+        const icon = document.getElementById('sync-icon');
+
+        if (icon) {
+            icon.classList.remove('animate-spin');
+        }
+
         errEl.classList.remove('hidden');
-        errEl.innerText = "無法解析資料：找不到橫向排列的「姓名」欄位，請確認 CSV 格式。";
+        errEl.classList.remove('text-blue-500');
+        errEl.classList.add('text-red-500');
+        errEl.innerText =
+            '無法解析資料：找不到橫向排列的「姓名」欄位，請確認 CSV 格式。';
+
         return;
     }
 
@@ -212,8 +297,13 @@ function processData(data, isManualSync = false) {
             navigateTo('sections', edObj);
         } else if (curView === 'tournament' && tourName) {
             let matchedTour = state.tournaments.find(t => t.name === tourName);
-            if (matchedTour) navigateTo('tournament', matchedTour);
-            else navigateTo('sections', { id: 'edition-1', name: '第一屆長榮盃足球大賽' });
+            if (matchedTour) {
+                navigateTo('tournament', matchedTour);
+            } else if (edObj) {
+                navigateTo('sections', edObj);
+            } else {
+                navigateTo('editions');
+            }
         } else if (curView === 'player' && playerName) {
             let matchedPlayer = state.players.find(p => p.name === playerName);
             if (matchedPlayer) {
@@ -308,7 +398,7 @@ function renderEditions() {
             <h3 class="text-xl font-bold text-slate-800 mb-2">${edition.name}</h3>
             <p class="text-slate-500 text-sm">點擊進入查看各賽制與排行榜</p>
         `;
-        card.onclick = () => navigateTo('sections', edition);
+        card.onclick = () => openEdition(edition);
         list.appendChild(card);
     });
 }
@@ -339,7 +429,7 @@ function renderTournament() {
     const tour = window.appState.selectedTournament;
     document.getElementById('current-tournament-title').innerText = tour.name;
     
-    // 1. 獨立渲染上方：該系列賽專屬的對戰與比分紀錄
+    // 1. 獨立渲染上方：該系列賽專屬的對戰與比分紀錄（包含判罰）
     const fixturesContainer = document.getElementById('tournament-fixtures-container');
     fixturesContainer.innerHTML = '';
 
@@ -365,6 +455,7 @@ function renderTournament() {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             `;
             matches.forEach(match => {
+<<<<<<< HEAD
                 let matchScoreDisplay = match.score;
                 if (match.score && match.score.includes(":")) {
                     let parts = match.score.split(":").map(s => parseInt(s.trim()));
@@ -383,7 +474,33 @@ function renderTournament() {
                         <div class="text-right">
                             <span class="text-xs text-slate-400 block mb-1">比分結果</span>
                             <span class="text-lg font-black text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-lg">${matchScoreDisplay}</span>
+=======
+                let penaltiesHtml = '';
+                if ((match.penaltyA && match.penaltyA !== '-' && match.penaltyA !== '') || (match.penaltyB && match.penaltyB !== '-' && match.penaltyB !== '')) {
+                    penaltiesHtml = `<div class="mt-2 pt-2 border-t border-slate-100 flex flex-wrap gap-2 text-xs">`;
+                    if (match.penaltyA && match.penaltyA !== '-' && match.penaltyA !== '') {
+                        penaltiesHtml += `<span class="bg-amber-50 text-amber-800 px-2 py-0.5 rounded border border-amber-200 font-medium">${match.fixture.split(' vs ')[0]}隊判罰: ${match.penaltyA}</span>`;
+                    }
+                    if (match.penaltyB && match.penaltyB !== '-' && match.penaltyB !== '') {
+                        penaltiesHtml += `<span class="bg-red-50 text-red-800 px-2 py-0.5 rounded border border-red-200 font-medium">${match.fixture.split(' vs ')[1]}隊判罰: ${match.penaltyB}</span>`;
+                    }
+                    penaltiesHtml += `</div>`;
+                }
+
+                fixturesHtml += `
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 flex flex-col justify-between shadow-xs">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md">${match.time}</span>
+                                <p class="text-base font-bold text-slate-800 mt-2">${match.fixture}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 block mb-1">比分結果</span>
+                                <span class="text-lg font-black text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-lg">${match.score}</span>
+                            </div>
+>>>>>>> cb846459e6c77f047d266f70c526d869ce943488
                         </div>
+                        ${penaltiesHtml}
                     </div>
                 `;
             });

@@ -8,7 +8,7 @@ window.appState = {
     players: [],
     rawData: {},           
     tournamentPlayers: {}, 
-    matchFixtures: {},     // 儲存各賽制的對戰比分與分組紀錄
+    matchFixtures: {},     // 儲存各賽制的對戰比分、分組紀錄與判罰
     selectedTournament: null,
     selectedPlayer: null,
     playerActiveTab: null  
@@ -152,7 +152,7 @@ function processData(data, isManualSync = false) {
             }
         }
 
-        // 2. 嚴格侷限於該 block 欄位範圍內抓取賽程階段與對戰組合
+        // 2. 嚴格侷限於該 block 欄位範圍內抓取賽程階段與對戰組合、比分及判罰
         let currentSubGroup = "一般賽程";
         let currentMatchTime = "";
         for (let r = nameRowIdx + 1; r < data.length; r++) {
@@ -162,18 +162,22 @@ function processData(data, isManualSync = false) {
 
             if (statLabels.includes(colLeft)) continue;
 
-            // 判斷是否為時間字串，若是則記錄為當前賽程時間，不覆蓋分組標題
-            if (colLeft.includes("/") || colLeft.includes("PM") || colLeft.includes("AM") || colLeft.includes("下午") || colLeft.includes("上午") || colLeft.includes(":") || colLeft.includes("2026")) {
-                currentMatchTime = colLeft;
-                continue;
-            }
-
             if (colLeft.includes("vs") || colLeft.includes("VS")) {
                 let score = "尚未開賽";
+                let penaltyA = "";
+                let penaltyB = "";
+
                 for (let c = block.startCol + 1; c < nextBlockStart; c++) {
                     let cellVal = data[r][c] ? data[r][c].trim() : "";
                     if (cellVal && cellVal !== '-' && cellVal !== '' && !cellVal.toLowerCase().includes('vs')) {
                         score = cellVal;
+                        // 讀取右側兩格作為 A隊判罰 與 B隊判罰
+                        if (c + 1 < nextBlockStart) {
+                            penaltyA = data[r][c + 1] ? data[r][c + 1].trim() : "";
+                        }
+                        if (c + 2 < nextBlockStart) {
+                            penaltyB = data[r][c + 2] ? data[r][c + 2].trim() : "";
+                        }
                         break;
                     }
                 }
@@ -182,12 +186,16 @@ function processData(data, isManualSync = false) {
                     subGroup: currentSubGroup,
                     time: currentMatchTime || "賽程時間未定",
                     fixture: colLeft,
-                    score: score
+                    score: score,
+                    penaltyA: penaltyA,
+                    penaltyB: penaltyB
                 });
+            } else if (colLeft.includes("/") || colLeft.includes("PM") || colLeft.includes("AM") || colLeft.includes("下午") || colLeft.includes("上午") || colLeft.includes(":") || colLeft.includes("2026")) {
+                // 如果這行是時間格式，則記錄為當前比賽時間，不覆蓋分組標題
+                currentMatchTime = colLeft;
             } else {
-                // 正確對應試算表中的標題行（例如「小組循環賽 A組」、「淘汰賽」、「銅牌戰」、「總決賽」）
+                // 否則這是組別/階段標題（例如「小組循環賽 A組」、「淘汰賽」、「銅牌戰」等）
                 currentSubGroup = colLeft;
-                currentMatchTime = ""; // 切換群組時重設時間
             }
         }
     });
@@ -339,7 +347,7 @@ function renderTournament() {
     const tour = window.appState.selectedTournament;
     document.getElementById('current-tournament-title').innerText = tour.name;
     
-    // 1. 獨立渲染上方：該系列賽專屬的對戰與比分紀錄
+    // 1. 獨立渲染上方：該系列賽專屬的對戰與比分紀錄（包含判罰）
     const fixturesContainer = document.getElementById('tournament-fixtures-container');
     fixturesContainer.innerHTML = '';
 
@@ -365,16 +373,31 @@ function renderTournament() {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             `;
             matches.forEach(match => {
+                let penaltiesHtml = '';
+                if ((match.penaltyA && match.penaltyA !== '-' && match.penaltyA !== '') || (match.penaltyB && match.penaltyB !== '-' && match.penaltyB !== '')) {
+                    penaltiesHtml = `<div class="mt-2 pt-2 border-t border-slate-100 flex flex-wrap gap-2 text-xs">`;
+                    if (match.penaltyA && match.penaltyA !== '-' && match.penaltyA !== '') {
+                        penaltiesHtml += `<span class="bg-amber-50 text-amber-800 px-2 py-0.5 rounded border border-amber-200 font-medium">${match.fixture.split(' vs ')[0]}隊判罰: ${match.penaltyA}</span>`;
+                    }
+                    if (match.penaltyB && match.penaltyB !== '-' && match.penaltyB !== '') {
+                        penaltiesHtml += `<span class="bg-red-50 text-red-800 px-2 py-0.5 rounded border border-red-200 font-medium">${match.fixture.split(' vs ')[1]}隊判罰: ${match.penaltyB}</span>`;
+                    }
+                    penaltiesHtml += `</div>`;
+                }
+
                 fixturesHtml += `
-                    <div class="bg-white border border-slate-200 rounded-xl p-4 flex justify-between items-center shadow-xs">
-                        <div>
-                            <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md">${match.time}</span>
-                            <p class="text-base font-bold text-slate-800 mt-2">${match.fixture}</p>
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 flex flex-col justify-between shadow-xs">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md">${match.time}</span>
+                                <p class="text-base font-bold text-slate-800 mt-2">${match.fixture}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 block mb-1">比分結果</span>
+                                <span class="text-lg font-black text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-lg">${match.score}</span>
+                            </div>
                         </div>
-                        <div class="text-right">
-                            <span class="text-xs text-slate-400 block mb-1">比分結果</span>
-                            <span class="text-lg font-black text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-lg">${match.score}</span>
-                        </div>
+                        ${penaltiesHtml}
                     </div>
                 `;
             });

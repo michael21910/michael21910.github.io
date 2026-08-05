@@ -168,7 +168,7 @@ function processData(data, isManualSync = false) {
                 continue;
             }
 
-            if (colLeft.includes("vs") || colLeft.includes("VS")) {
+            if (colLeft.includes("vs")) {
                 let score = "尚未開賽";
                 for (let c = block.startCol + 1; c < nextBlockStart; c++) {
                     let cellVal = data[r][c] ? data[r][c].trim() : "";
@@ -365,6 +365,15 @@ function renderTournament() {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             `;
             matches.forEach(match => {
+                let matchScoreDisplay = match.score;
+                if (match.score && match.score.includes(":")) {
+                    let parts = match.score.split(":").map(s => parseInt(s.trim()));
+                    if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                        let leftClass = parts[0] > parts[1] ? 'text-emerald-400 font-black' : 'text-slate-700';
+                        let rightClass = parts[1] > parts[0] ? 'text-emerald-400 font-black' : 'text-slate-700';
+                        matchScoreDisplay = `<span class="${leftClass}">${parts[0]}</span> : <span class="${rightClass}">${parts[1]}</span>`;
+                    }
+                }
                 fixturesHtml += `
                     <div class="bg-white border border-slate-200 rounded-xl p-4 flex justify-between items-center shadow-xs">
                         <div>
@@ -373,7 +382,7 @@ function renderTournament() {
                         </div>
                         <div class="text-right">
                             <span class="text-xs text-slate-400 block mb-1">比分結果</span>
-                            <span class="text-lg font-black text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-lg">${match.score}</span>
+                            <span class="text-lg font-black text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-lg">${matchScoreDisplay}</span>
                         </div>
                     </div>
                 `;

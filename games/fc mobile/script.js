@@ -1,7 +1,11 @@
 window.appState = {
     currentView: 'editions', 
     editions: [
-        { id: 'edition-1', name: '第一屆長榮盃足球大賽' }
+        {
+            id: 'edition-1',
+            name: '第一屆長榮盃足球大賽',
+            csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7xh2REb9TXEVDMy8RBiHES8Yz2YpN-qJy_a-HC1RRgK-yS2VrGgp1jg0o7ppb9Uu72OHVdd0PzWl/pub?gid=1007921436&single=true&output=csv',
+        }
     ],
     selectedEdition: null,
     tournaments: [],
@@ -11,11 +15,9 @@ window.appState = {
     matchFixtures: {},     // 儲存各賽制的對戰比分、分組紀錄與判罰
     selectedTournament: null,
     selectedPlayer: null,
-    playerActiveTab: null  
+    playerActiveTab: null,
 };
 
-const SPREADSHEET_ID = '1QhxShxPc72Ge5Vg71qHJKubrizfJ4-D_m3truE1s_Oc';
-const BASE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7xh2REb9TXEVDMy8RBiHES8Yz2YpN-qJy_a-HC1RRgK-yS2VrGgp1jg0o7ppb9Uu72OHVdd0PzWl/pub?gid=1007921436&single=true&output=csv';
 
 const getVal = (obj, keys, defaultVal = '-') => {
     if (!obj) return defaultVal;
@@ -39,40 +41,96 @@ const views = {
 const breadcrumbs = document.getElementById('breadcrumbs');
 
 function initApp() {
-    fetchAndProcessData(false);
+    renderViews();
 }
 
-function fetchAndProcessData(isManualSync = false) {
+function openEdition(edition) {
+    const state = window.appState;
+
+    state.selectedEdition = edition;
+    state.selectedTournament = null;
+    state.selectedPlayer = null;
+    state.playerActiveTab = null;
+
+    // CSV 載入完成後，要進入該屆的賽制選單
+    state.currentView = 'sections';
+
+    fetchAndProcessData(false, edition);
+}
+
+function fetchAndProcessData(
+    isManualSync = false,
+    edition = window.appState.selectedEdition
+) {
     const errEl = document.getElementById('loading-text');
-    if (!isManualSync) {
-        errEl.innerText = "載入中，請稍候...";
+    const icon = document.getElementById('sync-icon');
+
+    // 沒有選擇屆次，或該屆沒有設定 CSV 網址
+    if (!edition || !edition.csvUrl) {
+        if (icon) {
+            icon.classList.remove('animate-spin');
+        }
+
+        alert('找不到這一屆的資料來源，請確認 csvUrl 是否已設定。');
+        return;
     }
 
-    const csvUrl = BASE_CSV_URL + '&t=' + new Date().getTime();
+    if (!isManualSync) {
+        // 隱藏其他畫面
+        Object.values(views).forEach(view => {
+            view.classList.add('hidden');
+        });
+
+        // 顯示載入畫面
+        views.loading.classList.remove('hidden');
+
+        errEl.classList.remove('text-red-500');
+        errEl.classList.add('text-blue-500');
+        errEl.innerText = `正在載入「${edition.name}」資料，請稍候...`;
+    }
+
+    // 避免瀏覽器使用舊的 CSV 快取
+    const separator = edition.csvUrl.includes('?') ? '&' : '?';
+    const csvUrl = edition.csvUrl + separator + 't=' + Date.now();
 
     Papa.parse(csvUrl, {
         download: true,
         header: false,
         skipEmptyLines: false,
+
         complete: function(results) {
             processData(results.data, isManualSync);
         },
+
         error: function(err) {
+            if (icon) {
+                icon.classList.remove('animate-spin');
+            }
+
             if (!isManualSync) {
                 errEl.classList.remove('text-blue-500');
                 errEl.classList.add('text-red-500');
-                errEl.innerText = "讀取線上資料失敗：" + err + "。請確認網路連線。";
+                errEl.innerText =
+                    `讀取「${edition.name}」資料失敗：${err}。請確認網路連線與 CSV 網址。`;
             } else {
-                alert("同步失敗：" + err);
+                alert(`同步「${edition.name}」失敗：${err}`);
             }
         }
     });
 }
 
 function manualSyncData() {
+    const edition = window.appState.selectedEdition;
+
+    if (!edition) {
+        alert('請先選擇要查看的賽事屆次。');
+        return;
+    }
+
     const icon = document.getElementById('sync-icon');
     icon.classList.add('animate-spin');
-    fetchAndProcessData(true);
+
+    fetchAndProcessData(true, edition);
 }
 
 function processData(data, isManualSync = false) {
@@ -162,7 +220,7 @@ function processData(data, isManualSync = false) {
 
             if (statLabels.includes(colLeft)) continue;
 
-            if (colLeft.includes("vs") || colLeft.includes("VS")) {
+            if (colLeft.includes("vs")) {
                 let score = "尚未開賽";
                 let penaltyA = "";
                 let penaltyB = "";
@@ -205,10 +263,20 @@ function processData(data, isManualSync = false) {
     state.matchFixtures = matchFixturesMap;
     state.players = Array.from(parsedPlayers.values());
 
-    if(state.players.length === 0) {
+    if (state.players.length === 0) {
         const errEl = document.getElementById('loading-text');
+        const icon = document.getElementById('sync-icon');
+
+        if (icon) {
+            icon.classList.remove('animate-spin');
+        }
+
         errEl.classList.remove('hidden');
-        errEl.innerText = "無法解析資料：找不到橫向排列的「姓名」欄位，請確認 CSV 格式。";
+        errEl.classList.remove('text-blue-500');
+        errEl.classList.add('text-red-500');
+        errEl.innerText =
+            '無法解析資料：找不到橫向排列的「姓名」欄位，請確認 CSV 格式。';
+
         return;
     }
 
@@ -220,8 +288,13 @@ function processData(data, isManualSync = false) {
             navigateTo('sections', edObj);
         } else if (curView === 'tournament' && tourName) {
             let matchedTour = state.tournaments.find(t => t.name === tourName);
-            if (matchedTour) navigateTo('tournament', matchedTour);
-            else navigateTo('sections', { id: 'edition-1', name: '第一屆長榮盃足球大賽' });
+            if (matchedTour) {
+                navigateTo('tournament', matchedTour);
+            } else if (edObj) {
+                navigateTo('sections', edObj);
+            } else {
+                navigateTo('editions');
+            }
         } else if (curView === 'player' && playerName) {
             let matchedPlayer = state.players.find(p => p.name === playerName);
             if (matchedPlayer) {
@@ -316,7 +389,7 @@ function renderEditions() {
             <h3 class="text-xl font-bold text-slate-800 mb-2">${edition.name}</h3>
             <p class="text-slate-500 text-sm">點擊進入查看各賽制與排行榜</p>
         `;
-        card.onclick = () => navigateTo('sections', edition);
+        card.onclick = () => openEdition(edition);
         list.appendChild(card);
     });
 }

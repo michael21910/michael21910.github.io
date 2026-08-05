@@ -85,13 +85,106 @@
                     <table class="min-w-full text-left text-sm whitespace-nowrap">
                         <thead class="uppercase tracking-wider border-b-2 border-slate-200 bg-slate-50 text-slate-600 font-bold">
                             <tr>
-                                <th scope="col" class="px-6 py-4 text-center">編號</th>
-                                <th scope="col" class="px-6 py-4">選手名稱</th>
-                                <th scope="col" class="px-6 py-4 text-center">勝</th>
-                                <th scope="col" class="px-6 py-4 text-center">平</th>
-                                <th scope="col" class="px-6 py-4 text-center">負</th>
-                                <th scope="col" class="px-6 py-4 text-center text-blue-600">淨勝球</th>
-                                <th scope="col" class="px-6 py-4 text-center text-yellow-600">積分</th>
+                                <!-- 編號 -->
+                                <th scope="col" class="px-6 py-4 text-center">
+                                    <button
+                                        type="button"
+                                        onclick="setTournamentSort('number')"
+                                        class="inline-flex items-center justify-center gap-1 hover:text-blue-600 transition-colors"
+                                        title="依編號排序"
+                                    >
+                                        <span>編號</span>
+                                        <span
+                                            data-sort-icon="number"
+                                            class="text-xs text-blue-600"
+                                        >▲</span>
+                                    </button>
+                                </th>
+
+                                <!-- 選手名稱不排序 -->
+                                <th scope="col" class="px-6 py-4">
+                                    選手名稱
+                                </th>
+
+                                <!-- 勝 -->
+                                <th scope="col" class="px-6 py-4 text-center">
+                                    <button
+                                        type="button"
+                                        onclick="setTournamentSort('wins')"
+                                        class="inline-flex items-center justify-center gap-1 hover:text-blue-600 transition-colors"
+                                        title="依勝場排序"
+                                    >
+                                        <span>勝</span>
+                                        <span
+                                            data-sort-icon="wins"
+                                            class="text-xs text-slate-400"
+                                        >↕</span>
+                                    </button>
+                                </th>
+
+                                <!-- 平 -->
+                                <th scope="col" class="px-6 py-4 text-center">
+                                    <button
+                                        type="button"
+                                        onclick="setTournamentSort('draws')"
+                                        class="inline-flex items-center justify-center gap-1 hover:text-blue-600 transition-colors"
+                                        title="依平局場次排序"
+                                    >
+                                        <span>平</span>
+                                        <span
+                                            data-sort-icon="draws"
+                                            class="text-xs text-slate-400"
+                                        >↕</span>
+                                    </button>
+                                </th>
+
+                                <!-- 負 -->
+                                <th scope="col" class="px-6 py-4 text-center">
+                                    <button
+                                        type="button"
+                                        onclick="setTournamentSort('losses')"
+                                        class="inline-flex items-center justify-center gap-1 hover:text-blue-600 transition-colors"
+                                        title="依敗場排序"
+                                    >
+                                        <span>負</span>
+                                        <span
+                                            data-sort-icon="losses"
+                                            class="text-xs text-slate-400"
+                                        >↕</span>
+                                    </button>
+                                </th>
+
+                                <!-- 淨勝球 -->
+                                <th scope="col" class="px-6 py-4 text-center text-blue-600">
+                                    <button
+                                        type="button"
+                                        onclick="setTournamentSort('goalDifference')"
+                                        class="inline-flex items-center justify-center gap-1 hover:text-blue-800 transition-colors"
+                                        title="依淨勝球排序"
+                                    >
+                                        <span>淨勝球</span>
+                                        <span
+                                            data-sort-icon="goalDifference"
+                                            class="text-xs text-slate-400"
+                                        >↕</span>
+                                    </button>
+                                </th>
+
+                                <!-- 積分 -->
+                                <th scope="col" class="px-6 py-4 text-center text-yellow-600">
+                                    <button
+                                        type="button"
+                                        onclick="setTournamentSort('points')"
+                                        class="inline-flex items-center justify-center gap-1 hover:text-yellow-700 transition-colors"
+                                        title="依積分排序"
+                                    >
+                                        <span>積分</span>
+                                        <span
+                                            data-sort-icon="points"
+                                            class="text-xs text-slate-400"
+                                        >↕</span>
+                                    </button>
+                                </th>
                             </tr>
                         </thead>
                         <tbody id="player-list-body" class="divide-y divide-slate-200 bg-white">

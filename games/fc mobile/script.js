@@ -424,7 +424,7 @@ function renderTournament() {
         }
         
         tr.innerHTML = `
-            <td class="px-6 py-4 text-center font-bold text-slate-500">${rankVisual}</td>
+            <!-- <td class="px-6 py-4 text-center font-bold text-slate-500">${rankVisual}</td> -->
             <td class="px-6 py-4 font-bold text-slate-800 flex items-center gap-2">
                 <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-black">${pName.charAt(0)}</div>
                 ${pName}

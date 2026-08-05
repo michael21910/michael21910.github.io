@@ -220,15 +220,12 @@ function processData(data, isManualSync = false) {
 
             if (statLabels.includes(colLeft)) continue;
 
-<<<<<<< HEAD
             // 判斷是否為時間字串，若是則記錄為當前賽程時間，不覆蓋分組標題
             if (colLeft.includes("/") || colLeft.includes("PM") || colLeft.includes("AM") || colLeft.includes("下午") || colLeft.includes("上午") || colLeft.includes(":") || colLeft.includes("2026")) {
                 currentMatchTime = colLeft;
                 continue;
             }
 
-=======
->>>>>>> cb846459e6c77f047d266f70c526d869ce943488
             if (colLeft.includes("vs")) {
                 let score = "尚未開賽";
                 let penaltyA = "";
@@ -455,7 +452,6 @@ function renderTournament() {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             `;
             matches.forEach(match => {
-<<<<<<< HEAD
                 let matchScoreDisplay = match.score;
                 if (match.score && match.score.includes(":")) {
                     let parts = match.score.split(":").map(s => parseInt(s.trim()));
@@ -474,31 +470,6 @@ function renderTournament() {
                         <div class="text-right">
                             <span class="text-xs text-slate-400 block mb-1">比分結果</span>
                             <span class="text-lg font-black text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-lg">${matchScoreDisplay}</span>
-=======
-                let penaltiesHtml = '';
-                if ((match.penaltyA && match.penaltyA !== '-' && match.penaltyA !== '') || (match.penaltyB && match.penaltyB !== '-' && match.penaltyB !== '')) {
-                    penaltiesHtml = `<div class="mt-2 pt-2 border-t border-slate-100 flex flex-wrap gap-2 text-xs">`;
-                    if (match.penaltyA && match.penaltyA !== '-' && match.penaltyA !== '') {
-                        penaltiesHtml += `<span class="bg-amber-50 text-amber-800 px-2 py-0.5 rounded border border-amber-200 font-medium">${match.fixture.split(' vs ')[0]}隊判罰: ${match.penaltyA}</span>`;
-                    }
-                    if (match.penaltyB && match.penaltyB !== '-' && match.penaltyB !== '') {
-                        penaltiesHtml += `<span class="bg-red-50 text-red-800 px-2 py-0.5 rounded border border-red-200 font-medium">${match.fixture.split(' vs ')[1]}隊判罰: ${match.penaltyB}</span>`;
-                    }
-                    penaltiesHtml += `</div>`;
-                }
-
-                fixturesHtml += `
-                    <div class="bg-white border border-slate-200 rounded-xl p-4 flex flex-col justify-between shadow-xs">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md">${match.time}</span>
-                                <p class="text-base font-bold text-slate-800 mt-2">${match.fixture}</p>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-xs text-slate-400 block mb-1">比分結果</span>
-                                <span class="text-lg font-black text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-lg">${match.score}</span>
-                            </div>
->>>>>>> cb846459e6c77f047d266f70c526d869ce943488
                         </div>
                         ${penaltiesHtml}
                     </div>

@@ -1,7 +1,16 @@
 window.appState = {
     currentView: 'editions', 
     editions: [
-        { id: 'edition-1', name: '第一屆長榮盃足球大賽' }
+        {
+            id: 'edition-1',
+            name: '第一屆長榮盃足球大賽',
+            rules: `
+            <p>1. <strong>小組循環賽（無加時、無12碼）</strong>：6人隨機分成2組，1組3人，進行循環賽。以3個人為例，即A vs B、B vs C、A vs C。勝者得3分積分、平手各得1分積分、落敗無積分。</p>
+            <p>1-1. <strong>小組循環賽積分規則</strong>：每組取2個人進入淘汰賽。若積分相同則以淨勝球決定晉級者。若淨勝球相同則以進球數決定晉級者。若進球數相同則以黃紅牌決定晉級者；黃牌扣1分、黃+黃扣3分；紅扣4分；黃+紅扣5分。若黃紅牌扣點相同則以抽籤決定晉級者。</p>
+            <p>2. <strong>淘汰賽（有加時、有12碼）</strong>：4人隨機分組，淘汰賽制。半決賽BO3、決賽BO5。</p>
+            <p>3. <strong>其他規則</strong>：若被罰下則下一場禁賽。一球員被黃牌總計兩次則下一場禁賽，若一球員被黃牌但下一場比賽無獲得黃牌，則黃牌計數-1，意即同一角色連續兩場被罰黃牌則觸發禁賽機制，禁賽對象為角色人名。</p>
+            `
+        }
     ],
     selectedEdition: null,
     tournaments: [],
@@ -123,6 +132,39 @@ function processData(data, isManualSync = false) {
     ];
 
     blocks.forEach((block, bIdx) => {
+        // 🌟 如果區塊名稱包含「排名」，則走專屬的簡易讀取邏輯，不讀取對戰比分與勝負統計
+        if (block.name.includes("排名")) {
+            let nextBlockStart = blocks[bIdx + 1] ? blocks[bIdx + 1].startCol : nameRow.length;
+            let tid = 'tour-' + bIdx;
+            state.tournaments.push({ id: tid, name: block.name });
+            tourPlayersMap[tid] = [];
+            matchFixturesMap[block.name] = []; // 排名區塊不需要賽程
+            
+            for (let c = block.startCol + 1; c < nextBlockStart; c++) {
+                let playerName = nameRow[c] ? nameRow[c].trim() : "";
+                if (!playerName) continue;
+
+                if (!parsedPlayers.has(playerName)) {
+                    parsedPlayers.set(playerName, { name: playerName, id: 'p-' + Math.random().toString(36).substring(7) });
+                }
+                tourPlayersMap[tid].push(playerName);
+
+                if (!rawData[playerName]) rawData[playerName] = {};
+                if (!rawData[playerName][block.name]) rawData[playerName][block.name] = {};
+
+                // 讀取該欄位底下的數值（例如「排名」欄位對應的值）
+                for (let r = nameRowIdx + 1; r < data.length; r++) {
+                    if (!data[r]) continue;
+                    let metricName = data[r][block.startCol] ? data[r][block.startCol].trim() : "";
+                    if (metricName) {
+                        let val = data[r][c] ? data[r][c].trim() : "";
+                        rawData[playerName][block.name][metricName] = val;
+                    }
+                }
+            }
+            return; // ⭐️ 直接跳過後續標準賽事的複雜邏輯
+        }
+
         let nextBlockStart = blocks[bIdx + 1] ? blocks[bIdx + 1].startCol : nameRow.length;
         let tid = 'tour-' + bIdx;
         state.tournaments.push({ id: tid, name: block.name });
@@ -317,6 +359,12 @@ function renderSections() {
     const edition = window.appState.selectedEdition;
     document.getElementById('current-edition-title').innerText = `🏆 ${edition.name} - 賽事選單`;
     
+    // 動態填入該屆專屬的規則說明
+    const rulesContainer = document.getElementById('edition-rules-content');
+    if (rulesContainer) {
+        rulesContainer.innerHTML = edition.rules || '<p>目前尚無此屆的規則說明。</p>';
+    }
+
     const list = document.getElementById('section-list');
     list.innerHTML = '';
     
@@ -325,8 +373,8 @@ function renderSections() {
         card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 cursor-pointer hover:shadow-md transition-shadow group";
         const playerCount = window.appState.tournamentPlayers[tour.id]?.length || 0;
         
+        // <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📊</div>
         card.innerHTML = `
-            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📊</div>
             <h3 class="text-xl font-bold text-slate-800 mb-2">${tour.name}</h3>
             <p class="text-slate-500 text-sm">參賽選手：${playerCount} 人</p>
         `;
@@ -397,48 +445,97 @@ function renderTournament() {
     const tbody = document.getElementById('player-list-body');
     tbody.innerHTML = '';
 
+    const theadTr = document.querySelector('#view-tournament thead tr');
     let pNames = window.appState.tournamentPlayers[tour.id] || [];
 
-    pNames.forEach((pName, index) => {
-        let pData = window.appState.rawData[pName][tour.name] || {};
-        let pObj = window.appState.players.find(p => p.name === pName);
-
-        const tr = document.createElement('tr');
-        tr.className = "hover:bg-slate-50 cursor-pointer transition-colors";
-        tr.onclick = () => navigateTo('player', pObj);
-        
-        let rankVisual = `${index + 1}`;
-
-        const W = getVal(pData, ['獲勝場次', '勝', 'W', 'Wins', '勝場'], '-');
-        const D = getVal(pData, ['踢平場次', '平', '和', 'D', 'Draws', '平手', '平局'], '-');
-        const L = getVal(pData, ['落敗場次', '負', '敗', 'L', 'Losses', '敗場'], '-');
-        const GD = getVal(pData, ['賽事淨勝球', '淨勝球', 'GD', '淨勝球 (GD)'], '-');
-        const Pts = getVal(pData, ['積分', 'Pts', '積分 (Pts)'], '-');
-        
-        let gdClass = 'text-slate-400';
-        let formattedGD = GD;
-        if (GD !== '-') {
-            const gdNum = parseFloat(GD);
-            gdClass = gdNum > 0 ? 'text-emerald-500' : (gdNum < 0 ? 'text-red-500' : 'text-slate-400');
-            formattedGD = (gdNum > 0 && !GD.toString().startsWith('+')) ? '+' + GD : GD;
-        }
-        
-        tr.innerHTML = `
-            <td class="px-6 py-4 font-bold text-slate-800 flex items-center gap-2">
-                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-black">${pName.charAt(0)}</div>
-                ${pName}
-            </td>
-            <td class="px-6 py-4 text-center">${W}</td>
-            <td class="px-6 py-4 text-center">${D}</td>
-            <td class="px-6 py-4 text-center">${L}</td>
-            <td class="px-6 py-4 text-center font-bold ${gdClass}">${formattedGD}</td>
-            <td class="px-6 py-4 text-center font-black text-lg text-yellow-500">${Pts}</td>
+    // ⭐️ 判斷如果是「最終排名」頁面
+    if (tour.name.includes("最終排名")) {
+        // 設定排名專屬的表格標題
+        theadTr.innerHTML = `
+            <th scope="col" class="px-6 py-4 text-center text-yellow-600">最終排名</th>
+            <th scope="col" class="px-6 py-4">選手名稱</th>
         `;
-        tbody.appendChild(tr);
-    });
+
+        let sortedPNames = [...pNames].sort((a, b) => {
+            let dataA = window.appState.rawData[a][tour.name] || {};
+            let dataB = window.appState.rawData[b][tour.name] || {};
+            let rA = parseFloat(getVal(dataA, ['排名', '最終排名', 'Rank'], 999));
+            let rB = parseFloat(getVal(dataB, ['排名', '最終排名', 'Rank'], 999));
+            if (isNaN(rA)) rA = 999;
+            if (isNaN(rB)) rB = 999;
+            return rA - rB;
+        });
+
+        sortedPNames.forEach((pName, index) => {
+            let pData = window.appState.rawData[pName][tour.name] || {};
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-slate-50 transition-colors";
+            
+            let rankVal = getVal(pData, ['排名', '最終排名', 'Rank'], '-');
+
+            tr.innerHTML = `
+                <td class="px-6 py-4 text-center font-black text-lg text-yellow-500">${rankVal}</td>
+                <td class="px-6 py-4 font-bold text-slate-800 flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-black">${pName.charAt(0)}</div>
+                    ${pName}
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    } else {
+        // ⭐️ 一般賽事頁面：重設回標準的表格標題
+        theadTr.innerHTML = `
+            <th scope="col" class="px-6 py-4 text-center">編號</th>
+            <th scope="col" class="px-6 py-4">選手名稱</th>
+            <th scope="col" class="px-6 py-4 text-center">勝</th>
+            <th scope="col" class="px-6 py-4 text-center">平</th>
+            <th scope="col" class="px-6 py-4 text-center">負</th>
+            <th scope="col" class="px-6 py-4 text-center text-blue-600">淨勝球</th>
+            <th scope="col" class="px-6 py-4 text-center text-yellow-600">積分</th>
+        `;
+
+        pNames.forEach((pName, index) => {
+            let pData = window.appState.rawData[pName][tour.name] || {};
+            let pObj = window.appState.players.find(p => p.name === pName);
     
-    if(pNames.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-8 text-center text-slate-400">目前尚無選手資料。</td></tr>`;
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-slate-50 cursor-pointer transition-colors";
+            tr.onclick = () => navigateTo('player', pObj);
+            
+            let rankVisual = `${index + 1}`;
+    
+            const W = getVal(pData, ['獲勝場次', '勝', 'W', 'Wins', '勝場'], '-');
+            const D = getVal(pData, ['踢平場次', '平', '和', 'D', 'Draws', '平手', '平局'], '-');
+            const L = getVal(pData, ['落敗場次', '負', '敗', 'L', 'Losses', '敗場'], '-');
+            const GD = getVal(pData, ['賽事淨勝球', '淨勝球', 'GD', '淨勝球 (GD)'], '-');
+            const Pts = getVal(pData, ['積分', 'Pts', '積分 (Pts)'], '-');
+            
+            let gdClass = 'text-slate-400';
+            let formattedGD = GD;
+            if (GD !== '-') {
+                const gdNum = parseFloat(GD);
+                gdClass = gdNum > 0 ? 'text-emerald-500' : (gdNum < 0 ? 'text-red-500' : 'text-slate-400');
+                formattedGD = (gdNum > 0 && !GD.toString().startsWith('+')) ? '+' + GD : GD;
+            }
+            
+            tr.innerHTML = `
+                <td class="px-6 py-4 text-center font-bold text-slate-500">${rankVisual}</td>
+                <td class="px-6 py-4 font-bold text-slate-800 flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-black">${pName.charAt(0)}</div>
+                    ${pName}
+                </td>
+                <td class="px-6 py-4 text-center">${W}</td>
+                <td class="px-6 py-4 text-center">${D}</td>
+                <td class="px-6 py-4 text-center">${L}</td>
+                <td class="px-6 py-4 text-center font-bold ${gdClass}">${formattedGD}</td>
+                <td class="px-6 py-4 text-center font-black text-lg text-yellow-500">${Pts}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+        
+        if(pNames.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-8 text-center text-slate-400">目前尚無選手資料。</td></tr>`;
+        }
     }
 }
 

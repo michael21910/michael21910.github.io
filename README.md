@@ -9,4 +9,4 @@
 * Tech sharing - Some serious stuff about CSIE  
   
 ## License
-[MIT](LICENSE) © Tsuen Hsueh
+[MIT](LICENSE) © Tsu-en Hsueh

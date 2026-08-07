@@ -357,7 +357,7 @@ function renderEditions() {
 
 function renderSections() {
     const edition = window.appState.selectedEdition;
-    document.getElementById('current-edition-title').innerText = `🏆 ${edition.name} - 賽事選單`;
+    document.getElementById('current-edition-title').innerText = `🏆 ${edition.name}`;
     
     // 動態填入該屆專屬的規則說明
     const rulesContainer = document.getElementById('edition-rules-content');
@@ -415,11 +415,33 @@ function renderTournament() {
             matches.forEach(match => {
                 let matchScoreDisplay = match.score;
                 if (match.score && match.score.includes(":")) {
-                    let parts = match.score.split(":").map(s => parseInt(s.trim()));
-                    if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
-                        let leftClass = parts[0] > parts[1] ? 'text-emerald-400 font-black' : 'text-slate-700';
-                        let rightClass = parts[1] > parts[0] ? 'text-emerald-400 font-black' : 'text-slate-700';
-                        matchScoreDisplay = `<span class="${leftClass}">${parts[0]}</span> : <span class="${rightClass}">${parts[1]}</span>`;
+                    let sides = match.score.split(":").map(s => s.trim());
+                    if (sides.length === 2) {
+                        let parseSide = (str) => {
+                            let m = str.match(/(\d+)(?:\s*\((\d+)\))?/);
+                            if (!m) return { main: 0, pen: null };
+                            return {
+                                main: parseInt(m[1]),
+                                pen: m[2] !== undefined ? parseInt(m[2]) : null
+                            };
+                        };
+                        let left = parseSide(sides[0]);
+                        let right = parseSide(sides[1]);
+                        let leftWins = false, rightWins = false;
+
+                        // 比較正規比分，若平手則比較括號內的加時/PK分數
+                        if (left.main > right.main) {
+                            leftWins = true;
+                        } else if (right.main > left.main) {
+                            rightWins = true;
+                        } else if (left.pen !== null && right.pen !== null) {
+                            if (left.pen > right.pen) leftWins = true;
+                            else if (right.pen > left.pen) rightWins = true;
+                        }
+
+                        let leftClass = leftWins ? 'text-emerald-400 font-black' : 'text-slate-700';
+                        let rightClass = rightWins ? 'text-emerald-400 font-black' : 'text-slate-700';
+                        matchScoreDisplay = `<span class="${leftClass}">${sides[0]}</span> : <span class="${rightClass}">${sides[1]}</span>`;
                     }
                 }
                 fixturesHtml += `

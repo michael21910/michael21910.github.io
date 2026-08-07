@@ -3,7 +3,7 @@ window.appState = {
     editions: [
         {
             id: 'edition-1',
-            name: '第一屆長榮盃足球大賽',
+            name: '第一屆BD盃足球大賽',
             rules: `
             <p>1. <strong>小組循環賽（無加時、無12碼）</strong>：6人隨機分成2組，1組3人，進行循環賽。以3個人為例，即A vs B、B vs C、A vs C。勝者得3分積分、平手各得1分積分、落敗無積分。</p>
             <p>1-1. <strong>小組循環賽積分規則</strong>：每組取2個人進入淘汰賽。若積分相同則以淨勝球決定晉級者。若淨勝球相同則以進球數決定晉級者。若進球數相同則以黃紅牌決定晉級者；黃牌扣1分、黃+黃扣3分；紅扣4分；黃+紅扣5分。若黃紅牌扣點相同則以抽籤決定晉級者。</p>
@@ -255,7 +255,7 @@ function processData(data, isManualSync = false) {
         } else if (curView === 'tournament' && tourName) {
             let matchedTour = state.tournaments.find(t => t.name === tourName);
             if (matchedTour) navigateTo('tournament', matchedTour);
-            else navigateTo('sections', { id: 'edition-1', name: '第一屆長榮盃足球大賽' });
+            else navigateTo('sections', { id: 'edition-1', name: '第一屆BD盃足球大賽' });
         } else if (curView === 'player' && playerName) {
             let matchedPlayer = state.players.find(p => p.name === playerName);
             if (matchedPlayer) {

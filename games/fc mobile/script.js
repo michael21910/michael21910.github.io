@@ -4,6 +4,7 @@ window.appState = {
         {
             id: 'edition-1',
             name: '第一屆BD盃足球大賽',
+            bgImage: 'https://cdn.discordapp.com/attachments/1530292275542753342/1535236096039067718/image0.jpg?ex=6a770788&is=6a75b608&hm=c5143eeba4aa55fb000493d258724810ebd3aa67d62cb7a950cc1450eb73cd60&',
             rules: `
             <p>1. <strong>小組循環賽（無加時、無12碼）</strong>：6人隨機分成2組，1組3人，進行循環賽。以3個人為例，即A vs B、B vs C、A vs C。勝者得3分積分、平手各得1分積分、落敗無積分。</p>
             <p>1-1. <strong>小組循環賽積分規則</strong>：每組取2個人進入淘汰賽。若積分相同則以淨勝球決定晉級者。若淨勝球相同則以進球數決定晉級者。若進球數相同則以黃紅牌決定晉級者；黃牌扣1分、黃+黃扣3分；紅扣4分；黃+紅扣5分。若黃紅牌扣點相同則以抽籤決定晉級者。</p>
@@ -346,9 +347,11 @@ function renderEditions() {
         card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 cursor-pointer hover:shadow-md transition-shadow group";
         
         card.innerHTML = `
-            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">⚽</div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2">${edition.name}</h3>
-            <p class="text-slate-500 text-sm">點擊進入查看各賽制與排行榜</p>
+            <div class="h-40 rounded-xl bg-cover bg-center mb-4 relative overflow-hidden flex items-end p-4 shadow-sm" style="background-image: url('${edition.bgImage || ''}');">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <h3 class="text-xl font-bold text-white relative z-10">⚽${edition.name}</h3>
+            </div>
+            <p class="text-slate-500 text-sm px-1">點擊進入查看各賽制與排行榜</p>
         `;
         card.onclick = () => navigateTo('sections', edition);
         list.appendChild(card);

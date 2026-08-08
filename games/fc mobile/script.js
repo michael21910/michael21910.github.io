@@ -5,11 +5,22 @@ window.appState = {
             id: 'edition-1',
             name: '第一屆BD盃足球大賽',
             bgImage: 'https://cdn.discordapp.com/attachments/1530292275542753342/1535236096039067718/image0.jpg?ex=6a770788&is=6a75b608&hm=c5143eeba4aa55fb000493d258724810ebd3aa67d62cb7a950cc1450eb73cd60&',
+            csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7xh2REb9TXEVDMy8RBiHES8Yz2YpN-qJy_a-HC1RRgK-yS2VrGgp1jg0o7ppb9Uu72OHVdd0PzWl/pub?gid=1007921436&single=true&output=csv',
             rules: `
             <p>1. <strong>小組循環賽（無加時、無12碼）</strong>：6人隨機分成2組，1組3人，進行循環賽。以3個人為例，即A vs B、B vs C、A vs C。勝者得3分積分、平手各得1分積分、落敗無積分。</p>
             <p>1-1. <strong>小組循環賽積分規則</strong>：每組取2個人進入淘汰賽。若積分相同則以淨勝球決定晉級者。若淨勝球相同則以進球數決定晉級者。若進球數相同則以黃紅牌決定晉級者；黃牌扣1分、黃+黃扣3分；紅扣4分；黃+紅扣5分。若黃紅牌扣點相同則以抽籤決定晉級者。</p>
             <p>2. <strong>淘汰賽（有加時、有12碼）</strong>：4人隨機分組，淘汰賽制。半決賽BO3、決賽BO5。</p>
             <p>3. <strong>其他規則</strong>：若被罰下則下一場禁賽。一球員被黃牌總計兩次則下一場禁賽，若一球員被黃牌但下一場比賽無獲得黃牌，則黃牌計數-1，意即同一角色連續兩場被罰黃牌則觸發禁賽機制，禁賽對象為角色人名。</p>
+            `
+        },
+        {
+            id: 'edition-2',
+            name: '第二屆BD盃足球大賽',
+            bgImage: 'https://media.istockphoto.com/id/1700079207/zh/%E5%90%91%E9%87%8F/football-field-texture-green-lawn-vector.jpg?s=612x612&w=0&k=20&c=edVUy1ROhTKs_ui-9ImL-q5mii1P4s9FNp7hAehn4bA=',
+            csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSnOqLGtloGbA8jkxcD3mEwApwqDkkEX0SOYec8f3QF8NiQN6YjZNlECF1Hr6M21x2x5KGROL9i-4jB/pub?gid=60729703&single=true&output=csv',
+            rules: `
+            <p>1. 比照歐冠賽制（淘汰賽制），決賽一把定勝負，且開加時、12碼</p>
+            <p>2. 取勝者準則：打兩把後比淨球數差；如果相同則打加賽，且開加時、12碼</p>
             `
         }
     ],
@@ -23,9 +34,6 @@ window.appState = {
     selectedPlayer: null,
     playerActiveTab: null  
 };
-
-const SPREADSHEET_ID = '1QhxShxPc72Ge5Vg71qHJKubrizfJ4-D_m3truE1s_Oc';
-const BASE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7xh2REb9TXEVDMy8RBiHES8Yz2YpN-qJy_a-HC1RRgK-yS2VrGgp1jg0o7ppb9Uu72OHVdd0PzWl/pub?gid=1007921436&single=true&output=csv';
 
 const getVal = (obj, keys, defaultVal = '-') => {
     if (!obj) return defaultVal;
@@ -49,43 +57,63 @@ const views = {
 const breadcrumbs = document.getElementById('breadcrumbs');
 
 function initApp() {
-    fetchAndProcessData(false);
+    renderViews();
 }
 
-function fetchAndProcessData(isManualSync = false) {
+function loadEditionData(edition, callback, isManualSync = false) {
+    const state = window.appState;
     const errEl = document.getElementById('loading-text');
+
+    state.tournaments = [];
+    state.players = [];
+    state.rawData = {};
+    state.tournamentPlayers = {};
+    state.matchFixtures = {};
+
+    views.loading.classList.remove('hidden');
     if (!isManualSync) {
-        errEl.innerText = "載入中，請稍候...";
+        errEl.innerText = `正在載入 ${edition.name} 數據...`;
     }
 
-    const csvUrl = BASE_CSV_URL + '&t=' + new Date().getTime();
+    const csvUrl = (edition.csvUrl || '') + '&t=' + new Date().getTime();
 
     Papa.parse(csvUrl, {
         download: true,
         header: false,
         skipEmptyLines: false,
         complete: function(results) {
-            processData(results.data, isManualSync);
+            processData(results.data, edition, isManualSync);
+            if (callback) callback();
         },
         error: function(err) {
             if (!isManualSync) {
                 errEl.classList.remove('text-blue-500');
                 errEl.classList.add('text-red-500');
-                errEl.innerText = "讀取線上資料失敗：" + err + "。請確認網路連線。";
+                errEl.innerText = "讀取線上資料失敗：" + err + "。請確認該屆的 CSV 連結是否正確。";
             } else {
                 alert("同步失敗：" + err);
+                const icon = document.getElementById('sync-icon');
+                if (icon) icon.classList.remove('animate-spin');
             }
         }
     });
 }
 
 function manualSyncData() {
+    const state = window.appState;
     const icon = document.getElementById('sync-icon');
-    icon.classList.add('animate-spin');
-    fetchAndProcessData(true);
+    if (icon) icon.classList.add('animate-spin');
+    
+    if (state.selectedEdition) {
+        loadEditionData(state.selectedEdition, () => {
+            if (icon) icon.classList.remove('animate-spin');
+        }, true);
+    } else {
+        if (icon) icon.classList.remove('animate-spin');
+    }
 }
 
-function processData(data, isManualSync = false) {
+function processData(data, edition, isManualSync = false) {
     const state = window.appState;
     const curView = state.currentView;
     const edObj = state.selectedEdition;
@@ -281,21 +309,38 @@ window.navigateTo = function(viewName, data = null) {
         window.appState.selectedEdition = null;
         window.appState.selectedTournament = null;
         window.appState.selectedPlayer = null;
+        renderViews();
     } else if (viewName === 'sections') {
         window.appState.selectedEdition = data;
         window.appState.selectedTournament = null;
         window.appState.selectedPlayer = null;
+        
+        // 🌟 1. 立即清空舊資料，避免短暫殘留
+        window.appState.tournaments = [];
+        window.appState.players = [];
+        window.appState.rawData = {};
+        window.appState.matchFixtures = {};
+        
+        // 🌟 2. 強制顯示 Loading 畫面並隱藏其他視圖
+        views.loading.classList.remove('hidden');
+        Object.values(views).forEach(v => {
+            if (v !== views.loading) v.classList.add('hidden');
+        });
+        document.getElementById('loading-text').innerText = `正在載入 ${data.name} 數據...`;
+
+        // 🌟 3. 開始從網路抓取新資料（資料抓完後 processData 會自動呼叫 renderViews 關閉 loading）
+        loadEditionData(data, null);
     } else if (viewName === 'tournament') {
         window.appState.selectedTournament = data;
         window.appState.selectedPlayer = null;
+        renderViews();
     } else if (viewName === 'player') {
         window.appState.selectedPlayer = data;
         window.appState.playerActiveTab = window.appState.selectedTournament 
             ? window.appState.selectedTournament.name 
             : window.appState.tournaments[0]?.name;
+        renderViews();
     }
-    
-    renderViews();
 };
 
 function renderViews() {
@@ -516,7 +561,6 @@ function renderTournament() {
             <th scope="col" class="px-6 py-4 text-center">平</th>
             <th scope="col" class="px-6 py-4 text-center">負</th>
             <th scope="col" class="px-6 py-4 text-center text-blue-600">淨勝球</th>
-            <th scope="col" class="px-6 py-4 text-center text-yellow-600">積分</th>
         `;
 
         pNames.forEach((pName, index) => {
@@ -533,7 +577,6 @@ function renderTournament() {
             const D = getVal(pData, ['踢平場次', '平', '和', 'D', 'Draws', '平手', '平局'], '-');
             const L = getVal(pData, ['落敗場次', '負', '敗', 'L', 'Losses', '敗場'], '-');
             const GD = getVal(pData, ['賽事淨勝球', '淨勝球', 'GD', '淨勝球 (GD)'], '-');
-            const Pts = getVal(pData, ['積分', 'Pts', '積分 (Pts)'], '-');
             
             let gdClass = 'text-slate-400';
             let formattedGD = GD;
@@ -553,7 +596,6 @@ function renderTournament() {
                 <td class="px-6 py-4 text-center">${D}</td>
                 <td class="px-6 py-4 text-center">${L}</td>
                 <td class="px-6 py-4 text-center font-bold ${gdClass}">${formattedGD}</td>
-                <td class="px-6 py-4 text-center font-black text-lg text-yellow-500">${Pts}</td>
             `;
             tbody.appendChild(tr);
         });
@@ -598,7 +640,6 @@ function renderPlayerDashboard() {
     const GA = getVal(pData, ['賽事總失球', '失球', 'GA', 'Goals Against', '失'], '-');
 
     const totalMatches = getVal(pData, ['總場次', '場次', 'Matches'], '-');
-    const pts = getVal(pData, ['積分', 'Pts', '積分 (Pts)', '積分(Pts)'], '-');
     const gd = getVal(pData, ['賽事淨勝球', '淨勝球', 'GD', '淨勝球 (GD)'], '-');
 
     const winRate = getVal(pData, ['勝率', '勝率 (Win %)', 'Win%'], '-');
@@ -609,12 +650,9 @@ function renderPlayerDashboard() {
     const gdRate = getVal(pData, ['賽事淨勝球率', '淨勝球率'], '-');
 
     const goalRatio = getVal(pData, ['得失球比'], '-');
-    const ptsPerGoal = getVal(pData, ['進球轉化積分率', '進球轉化率'], '-');
-    const gaPerPt = getVal(pData, ['防守容錯率', '防守容錯'], '-');
 
     document.getElementById('out-matches').innerText = totalMatches;
     document.getElementById('out-record').innerText = (W === '-' && D === '-' && L === '-') ? '-' : `${W}-${D}-${L}`;
-    document.getElementById('out-pts').innerText = pts;
     
     const gdEl = document.getElementById('out-gd');
     if (gd === '-') {
@@ -645,7 +683,7 @@ function renderPlayerDashboard() {
     }
 
     document.getElementById('out-goalratio').innerText = goalRatio;
-    document.getElementById('out-ptspergoal').innerText = ptsPerGoal;
+    // document.getElementById('out-ptspergoal').innerText = ptsPerGoal;
     document.getElementById('out-gaperpt').innerText = gaPerPt;
 }
 

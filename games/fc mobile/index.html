@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <!-- 視圖 2：該屆賽事的四大賽制區塊選單 -->
+        <!-- 視圖 2：該屆賽事的區塊選單 -->
         <div id="view-sections" class="hidden space-y-6">
             <div class="flex justify-between items-end border-b border-slate-300 pb-2">
                 <h2 id="current-edition-title" class="text-2xl font-bold text-slate-800">賽事選單</h2>
@@ -67,7 +67,7 @@
                     <!-- JS 動態填入該屆規則 -->
                 </div>
             </div>
-
+            
             <div id="section-list" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- 賽制區塊卡片動態生成 -->
             </div>
@@ -98,7 +98,7 @@
                                 <th scope="col" class="px-6 py-4 text-center">平</th>
                                 <th scope="col" class="px-6 py-4 text-center">負</th>
                                 <th scope="col" class="px-6 py-4 text-center text-blue-600">淨勝球</th>
-                                <th scope="col" class="px-6 py-4 text-center text-yellow-600">積分</th>
+                                <!-- <th scope="col" class="px-6 py-4 text-center text-yellow-600">積分</th> -->
                             </tr>
                         </thead>
                         <tbody id="player-list-body" class="divide-y divide-slate-200 bg-white">
@@ -132,7 +132,7 @@
                 <!-- 模塊 1：基礎積分與賽果 -->
                 <div class="md:col-span-4 bg-slate-800 text-white rounded-2xl p-6 shadow-sm">
                     <h3 class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">1. 基礎積分與賽果</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                         <div class="text-center bg-slate-700/50 rounded-lg p-3">
                             <p class="text-xs text-slate-400 mb-1">總場次</p>
                             <p id="out-matches" class="text-2xl font-black">-</p>
@@ -141,10 +141,12 @@
                             <p class="text-xs text-slate-400 mb-1">戰績（勝-平-負）</p>
                             <p id="out-record" class="text-2xl font-black">-</p>
                         </div>
+                        <!--
                         <div class="text-center bg-slate-700/50 rounded-lg p-3">
                             <p class="text-xs text-slate-400 mb-1">積分</p>
                             <p id="out-pts" class="text-2xl font-black text-yellow-400">-</p>
                         </div>
+                        -->
                         <div class="text-center bg-slate-700/50 rounded-lg p-3">
                             <p class="text-xs text-slate-400 mb-1">賽事淨勝球</p>
                             <p id="out-gd" class="text-2xl font-black text-blue-300">-</p>
@@ -163,7 +165,7 @@
                 <!-- 模塊 2：球風與場均表現 -->
                 <div class="md:col-span-4 bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                     <h3 class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">2. 球風與場均表現</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <div class="metric-card bg-slate-50 rounded-xl p-4 text-center border border-slate-100">
                             <p class="text-xs font-bold text-slate-500 mb-1">總進球</p>
                             <p id="out-total-gf" class="text-2xl font-black text-blue-600">-</p>
@@ -189,10 +191,20 @@
                                 <span class="font-bold text-blue-300">意義：</span>平均每場比賽的淨勝球數據。標準化各選手每場比賽平均「壓倒對手」或「落後對手」的球數差距。
                             </div>
                         </div>
+
+                        <div class="metric-card bg-blue-50 rounded-xl p-4 flex flex-col justify-center items-center text-center border border-blue-100 group relative">
+                            <p class="text-xs font-bold text-blue-600 mb-1 cursor-help underline decoration-blue-300 underline-offset-2">得失球比</p>
+                            <p id="out-goalratio" class="text-2xl font-black text-blue-900">-</p>
+                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-800 text-white text-xs rounded-lg py-2 px-3 absolute z-20 bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-56 text-left shadow-lg pointer-events-none">
+                                <span class="font-bold text-blue-300">公式：</span>進球 / 失球<br>
+                                <span class="font-bold text-blue-300">意義：</span>比單純的「淨勝球」更能客觀呈現攻防平衡度。例如進10丟5與進2丟1比值皆為2.0；若小於1.0則屬於防守負債。
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 模塊 3：進階效益與抗壓分析 -->
+                <!--
                 <div class="md:col-span-4 bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                     <h3 class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">3. 進階效益分析</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-full pb-8">
@@ -222,6 +234,7 @@
                         </div>
                     </div>
                 </div>
+                -->
 
             </div>
         </div>

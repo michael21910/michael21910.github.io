@@ -19,7 +19,7 @@ window.appState = {
             bgImage: 'https://media.istockphoto.com/id/1700079207/zh/%E5%90%91%E9%87%8F/football-field-texture-green-lawn-vector.jpg?s=612x612&w=0&k=20&c=edVUy1ROhTKs_ui-9ImL-q5mii1P4s9FNp7hAehn4bA=',
             csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSnOqLGtloGbA8jkxcD3mEwApwqDkkEX0SOYec8f3QF8NiQN6YjZNlECF1Hr6M21x2x5KGROL9i-4jB/pub?gid=60729703&single=true&output=csv',
             rules: `
-            <p>1. 比照歐冠賽制（淘汰賽制），決賽一把定勝負，且開加時、12碼</p>
+            <p>1. 比照歐冠賽制（八強淘汰賽制），決賽一把定勝負，且開加時、12碼</p>
             <p>2. 取勝者準則：打兩把後比淨球數差；如果相同則打加賽，且開加時、12碼</p>
             `
         }
@@ -54,7 +54,6 @@ const views = {
     player: document.getElementById('view-player'),
     loading: document.getElementById('loading-screen')
 };
-const breadcrumbs = document.getElementById('breadcrumbs');
 
 function initApp() {
     renderViews();
@@ -302,9 +301,24 @@ function processData(data, edition, isManualSync = false) {
     }
 }
 
-window.navigateTo = function(viewName, data = null) {
+window.navigateTo = function(viewName, data = null, pushHistory = true) {
     window.appState.currentView = viewName;
     
+    // 🌟 處理瀏覽器歷史紀錄 (History API)
+    if (pushHistory) {
+        let stateObj = { viewName, dataId: data ? data.id : null };
+        let title = "BD盃賽事系統";
+        let url = `#${viewName}`;
+        if (viewName === 'sections' && data) {
+            url = `#section-${data.id}`;
+        } else if (viewName === 'tournament' && data) {
+            url = `#tournament-${data.name}`;
+        } else if (viewName === 'player' && data) {
+            url = `#player-${data.name}`;
+        }
+        history.pushState(stateObj, title, url);
+    }
+
     if (viewName === 'editions') {
         window.appState.selectedEdition = null;
         window.appState.selectedTournament = null;
@@ -315,20 +329,17 @@ window.navigateTo = function(viewName, data = null) {
         window.appState.selectedTournament = null;
         window.appState.selectedPlayer = null;
         
-        // 🌟 1. 立即清空舊資料，避免短暫殘留
         window.appState.tournaments = [];
         window.appState.players = [];
         window.appState.rawData = {};
         window.appState.matchFixtures = {};
         
-        // 🌟 2. 強制顯示 Loading 畫面並隱藏其他視圖
         views.loading.classList.remove('hidden');
         Object.values(views).forEach(v => {
             if (v !== views.loading) v.classList.add('hidden');
         });
         document.getElementById('loading-text').innerText = `正在載入 ${data.name} 數據...`;
 
-        // 🌟 3. 開始從網路抓取新資料（資料抓完後 processData 會自動呼叫 renderViews 關閉 loading）
         loadEditionData(data, null);
     } else if (viewName === 'tournament') {
         window.appState.selectedTournament = data;
@@ -343,6 +354,23 @@ window.navigateTo = function(viewName, data = null) {
     }
 };
 
+// 🌟 監聽瀏覽器的上一頁/下一頁按鈕
+window.addEventListener('popstate', function(event) {
+    const state = event.state;
+    if (state && state.viewName) {
+        if (state.viewName === 'editions') {
+            window.navigateTo('editions', null, false);
+        } else if (state.viewName === 'sections' && state.dataId) {
+            let edition = window.appState.editions.find(e => e.id === state.dataId);
+            if (edition) window.navigateTo('sections', edition, false);
+        } else {
+            window.navigateTo('editions', null, false);
+        }
+    } else {
+        window.navigateTo('editions', null, false);
+    }
+});
+
 function renderViews() {
     views.loading.classList.add('hidden');
     Object.values(views).forEach(v => {
@@ -350,7 +378,6 @@ function renderViews() {
     });
 
     const state = window.appState;
-    updateBreadcrumbs();
 
     if (state.currentView === 'editions') {
         views.editions.classList.remove('hidden');
@@ -367,23 +394,27 @@ function renderViews() {
     }
 }
 
-function updateBreadcrumbs() {
-    const state = window.appState;
-    let html = `<span class="cursor-pointer hover:text-white transition-colors" onclick="navigateTo('editions')">歷屆賽事</span>`;
-    
-    if (state.selectedEdition) {
-        html += `<span class="mx-2">></span><span class="cursor-pointer hover:text-white transition-colors" onclick="navigateTo('sections', window.appState.selectedEdition)">${state.selectedEdition.name}</span>`;
-    }
-    if (state.selectedTournament) {
-        html += `<span class="mx-2">></span><span class="cursor-pointer hover:text-white transition-colors" onclick="navigateTo('tournament', window.appState.selectedTournament)">${state.selectedTournament.name}</span>`;
-    }
-    if (state.selectedPlayer) {
-        html += `<span class="mx-2">></span><span class="text-white font-bold">${state.selectedPlayer.name}</span>`;
-    }
-    breadcrumbs.innerHTML = html;
+function renderNavbarEditions() {
+    const count = window.appState.editions.length;
+    const dropdownContainer = document.getElementById('nav-edition-dropdown');
+    dropdownContainer.innerHTML = '';
+
+    window.appState.editions.forEach(edition => {
+        const item = document.createElement('div');
+        item.className = "px-3 py-2 rounded-xl text-sm font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 cursor-pointer transition-colors flex items-center justify-between";
+        item.innerHTML = `
+            <span>🏆 ${edition.name}</span>
+            <span class="text-xs text-slate-400">進入 ➔</span>
+        `;
+        item.onclick = () => {
+            navigateTo('sections', edition);
+        };
+        dropdownContainer.appendChild(item);
+    });
 }
 
 function renderEditions() {
+    renderNavbarEditions();
     const list = document.getElementById('edition-list');
     list.innerHTML = '';
     

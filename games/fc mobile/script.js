@@ -4,7 +4,7 @@ window.appState = {
         {
             id: 'edition-1',
             name: '第一屆BD盃足球大賽',
-            bgImage: 'https://cdn.discordapp.com/attachments/1530292275542753342/1535236096039067718/image0.jpg?ex=6a770788&is=6a75b608&hm=c5143eeba4aa55fb000493d258724810ebd3aa67d62cb7a950cc1450eb73cd60&',
+            bgImage: './images/第一屆BD盃冠軍.jpg',
             csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_7xh2REb9TXEVDMy8RBiHES8Yz2YpN-qJy_a-HC1RRgK-yS2VrGgp1jg0o7ppb9Uu72OHVdd0PzWl/pub?gid=1007921436&single=true&output=csv',
             rules: `
             <p>1. <strong>小組循環賽（無加時、無12碼）</strong>：6人隨機分成2組，1組3人，進行循環賽。以3個人為例，即A vs B、B vs C、A vs C。勝者得3分積分、平手各得1分積分、落敗無積分。</p>
@@ -16,7 +16,7 @@ window.appState = {
         {
             id: 'edition-2',
             name: '第二屆BD盃足球大賽',
-            bgImage: 'https://media.istockphoto.com/id/1700079207/zh/%E5%90%91%E9%87%8F/football-field-texture-green-lawn-vector.jpg?s=612x612&w=0&k=20&c=edVUy1ROhTKs_ui-9ImL-q5mii1P4s9FNp7hAehn4bA=',
+            bgImage: './images/default_bg.jpg',
             csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSnOqLGtloGbA8jkxcD3mEwApwqDkkEX0SOYec8f3QF8NiQN6YjZNlECF1Hr6M21x2x5KGROL9i-4jB/pub?gid=60729703&single=true&output=csv',
             rules: `
             <p>1. 比照歐冠賽制（八強淘汰賽制），決賽一把定勝負，且開加時、12碼</p>
@@ -153,10 +153,10 @@ function processData(data, edition, isManualSync = false) {
     let matchFixturesMap = {};
 
     const statLabels = [
-        "總場次", "獲勝場次", "勝", "踢平場次", "平", "落敗場次", "負", 
-        "勝率", "不敗率", "賽事總進球", "賽事總失球", "賽事淨勝球", 
-        "場均進球", "場均失球", "賽事淨勝球率", "得失球比", "積分", 
-        "進球轉化積分率", "防守容錯率"
+        // basic info
+        "總場次", "獲勝場次", "踢平場次", "落敗場次", "賽事總進球", "賽事總失球",
+        // advanced stats
+        "勝率", "不敗率", "賽事淨勝球", "場均進球", "場均失球","賽事淨勝球", "賽事淨勝球率", "得失球比"
     ];
 
     blocks.forEach((block, bIdx) => {
@@ -225,6 +225,8 @@ function processData(data, edition, isManualSync = false) {
         // 2. 嚴格侷限於該 block 欄位範圍內抓取賽程階段與對戰組合
         let currentSubGroup = "一般賽程";
         let currentMatchTime = "";
+        let columnHeaders = {}; // 🌟 記錄該行右側各欄位的標題（例如：比分、判罰、或玩家名稱）
+
         for (let r = nameRowIdx + 1; r < data.length; r++) {
             if (!data[r]) continue;
             let colLeft = data[r][block.startCol] ? data[r][block.startCol].trim() : "";
@@ -232,19 +234,33 @@ function processData(data, edition, isManualSync = false) {
 
             if (statLabels.includes(colLeft)) continue;
 
-            // 判斷是否為時間字串，若是則記錄為當前賽程時間，不覆蓋分組標題
+            // 判斷是否為時間字串，同時這行通常也包含欄位標題（比分、判罰等）
             if (colLeft.includes("/") || colLeft.includes("PM") || colLeft.includes("AM") || colLeft.includes("下午") || colLeft.includes("上午") || colLeft.includes(":") || colLeft.includes("2026")) {
                 currentMatchTime = colLeft;
+                // 🌟 抓取這一橫排右側所有欄位的標題
+                columnHeaders = {};
+                for (let c = block.startCol + 1; c < nextBlockStart; c++) {
+                    columnHeaders[c] = data[r][c] ? data[r][c].trim() : "";
+                }
                 continue;
             }
 
             if (colLeft.includes("vs")) {
                 let score = "尚未開賽";
+                let penalties = []; // { label: XX隊伍, value: 判罰內容 }
+                const teams = colLeft.split(" vs ");
+
                 for (let c = block.startCol + 1; c < nextBlockStart; c++) {
                     let cellVal = data[r][c] ? data[r][c].trim() : "";
-                    if (cellVal && cellVal !== '-' && cellVal !== '' && !cellVal.toLowerCase().includes('vs')) {
-                        score = cellVal;
-                        break;
+                    if (cellVal && cellVal !== '-' && cellVal !== '') {
+                        if (score === "尚未開賽") {
+                            score = cellVal; // 第一個有效值為比分
+                        } else {
+                            // 🌟 取得上方對應的標題（例如「判罰」或玩家名字），若空白則預設為「判罰」
+                            let index = c - (block.startCol + 2); 
+                            let teamName = teams[index] ? teams[index] : "隊";
+                            penalties.push({ label: teamName, value: cellVal });
+                        }
                     }
                 }
 
@@ -252,12 +268,13 @@ function processData(data, edition, isManualSync = false) {
                     subGroup: currentSubGroup,
                     time: currentMatchTime || "賽程時間未定",
                     fixture: colLeft,
-                    score: score
+                    score: score,
+                    penalties: penalties
                 });
             } else {
-                // 正確對應試算表中的標題行（例如「小組循環賽 A組」、「淘汰賽」、「銅牌戰」、「總決賽」）
                 currentSubGroup = colLeft;
-                currentMatchTime = ""; // 切換群組時重設時間
+                currentMatchTime = "";
+                columnHeaders = {}; // 切換群組時重設
             }
         }
     });
@@ -523,15 +540,28 @@ function renderTournament() {
                         matchScoreDisplay = `<span class="${leftClass}">${sides[0]}</span> : <span class="${rightClass}">${sides[1]}</span>`;
                     }
                 }
+                // 🌟 組合判罰訊息的 HTML 標籤
+                let penaltiesHtml = '';
+                if (match.penalties && match.penalties.length > 0) {
+                    penaltiesHtml = `<div class="mt-2 flex flex-wrap gap-1.5">`;
+                    match.penalties.forEach(pen => {
+                        penaltiesHtml += `<span class="text-xs bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-md font-bold">⚠️ ${pen.label}隊判罰：${pen.value}</span>`;
+                    });
+                    penaltiesHtml += `</div>`;
+                }
                 fixturesHtml += `
-                    <div class="bg-white border border-slate-200 rounded-xl p-4 flex justify-between items-center shadow-xs">
-                        <div>
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 flex justify-between items-start gap-4 shadow-xs">
+                        <!-- 左側：賽程名稱與判罰 (增加 flex-grow 讓它自動擴展) -->
+                        <div class="flex-grow">
                             <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md">${match.time}</span>
                             <p class="text-base font-bold text-slate-800 mt-2">${match.fixture}</p>
+                            ${penaltiesHtml}
                         </div>
-                        <div class="text-right">
+                        
+                        <!-- 右側：比分 (增加 flex-shrink-0 確保比分盒不會被壓扁) -->
+                        <div class="text-right flex-shrink-0">
                             <span class="text-xs text-slate-400 block mb-1">比分結果</span>
-                            <span class="text-lg font-black text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-lg">${matchScoreDisplay}</span>
+                            <span class="text-lg font-black text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-lg block ">${matchScoreDisplay}</span>
                         </div>
                     </div>
                 `;
